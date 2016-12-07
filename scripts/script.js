@@ -35,14 +35,14 @@ function processFormCS() {
     v = Number(document.formCS.vCS.value);
     m = Number(document.formCS.mCS.value);
     lbForm = Number(document.formCS.lbCS.value);
-    section = document.formCS.sectionS.value;
+    section = perfis[Number(document.formCS.sectionS.value)].bitola;
     steel = document.formCS.typeS.value;
     a = Number(document.formCS.aCS.value);
     gama = Number(document.formCS.gama.value);
     gama1 = Number(document.formCS.gama1.value);
     cb = Number(document.formCS.cb.value);
     // Getting section properties
-    i = document.getElementById("bitola").value;
+    i = Number(document.getElementById("bitola").value);
 
     ml = perfis[i].ml;
     d = perfis[i].d;
@@ -67,7 +67,7 @@ function processFormCS() {
     u = perfis[i].u;
 
     // Getting values from steel properties array
-    j = document.getElementById("acos").value;
+    j = Number(document.getElementById("acos").value);
     
     fyForm = steelProp[j].fy;
     fuForm = steelProp[j].fu;
