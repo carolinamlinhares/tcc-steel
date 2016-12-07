@@ -55,7 +55,7 @@ function processFormCS() {
         return false;
     }
     lbForm = Number(document.formCS.lbCS.value);
-    if (document.formCS.mCS.value === "" || isNaN(lbForm)) {
+    if (document.formCS.lbCS.value === "" || isNaN(lbForm)) {
         alert("Por favor preencha o campo Distância entre travamentos laterais com números.");
         console.log("Por favor preencha o campo Distância entre travamentos laterais com números.");
         return false;
