@@ -1,6 +1,5 @@
-var perfis = 
-[
-  {
+/* exported perfis */
+var perfis = [{
     "bitola": "W 150 x 13,0",
     "massa_linear": 13,
     "d": 148,
@@ -24,8 +23,7 @@ var perfis =
     "alma": 27.49,
     "cw": "4,181",
     "u": 0.67
-  },
-  {
+}, {
     "bitola": "W 150 x 18,0",
     "massa_linear": 18,
     "d": 153,
@@ -49,8 +47,7 @@ var perfis =
     "alma": 20.48,
     "cw": "6,683",
     "u": 0.69
-  },
-  {
+}, {
     "bitola": "W 150 x 22,5 (H)",
     "massa_linear": 22.5,
     "d": 152,
@@ -74,8 +71,7 @@ var perfis =
     "alma": 20.48,
     "cw": "20,417",
     "u": 0.88
-  },
-  {
+}, {
     "bitola": "W 150 x 24,0",
     "massa_linear": 24,
     "d": 160,
@@ -99,8 +95,7 @@ var perfis =
     "alma": 17.48,
     "cw": "10,206",
     "u": 0.69
-  },
-  {
+}, {
     "bitola": "W 150 x 29,8 (H)",
     "massa_linear": 29.8,
     "d": 157,
@@ -124,8 +119,7 @@ var perfis =
     "alma": 17.94,
     "cw": "30,277",
     "u": 0.9
-  },
-  {
+}, {
     "bitola": "W 150 x 37,1 (H)",
     "massa_linear": 37.1,
     "d": 162,
@@ -149,8 +143,7 @@ var perfis =
     "alma": 14.67,
     "cw": "39,930",
     "u": 0.91
-  },
-  {
+}, {
     "bitola": "W 200 x 15,0",
     "massa_linear": 15,
     "d": 200,
@@ -174,8 +167,7 @@ var perfis =
     "alma": 39.44,
     "cw": "8,222",
     "u": 0.77
-  },
-  {
+}, {
     "bitola": "W 200 x 19,3",
     "massa_linear": 19.3,
     "d": 203,
@@ -199,8 +191,7 @@ var perfis =
     "alma": 29.31,
     "cw": "11,098",
     "u": 0.79
-  },
-  {
+}, {
     "bitola": "W 200 x 22,5",
     "massa_linear": 22.5,
     "d": 206,
@@ -224,8 +215,7 @@ var perfis =
     "alma": 27.42,
     "cw": "13,868",
     "u": 0.79
-  },
-  {
+}, {
     "bitola": "W 200 x 26,6",
     "massa_linear": 26.6,
     "d": 207,
@@ -249,8 +239,7 @@ var perfis =
     "alma": 29.34,
     "cw": "32,477",
     "u": 0.92
-  },
-  {
+}, {
     "bitola": "W 200 x 31,3",
     "massa_linear": 31.3,
     "d": 210,
@@ -274,8 +263,7 @@ var perfis =
     "alma": 26.5,
     "cw": "40,822",
     "u": 0.93
-  },
-  {
+}, {
     "bitola": "W 200 x 35,9 (H)",
     "massa_linear": 35.9,
     "d": 201,
@@ -299,8 +287,7 @@ var perfis =
     "alma": 25.9,
     "cw": "69,502",
     "u": 1.03
-  },
-  {
+}, {
     "bitola": "W 200 x 41,7 (H)",
     "massa_linear": 41.7,
     "d": 205,
@@ -324,8 +311,7 @@ var perfis =
     "alma": 21.86,
     "cw": "83,948",
     "u": 1.04
-  },
-  {
+}, {
     "bitola": "W 200 x 46,1 (H)",
     "massa_linear": 46.1,
     "d": 203,
@@ -349,8 +335,7 @@ var perfis =
     "alma": 22.36,
     "cw": "141,342",
     "u": 1.19
-  },
-  {
+}, {
     "bitola": "W 200 x 52,0 (H)",
     "massa_linear": 52,
     "d": 206,
@@ -374,8 +359,7 @@ var perfis =
     "alma": 19.85,
     "cw": "166,710",
     "u": 1.19
-  },
-  {
+}, {
     "bitola": "HP 200 x 53,0 (H)",
     "massa_linear": 53,
     "d": 204,
@@ -399,8 +383,7 @@ var perfis =
     "alma": 14.28,
     "cw": "155,075",
     "u": 1.2
-  },
-  {
+}, {
     "bitola": "W 200 x 59,0 (H)",
     "massa_linear": 59,
     "d": 210,
@@ -424,8 +407,7 @@ var perfis =
     "alma": 17.32,
     "cw": "195,418",
     "u": 1.2
-  },
-  {
+}, {
     "bitola": "W 200 x 71,0 (H)",
     "massa_linear": 71,
     "d": 216,
@@ -449,8 +431,7 @@ var perfis =
     "alma": 15.8,
     "cw": "249,976",
     "u": 1.22
-  },
-  {
+}, {
     "bitola": "W 200 x 86,0 (H)",
     "massa_linear": 86,
     "d": 222,
@@ -474,8 +455,7 @@ var perfis =
     "alma": 12.06,
     "cw": "317,844",
     "u": 1.23
-  },
-  {
+}, {
     "bitola": "W 200 x 100,0 (H)",
     "massa_linear": 100,
     "d": 229,
@@ -499,8 +479,7 @@ var perfis =
     "alma": 10.87,
     "cw": "385,454",
     "u": 1.25
-  },
-  {
+}, {
     "bitola": "W 250 x 17,9",
     "massa_linear": 17.9,
     "d": 251,
@@ -524,8 +503,7 @@ var perfis =
     "alma": 45.92,
     "cw": "13,735",
     "u": 0.88
-  },
-  {
+}, {
     "bitola": "W 250 x 22,3",
     "massa_linear": 22.3,
     "d": 254,
@@ -549,8 +527,7 @@ var perfis =
     "alma": 37.97,
     "cw": "18,629",
     "u": 0.89
-  },
-  {
+}, {
     "bitola": "W 250 x 25,3",
     "massa_linear": 25.3,
     "d": 257,
@@ -574,8 +551,7 @@ var perfis =
     "alma": 36.1,
     "cw": "22,955",
     "u": 0.89
-  },
-  {
+}, {
     "bitola": "W 250 x 28,4",
     "massa_linear": 28.4,
     "d": 260,
@@ -599,8 +575,7 @@ var perfis =
     "alma": 34.38,
     "cw": "27,636",
     "u": 0.9
-  },
-  {
+}, {
     "bitola": "W 250 x 32,7",
     "massa_linear": 32.7,
     "d": 258,
@@ -624,8 +599,7 @@ var perfis =
     "alma": 36.03,
     "cw": "73,104",
     "u": 1.07
-  },
-  {
+}, {
     "bitola": "W 250 x 38,5",
     "massa_linear": 38.5,
     "d": 262,
@@ -649,8 +623,7 @@ var perfis =
     "alma": 33.27,
     "cw": "93,242",
     "u": 1.08
-  },
-  {
+}, {
     "bitola": "W 250 x 44,8",
     "massa_linear": 44.8,
     "d": 266,
@@ -674,8 +647,7 @@ var perfis =
     "alma": 28.95,
     "cw": "112,398",
     "u": 1.09
-  },
-  {
+}, {
     "bitola": "HP 250 x 62,0 (H)",
     "massa_linear": 62,
     "d": 246,
@@ -699,8 +671,7 @@ var perfis =
     "alma": 19.1,
     "cw": "414,130",
     "u": 1.47
-  },
-  {
+}, {
     "bitola": "W 250 x 73,0 (H)",
     "massa_linear": 73,
     "d": 253,
@@ -724,8 +695,7 @@ var perfis =
     "alma": 23.33,
     "cw": "552,900",
     "u": 1.48
-  },
-  {
+}, {
     "bitola": "W 250 x 80,0 (H)",
     "massa_linear": 80,
     "d": 256,
@@ -749,8 +719,7 @@ var perfis =
     "alma": 21.36,
     "cw": "622,878",
     "u": 1.49
-  },
-  {
+}, {
     "bitola": "HP 250 x 85,0 (H)",
     "massa_linear": 85,
     "d": 254,
@@ -774,8 +743,7 @@ var perfis =
     "alma": 13.97,
     "cw": "605,403",
     "u": 1.5
-  },
-  {
+}, {
     "bitola": "W 250 x 89,0 (H)",
     "massa_linear": 89,
     "d": 260,
@@ -799,8 +767,7 @@ var perfis =
     "alma": 18.82,
     "cw": "712,351",
     "u": 1.5
-  },
-  {
+}, {
     "bitola": "W 250 x 101,0 (H)",
     "massa_linear": 101,
     "d": 264,
@@ -824,8 +791,7 @@ var perfis =
     "alma": 16.87,
     "cw": "828,031",
     "u": 1.51
-  },
-  {
+}, {
     "bitola": "W 250 x 115,0 (H)",
     "massa_linear": 115,
     "d": 269,
@@ -849,8 +815,7 @@ var perfis =
     "alma": 14.87,
     "cw": "975,265",
     "u": 1.53
-  },
-  {
+}, {
     "bitola": "W 250 x 131,0 (H)",
     "massa_linear": 131,
     "d": 275,
@@ -874,8 +839,7 @@ var perfis =
     "alma": 12.52,
     "cw": "1,161,225",
     "u": 1.54
-  },
-  {
+}, {
     "bitola": "W 250 x 149,0 (H)",
     "massa_linear": 149,
     "d": 282,
@@ -899,8 +863,7 @@ var perfis =
     "alma": 11.17,
     "cw": "1,384,436",
     "u": 1.55
-  },
-  {
+}, {
     "bitola": "W 250 x 167,0 (H)",
     "massa_linear": 167,
     "d": 289,
@@ -924,8 +887,7 @@ var perfis =
     "alma": 10.07,
     "cw": "1,631,156",
     "u": 1.57
-  },
-  {
+}, {
     "bitola": "W 310 x 21,0",
     "massa_linear": 21,
     "d": 303,
@@ -949,8 +911,7 @@ var perfis =
     "alma": 53.25,
     "cw": "21,628",
     "u": 0.98
-  },
-  {
+}, {
     "bitola": "W 310 x 23,8",
     "massa_linear": 23.8,
     "d": 305,
@@ -974,8 +935,7 @@ var perfis =
     "alma": 48.5,
     "cw": "25,594",
     "u": 0.99
-  },
-  {
+}, {
     "bitola": "W 310 x 28,3",
     "massa_linear": 28.3,
     "d": 309,
@@ -999,8 +959,7 @@ var perfis =
     "alma": 45.2,
     "cw": "35,441",
     "u": 1
-  },
-  {
+}, {
     "bitola": "W 310 x 32,7",
     "massa_linear": 32.7,
     "d": 313,
@@ -1024,8 +983,7 @@ var perfis =
     "alma": 41.12,
     "cw": "43,612",
     "u": 1
-  },
-  {
+}, {
     "bitola": "W 310 x 38,7",
     "massa_linear": 38.7,
     "d": 310,
@@ -1049,8 +1007,7 @@ var perfis =
     "alma": 46.66,
     "cw": "163,728",
     "u": 1.25
-  },
-  {
+}, {
     "bitola": "W 310 x 44,5",
     "massa_linear": 44.5,
     "d": 313,
@@ -1074,8 +1031,7 @@ var perfis =
     "alma": 41,
     "cw": "194,433",
     "u": 1.26
-  },
-  {
+}, {
     "bitola": "W 310 x 52,0",
     "massa_linear": 52,
     "d": 317,
@@ -1099,8 +1055,7 @@ var perfis =
     "alma": 35.61,
     "cw": "236,422",
     "u": 1.27
-  },
-  {
+}, {
     "bitola": "HP 310 x 79,0 (H)",
     "massa_linear": 79,
     "d": 299,
@@ -1124,8 +1079,7 @@ var perfis =
     "alma": 22.27,
     "cw": "1,089,258",
     "u": 1.77
-  },
-  {
+}, {
     "bitola": "HP 310 x 93,0 (H)",
     "massa_linear": 93,
     "d": 303,
@@ -1149,8 +1103,7 @@ var perfis =
     "alma": 18.69,
     "cw": "1,340,320",
     "u": 1.78
-  },
-  {
+}, {
     "bitola": "W 310 x 97,0 (H)",
     "massa_linear": 97,
     "d": 308,
@@ -1174,8 +1127,7 @@ var perfis =
     "alma": 24.77,
     "cw": "1,558,682",
     "u": 1.79
-  },
-  {
+}, {
     "bitola": "W 310 x 107,0 (H)",
     "massa_linear": 107,
     "d": 311,
@@ -1199,8 +1151,7 @@ var perfis =
     "alma": 22.48,
     "cw": "1,754,271",
     "u": 1.8
-  },
-  {
+}, {
     "bitola": "HP 310x110,0 (H)",
     "massa_linear": 110,
     "d": 308,
@@ -1224,8 +1175,7 @@ var perfis =
     "alma": 15.91,
     "cw": "1,646,104",
     "u": 1.8
-  },
-  {
+}, {
     "bitola": "W 310 x 117,0 (H)",
     "massa_linear": 117,
     "d": 314,
@@ -1249,8 +1199,7 @@ var perfis =
     "alma": 20.55,
     "cw": "1,965,950",
     "u": 1.8
-  },
-  {
+}, {
     "bitola": "HP 310x125,0 (H)",
     "massa_linear": 125,
     "d": 312,
@@ -1274,8 +1223,7 @@ var perfis =
     "alma": 14.09,
     "cw": "1,911,029",
     "u": 1.81
-  },
-  {
+}, {
     "bitola": "W 310 x 129,0 (H)",
     "massa_linear": 129,
     "d": 318,
@@ -1299,8 +1247,7 @@ var perfis =
     "alma": 18.69,
     "cw": "2,218,146",
     "u": 1.81
-  },
-  {
+}, {
     "bitola": "HP 310 x 132 (H)",
     "massa_linear": 132,
     "d": 314,
@@ -1324,8 +1271,7 @@ var perfis =
     "alma": 13.41,
     "cw": "2,044,445",
     "u": 1.82
-  },
-  {
+}, {
     "bitola": "W 310 x 143,0 (H)",
     "massa_linear": 143,
     "d": 323,
@@ -1349,8 +1295,7 @@ var perfis =
     "alma": 17.51,
     "cw": "2,535,314",
     "u": 1.83
-  },
-  {
+}, {
     "bitola": "W 310 x 158,0 (H)",
     "massa_linear": 158,
     "d": 327,
@@ -1374,8 +1319,7 @@ var perfis =
     "alma": 15.79,
     "cw": "2,839,709",
     "u": 1.84
-  },
-  {
+}, {
     "bitola": "W 310 x 179,0 (H)",
     "massa_linear": 179,
     "d": 333,
@@ -1399,8 +1343,7 @@ var perfis =
     "alma": 13.6,
     "cw": "3,337,666",
     "u": 1.85
-  },
-  {
+}, {
     "bitola": "W 310 x 202,0 (H)",
     "massa_linear": 202,
     "d": 341,
@@ -1424,8 +1367,7 @@ var perfis =
     "alma": 12.21,
     "cw": "3,959,374",
     "u": 1.87
-  },
-  {
+}, {
     "bitola": "W 360 x 32,9",
     "massa_linear": 32.9,
     "d": 349,
@@ -1449,8 +1391,7 @@ var perfis =
     "alma": 53.1,
     "cw": "84,111",
     "u": 1.17
-  },
-  {
+}, {
     "bitola": "W 360 x 39,0",
     "massa_linear": 39,
     "d": 353,
@@ -1474,8 +1415,7 @@ var perfis =
     "alma": 47.32,
     "cw": "109,551",
     "u": 1.18
-  },
-  {
+}, {
     "bitola": "W 360 x 44,6",
     "massa_linear": 44.6,
     "d": 352,
@@ -1499,8 +1439,7 @@ var perfis =
     "alma": 44.7,
     "cw": "239,091",
     "u": 1.35
-  },
-  {
+}, {
     "bitola": "W 360 x 51,0",
     "massa_linear": 51,
     "d": 355,
@@ -1524,8 +1463,7 @@ var perfis =
     "alma": 42.75,
     "cw": "284,994",
     "u": 1.36
-  },
-  {
+}, {
     "bitola": "W 360 x 58",
     "massa_linear": 58,
     "d": 358,
@@ -1549,8 +1487,7 @@ var perfis =
     "alma": 38.96,
     "cw": "330,394",
     "u": 1.37
-  },
-  {
+}, {
     "bitola": "W 360 x 64,0",
     "massa_linear": 64,
     "d": 347,
@@ -1574,8 +1511,7 @@ var perfis =
     "alma": 37.4,
     "cw": "523,362",
     "u": 1.46
-  },
-  {
+}, {
     "bitola": "W 360 x 72,0",
     "massa_linear": 72,
     "d": 350,
@@ -1599,8 +1535,7 @@ var perfis =
     "alma": 33.47,
     "cw": "599,082",
     "u": 1.47
-  },
-  {
+}, {
     "bitola": "W 360 x 79,0",
     "massa_linear": 79,
     "d": 354,
@@ -1624,8 +1559,7 @@ var perfis =
     "alma": 30.68,
     "cw": "685,701",
     "u": 1.48
-  },
-  {
+}, {
     "bitola": "W 360 x 91,0 (H)",
     "massa_linear": 91,
     "d": 353,
@@ -1649,8 +1583,7 @@ var perfis =
     "alma": 30.34,
     "cw": "1,268,709",
     "u": 1.68
-  },
-  {
+}, {
     "bitola": "W 360 x 101,0 (H)",
     "massa_linear": 101,
     "d": 357,
@@ -1674,8 +1607,7 @@ var perfis =
     "alma": 27.28,
     "cw": "1,450,410",
     "u": 1.68
-  },
-  {
+}, {
     "bitola": "W 360 x 110,0 (H)",
     "massa_linear": 110,
     "d": 360,
@@ -1699,8 +1631,7 @@ var perfis =
     "alma": 25.28,
     "cw": "1,609,070",
     "u": 1.69
-  },
-  {
+}, {
     "bitola": "W 360 x 122,0 (H)",
     "massa_linear": 122,
     "d": 363,
@@ -1724,8 +1655,7 @@ var perfis =
     "alma": 22.12,
     "cw": "1,787,806",
     "u": 1.7
-  },
-  {
+}, {
     "bitola": "W 410 x 38,8",
     "massa_linear": 38.8,
     "d": 399,
@@ -1749,8 +1679,7 @@ var perfis =
     "alma": 55.84,
     "cw": "153,190",
     "u": 1.32
-  },
-  {
+}, {
     "bitola": "W 410 x 46,1",
     "massa_linear": 46.1,
     "d": 403,
@@ -1774,8 +1703,7 @@ var perfis =
     "alma": 50.94,
     "cw": "196,571",
     "u": 1.33
-  },
-  {
+}, {
     "bitola": "W 410 x 53,0",
     "massa_linear": 53,
     "d": 403,
@@ -1799,8 +1727,7 @@ var perfis =
     "alma": 47.63,
     "cw": "387,194",
     "u": 1.48
-  },
-  {
+}, {
     "bitola": "W 410 x 60,0",
     "massa_linear": 60,
     "d": 407,
@@ -1824,8 +1751,7 @@ var perfis =
     "alma": 46.42,
     "cw": "467,404",
     "u": 1.49
-  },
-  {
+}, {
     "bitola": "W 410 x 67,0",
     "massa_linear": 67,
     "d": 410,
@@ -1849,8 +1775,7 @@ var perfis =
     "alma": 40.59,
     "cw": "538,546",
     "u": 1.5
-  },
-  {
+}, {
     "bitola": "W 410 x 75,0",
     "massa_linear": 75,
     "d": 413,
@@ -1874,8 +1799,7 @@ var perfis =
     "alma": 36.8,
     "cw": "612,784",
     "u": 1.51
-  },
-  {
+}, {
     "bitola": "W 410 x 85,0",
     "massa_linear": 85,
     "d": 417,
@@ -1899,8 +1823,7 @@ var perfis =
     "alma": 32.72,
     "cw": "715,165",
     "u": 1.52
-  },
-  {
+}, {
     "bitola": "W 460 x 52,0",
     "massa_linear": 52,
     "d": 450,
@@ -1924,8 +1847,7 @@ var perfis =
     "alma": 53.21,
     "cw": "304,837",
     "u": 1.47
-  },
-  {
+}, {
     "bitola": "W 460 x 60,0",
     "massa_linear": 60,
     "d": 455,
@@ -1949,8 +1871,7 @@ var perfis =
     "alma": 50.55,
     "cw": "387,230",
     "u": 1.49
-  },
-  {
+}, {
     "bitola": "W 460 x 68,0",
     "massa_linear": 68,
     "d": 459,
@@ -1974,8 +1895,7 @@ var perfis =
     "alma": 44.42,
     "cw": "461,163",
     "u": 1.5
-  },
-  {
+}, {
     "bitola": "W 460 x 74,0",
     "massa_linear": 74,
     "d": 457,
@@ -1999,8 +1919,7 @@ var perfis =
     "alma": 44.89,
     "cw": "811,417",
     "u": 1.64
-  },
-  {
+}, {
     "bitola": "W 460 x 82,0",
     "massa_linear": 82,
     "d": 460,
@@ -2024,8 +1943,7 @@ var perfis =
     "alma": 40.81,
     "cw": "915,745",
     "u": 1.64
-  },
-  {
+}, {
     "bitola": "W 460 x 89,0",
     "massa_linear": 89,
     "d": 463,
@@ -2049,8 +1967,7 @@ var perfis =
     "alma": 38.44,
     "cw": "1,035,073",
     "u": 1.65
-  },
-  {
+}, {
     "bitola": "W 460 x 97,0",
     "massa_linear": 97,
     "d": 466,
@@ -2074,8 +1991,7 @@ var perfis =
     "alma": 35.44,
     "cw": "1,137,180",
     "u": 1.66
-  },
-  {
+}, {
     "bitola": "W 460 x 106,0",
     "massa_linear": 106,
     "d": 469,
@@ -2099,8 +2015,7 @@ var perfis =
     "alma": 32.05,
     "cw": "1,260,063",
     "u": 1.67
-  },
-  {
+}, {
     "bitola": "W 530 x 66,0",
     "massa_linear": 66,
     "d": 525,
@@ -2124,8 +2039,7 @@ var perfis =
     "alma": 53.73,
     "cw": "562,854",
     "u": 1.67
-  },
-  {
+}, {
     "bitola": "W 530 x 72,0",
     "massa_linear": 72,
     "d": 524,
@@ -2149,8 +2063,7 @@ var perfis =
     "alma": 53.13,
     "cw": "1,060,548",
     "u": 1.84
-  },
-  {
+}, {
     "bitola": "W 530 x 74,0",
     "massa_linear": 74,
     "d": 529,
@@ -2174,8 +2087,7 @@ var perfis =
     "alma": 49.26,
     "cw": "688,558",
     "u": 1.68
-  },
-  {
+}, {
     "bitola": "W 530 x 82,0",
     "massa_linear": 82,
     "d": 528,
@@ -2199,8 +2111,7 @@ var perfis =
     "alma": 50.25,
     "cw": "1,340,255",
     "u": 1.85
-  },
-  {
+}, {
     "bitola": "W 530 x 85,0",
     "massa_linear": 85,
     "d": 535,
@@ -2224,8 +2135,7 @@ var perfis =
     "alma": 46.41,
     "cw": "845,463",
     "u": 1.69
-  },
-  {
+}, {
     "bitola": "W 530 x 92,0",
     "massa_linear": 92,
     "d": 533,
@@ -2249,8 +2159,7 @@ var perfis =
     "alma": 46.84,
     "cw": "1,588,565",
     "u": 1.86
-  },
-  {
+}, {
     "bitola": "W 530 x 101,0",
     "massa_linear": 101,
     "d": 537,
@@ -2274,8 +2183,7 @@ var perfis =
     "alma": 43.14,
     "cw": "1,812,734",
     "u": 1.86
-  },
-  {
+}, {
     "bitola": "W 530 x 109,0",
     "massa_linear": 109,
     "d": 539,
@@ -2299,8 +2207,7 @@ var perfis =
     "alma": 40.47,
     "cw": "1,991,291",
     "u": 1.87
-  },
-  {
+}, {
     "bitola": "W 530 x 123,0",
     "massa_linear": 123,
     "d": 544,
@@ -2324,8 +2231,7 @@ var perfis =
     "alma": 35.85,
     "cw": "2,300,400",
     "u": 1.88
-  },
-  {
+}, {
     "bitola": "W 530 x 138,0",
     "massa_linear": 138,
     "d": 549,
@@ -2349,8 +2255,7 @@ var perfis =
     "alma": 31.93,
     "cw": "2,680,751",
     "u": 1.9
-  },
-  {
+}, {
     "bitola": "W 610 x 82,0",
     "massa_linear": 82,
     "d": 599,
@@ -2374,8 +2279,7 @@ var perfis =
     "alma": 54.14,
     "cw": "1,033,595",
     "u": 1.86
-  },
-  {
+}, {
     "bitola": "W 610 x 92,0",
     "massa_linear": 92,
     "d": 603,
@@ -2399,8 +2303,7 @@ var perfis =
     "alma": 49.63,
     "cw": "1,239,349",
     "u": 1.87
-  },
-  {
+}, {
     "bitola": "W 610 x 101,0",
     "massa_linear": 101,
     "d": 603,
@@ -2424,8 +2327,7 @@ var perfis =
     "alma": 51.54,
     "cw": "2,544,966",
     "u": 2.07
-  },
-  {
+}, {
     "bitola": "W 610 x 113,0",
     "massa_linear": 113,
     "d": 608,
@@ -2449,8 +2351,7 @@ var perfis =
     "alma": 48.34,
     "cw": "2,981,078",
     "u": 2.08
-  },
-  {
+}, {
     "bitola": "W 610 x 125,0",
     "massa_linear": 125,
     "d": 612,
@@ -2474,8 +2375,7 @@ var perfis =
     "alma": 45.45,
     "cw": "3,441,766",
     "u": 2.09
-  },
-  {
+}, {
     "bitola": "W 610 x 140,0",
     "massa_linear": 140,
     "d": 617,
@@ -2499,8 +2399,7 @@ var perfis =
     "alma": 41.27,
     "cw": "3,981,687",
     "u": 2.1
-  },
-  {
+}, {
     "bitola": "W 610 x 153,0",
     "massa_linear": 153,
     "d": 623,
@@ -2524,8 +2423,7 @@ var perfis =
     "alma": 38.66,
     "cw": "4,456,995",
     "u": 2.11
-  },
-  {
+}, {
     "bitola": "W 610 x 155,0",
     "massa_linear": 155,
     "d": 611,
@@ -2549,8 +2447,7 @@ var perfis =
     "alma": 42.6,
     "cw": "9,436,714",
     "u": 2.47
-  },
-  {
+}, {
     "bitola": "W 610 x 174,0",
     "massa_linear": 174,
     "d": 616,
@@ -2574,8 +2471,7 @@ var perfis =
     "alma": 38.63,
     "cw": "10,915,665",
     "u": 2.48
-  },
-  {
+}, {
     "bitola": "W 610 x 195,0",
     "massa_linear": 195,
     "d": 622,
@@ -2599,8 +2495,7 @@ var perfis =
     "alma": 35.14,
     "cw": "12,695,302",
     "u": 2.49
-  },
-  {
+}, {
     "bitola": "W 610 x 217,0",
     "massa_linear": 217,
     "d": 628,
@@ -2624,5 +2519,5 @@ var perfis =
     "alma": 32.76,
     "cw": "14,676,643",
     "u": 2.51
-  }
-];
+}];
+window.perfis = perfis;

@@ -1,7 +1,8 @@
 /*jslint devel: true*/
+/*global perfis */
 
 // variables
-var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, aba, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, wc, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut;
+var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, aba, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, wc, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 
 var steelProp = [
     ["ASTM A36/ MR250", 250, 400, 200000],
@@ -9,10 +10,10 @@ var steelProp = [
     ["ASTM A570 G36", 250, 360, 200000]
 ];
 var tableS = [];
-var i, j, situationV, situationA, situationM, situationT, result;
 
 function processFormCS() {
     "use strict";
+    var i, j;
 
     // Getting values from HTML form inputs
     project = document.formCS.projectCS.value;
@@ -194,4 +195,23 @@ function processFormCS() {
         result = "Não OK";
         alert("Não OK");
     }
+}
+
+/*
+    Cria um objeto bitola
+*/
+function criarBitola(nomeBitola, linhaBitola) {
+    "use strict";
+    var opcao = document.createElement("OPTION"),
+        texto = document.createTextNode(nomeBitola);
+    opcao.value = linhaBitola;
+    opcao.appendChild(texto);
+    return opcao;
+}
+
+var bitolaLista = document.getElementById("bitola"),
+    i;
+    
+for (i = 0; i < perfis.length; i += 1) {
+    bitolaLista.appendChild(criarBitola(perfis[i].bitola, i));
 }
