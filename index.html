@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<title>Verificação de Vigas Metálicas</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	<script type="text/javascript" scr="script.js"></script>
+	</head>
+
+	<body>
+		<div class="header">
+			<h1> Verificação de Vigas Metálicas </h1>
+		</div>
+		<div class="form">
+		<form name="formCS">
+			<label>Projeto:</label>
+			<input type="text" name="projectCS" /> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamCS" /> <br>
+
+			<label>Norma:</label>
+			<select name="standard">
+				<option value="NBR 8800:2008"> NBR 8800:2008 </option> 
+			</select> <br> 
+
+			<h2> Esforços </h2>
+			<label>Esforço Cortante V (kN):</label>
+			<input type="text" name="vCS" /> <br>
+
+			<label>Momento Fletor M (kN.m):</label>
+			<input type="text" name="mCS" /> <br>
+
+			<label> Distância entre travamentos laterais (m):</label>
+			<input type="text" name="lbCS" /> <br>
+
+			<h2> Perfil </h2>
+
+			<label>Bitola:</label>
+			<select name="sectionS">
+				<option value="W 150 x 22.5"> W 150 x 22.5 </option>
+				<option value="W 150 x 29.8"> W 150 x 29.8 </option>
+			</select> <br>
+
+
+			<label>Aço:</label>
+			<select name="typeS">
+				<option value="ASTM A572 G50/ AR345"> ASTM A572 G50/ AR345 </option>
+				<option value="ASTM A36/ MR250" default> ASTM A36/ MR250 </option>
+				<option value="ASTM A570 G36"> ASTM A570 G36 </option>
+			</select> <br> <br>
+
+
+			<input type="checkbox" id="stiffeningCS" name="stiffeningCS" value="getK" checked=""> Perfil sem enrijecedor <br>
+			<label> Espaço entre Enrijecedores (m):</label>
+			<input type="text" name="aCS" /> <br>
+
+			<br>
+
+			<h4> Coeficientes </h4>
+			
+			<label>Gama</label>
+			<input type="text" name="gama" /> <br>
+			<label>Gama A1</label>
+			<input type="text" name="gama1" /> <br>
+			<label>Cb</label>
+			<input type="text" name="cb" /> <br>
+
+			<br>
+
+			<input type="button" value="Verificar" onClick="processFormCS" /> <br>
+			<input type="button" value="Gerar Relatório" onClick="reportCS" /> <br>
+			<input type="button" value="Limpar" onClick="clearCS" /> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+		</div>
+	</body>
+
+</html>
