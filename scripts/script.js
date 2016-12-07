@@ -31,16 +31,42 @@ function processFormCS() {
 
     // Getting values from HTML form inputs
     project = document.formCS.projectCS.value;
+    if (project === "") {
+        alert("Por favor preencha o campo Projeto.");
+        console.log("Por favor preencha o campo Projeto.");
+        return false;
+    }
     beam = document.formCS.beamCS.value;
+    if (beam === "") {
+        alert("Por favor preencha o campo Viga.");
+        console.log("Por favor preencha o campo Viga.");
+        return false;
+    }
     v = Number(document.formCS.vCS.value);
+    if (document.formCS.vCS.value === "" || isNaN(v)) {
+        alert("Por favor preencha o campo Cortante com números.");
+        console.log("Por favor preencha o campo Cortante.");
+        return false;
+    }
     m = Number(document.formCS.mCS.value);
+    if (document.formCS.mCS.value === "" || isNaN(m)) {
+        alert("Por favor preencha o campo Momento com números.");
+        console.log("Por favor preencha o campo Momento.");
+        return false;
+    }
     lbForm = Number(document.formCS.lbCS.value);
+    if (document.formCS.mCS.value === "" || isNaN(lbForm)) {
+        alert("Por favor preencha o campo Distância entre travamentos laterais com números.");
+        console.log("Por favor preencha o campo Distância entre travamentos laterais com números.");
+        return false;
+    }
     section = perfis[Number(document.formCS.sectionS.value)].bitola;
     steel = document.formCS.typeS.value;
     a = Number(document.formCS.aCS.value);
     gama = Number(document.formCS.gama.value);
     gama1 = Number(document.formCS.gama1.value);
     cb = Number(document.formCS.cb.value);
+    
     // Getting section properties
     i = Number(document.getElementById("bitola").value);
 
@@ -79,6 +105,7 @@ function processFormCS() {
     } else {
         kv = 5 + 5 / (Math.pow(a / h, 2));
     }
+    
     // Calculating parameters 
     aw = d * tw;
     lb = lbForm * 100;
@@ -86,11 +113,13 @@ function processFormCS() {
     kc = 4 / Math.sqrt(h / tw);
     tr = 0.3 * fy;
     E = EForm / 10;
+    
     // Shear Vrd
     lambV = h / tw;
     lambpV = (1.1 * Math.sqrt(kv * E / fy));
     lambrV = (1.37 * Math.sqrt(kv * E / fy));
     vpl = 0.6 * fy * aw;
+    
     if (lambV <= lambpV) {
         situationV = "Caso 1";
     } else if (lambpV < lambV || lambpV >= lambrV) {
@@ -100,6 +129,7 @@ function processFormCS() {
     } else {
         situationV = "Error";
     }
+    
     switch (situationV) {
     case "Caso 1":
         vrd = vpl / gama1;
@@ -111,12 +141,14 @@ function processFormCS() {
         vrd = 1.24 * Math.pow(lambpV / lambV, 2) * (vpl / gama1);
         break;
     }
+    
     // Bending
     //FLA
     mpl = zx * fy;
     lambA = h * tw;
     lambpA = 3.76 * Math.sqrt(E / fy);
     lambrA = 5.7 * Math.sqrt(E / fy);
+    
     if (lambA <= lambpA) {
         situationA = "Caso 1";
     } else if (lambpA < lambA || lambpA >= lambrA) {
@@ -126,6 +158,7 @@ function processFormCS() {
     } else {
         situationA = "Error";
     }
+    
     switch (situationA) {
     case "Caso 1":
         mrdA = mpl / gama1;
@@ -139,10 +172,12 @@ function processFormCS() {
         mrdA = mcrA / gama1;
         break;
     }
+    
     //FLM
     lambM = mesa;
     lambpM = 0.38 * Math.sqrt(E / fy);
     lambrM = 0.83 * Math.sqrt(E / (fy - tr));
+    
     if (lambM <= lambpM) {
         situationM = "Caso 1";
     } else if (lambpM < lambM || lambpA >= lambrM) {
@@ -152,6 +187,7 @@ function processFormCS() {
     } else {
         situationM = "Error";
     }
+    
     switch (situationM) {
     case "Caso 1":
         mrdM = mpl / gama1;
@@ -165,10 +201,12 @@ function processFormCS() {
         mrdM = mcrM / gama1;
         break;
     }
+    
     // FLT
     lambT = lb / ry;
     lambpT = 1.76 * Math.sqrt(E / fy);
     lambrT = ((1.38 * Math.sqrt(fy * it)) / (ry * it * beta1)) * Math.sqrt(1 + Math.sqrt(1 + (27 * cw * beta1 * beta1) / iy));
+    
     if (lambT <= lambpT) {
         situationT = "Caso 1";
     } else if (lambpT < lambT || lambpT >= lambrT) {
@@ -178,6 +216,7 @@ function processFormCS() {
     } else {
         situationT = "Error";
     }
+    
     switch (situationT) {
     case "Caso 1":
         mrdT = mpl / gama1;
@@ -191,11 +230,13 @@ function processFormCS() {
         mrdT = mcrT / gama1;
         break;
     }
+    
     //Compare & Results
     vsd = v * gama;
     msd = m * gama1;
     mrd = Math.min(mrdA, mrdM, mrdT);
     mrdOut = mrd / 100;
+    
     if (vsd <= vrd && msd <= mrdOut) {
         result = "OK";
         alert("OK");
