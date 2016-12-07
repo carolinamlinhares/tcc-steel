@@ -13,9 +13,12 @@
 	<body>
 
   <h1> Pagina relatorios </h1>
-		<a href="relatorio.html?test=10"> Clica aqui para imprimir um teste </a>
+		<a id="linkteste" href="relatorio.html?test=10"> Clica aqui para imprimir um teste </a>
+		
+		<input type="text" id="texto" onChange="document.getElementById('linkteste').href = 'relatorio.html?test=' + document.getElementById('texto').value;">
 		
 	</body>
+
 	
 			<script type="text/javascript"> function getJsonFromUrl(hashBased) {
   var query;
