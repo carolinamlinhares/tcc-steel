@@ -2,14 +2,28 @@
 /*global perfis */
 
 // variables
-var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, aba, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, wc, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
+var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, wc, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 
 var steelProp = [
-    ["ASTM A36/ MR250", 250, 400, 200000],
-    ["ASTM A572 G50/ AR345", 345, 450, 200000],
-    ["ASTM A570 G36", 250, 360, 200000]
+    {
+        "steelType": "ASTM A36/ MR250",
+        "fu": 250,
+        "fy": 400,
+        "E": 200000
+    },
+    {
+        "steelType": "ASTM A572 G50/ AR345",
+        "fu": 345,
+        "fy": 450,
+        "E": 200000
+    },
+    {
+        "steelType": "ASTM A572 G50/ AR345",
+        "fu": 345,
+        "fy": 450,
+        "E": 200000
+    }
 ];
-var tableS = [];
 
 function processFormCS() {
     "use strict";
@@ -28,43 +42,37 @@ function processFormCS() {
     gama1 = Number(document.formCS.gama1.value);
     cb = Number(document.formCS.cb.value);
     // Getting section properties
-    i = 0;
-    while (section !== tableS[i][0]) {
-        i += 1;
-    }
-    if (section === tableS[i][0]) {
-        ml = tableS[i][1];
-        d = tableS[i][2];
-        bf = tableS[i][3];
-        tw = tableS[i][4];
-        tf = tableS[i][5];
-        h = tableS[i][6];
-        dl = tableS[i][7];
-        area = tableS[i][8];
-        ix = tableS[i][9];
-        wx = tableS[i][10];
-        rx = tableS[i][11];
-        zx = tableS[i][12];
-        iy = tableS[i][13];
-        wy = tableS[i][14];
-        ry = tableS[i][15];
-        zy = tableS[i][16];
-        it = tableS[i][17];
-        aba = tableS[i][18];
-        alma = tableS[i][19];
-        cw = tableS[i][20];
-        u = tableS[i][21];
-    }
+    i = document.getElementById("bitola").value;
+
+    ml = perfis[i].ml;
+    d = perfis[i].d;
+    bf = perfis[i].bf;
+    tw = perfis[i].tw;
+    tf = perfis[i].tf;
+    h = perfis[i].h;
+    dl = perfis[i].dl;
+    area = perfis[i].area;
+    ix = perfis[i].ix;
+    wx = perfis[i].wx;
+    rx = perfis[i].rx;
+    zx = perfis[i].zx;
+    iy = perfis[i].iy;
+    wy = perfis[i].wy;
+    ry = perfis[i].ry;
+    zy = perfis[i].zy;
+    it = perfis[i].it;
+    mesa = perfis[i].mesa;
+    alma = perfis[i].alma;
+    cw = perfis[i].cw;
+    u = perfis[i].u;
+
     // Getting values from steel properties array
-    j = 0;
-    while (steel !== steelProp[j][0]) {
-        j += 1;
-    }
-    if (steel === steelProp[j][0]) {
-        fyForm = steelProp[j][1];
-        fuForm = steelProp[j][2];
-        EForm = steelProp[j][3];
-    }
+    j = document.getElementById("acos").value;
+    
+    fyForm = steelProp[j].fy;
+    fuForm = steelProp[j].fu;
+    EForm = steelProp[j].E;
+    
     // Calculating kv
     if (((a / h) > 3) || ((a / h) > Math.pow(260 / (h / tw), 2)) || (document.getElementById("stiffeningCS").checked === true)) {
         kv = 5;
@@ -132,7 +140,7 @@ function processFormCS() {
         break;
     }
     //FLM
-    lambM = aba;
+    lambM = mesa;
     lambpM = 0.38 * Math.sqrt(E / fy);
     lambrM = 0.83 * Math.sqrt(E / (fy - tr));
     if (lambM <= lambpM) {
@@ -210,8 +218,22 @@ function criarBitola(nomeBitola, linhaBitola) {
 }
 
 var bitolaLista = document.getElementById("bitola"),
+    acoLista = document.getElementById("acos"),
     i;
     
 for (i = 0; i < perfis.length; i += 1) {
     bitolaLista.appendChild(criarBitola(perfis[i].bitola, i));
+}
+
+function criarAco(nomeAco, linhaAco) {
+    "use strict";
+    var opcao = document.createElement("OPTION"),
+        texto = document.createTextNode(nomeAco);
+    opcao.value = linhaAco;
+    opcao.appendChild(texto);
+    return opcao;
+}
+    
+for (i = 0; i < steelProp.length; i += 1) {
+    acoLista.appendChild(criarAco(steelProp[i].steelType, i));
 }
