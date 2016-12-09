@@ -7,20 +7,20 @@ var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, b
 var steelProp = [
     {
         "steelType": "ASTM A36/ MR250",
-        "fu": 250,
-        "fy": 400,
+        "fy": 250,
+        "fu": 400,
         "E": 200000
     },
     {
         "steelType": "ASTM A572 G50/ AR345",
-        "fu": 345,
-        "fy": 450,
+        "fy": 345,
+        "fu": 450,
         "E": 200000
     },
     {
         "steelType": "ASTM A572 G50/ AR345",
-        "fu": 345,
-        "fy": 450,
+        "fy": 345,
+        "fu": 450,
         "E": 200000
     }
 ];
@@ -61,7 +61,7 @@ function processFormCS() {
         return false;
     }
     section = perfis[Number(document.formCS.sectionS.value)].bitola;
-    steel = document.formCS.typeS.value;
+    steel = [Number(document.formCS.typeS.value)].steelType;
     a = Number(document.formCS.aCS.value);
     gama = Number(document.formCS.gama.value);
     gama1 = Number(document.formCS.gama1.value);
@@ -109,10 +109,12 @@ function processFormCS() {
     // Calculating parameters 
     aw = d * tw;
     lb = lbForm * 100;
+    fy = fyForm / 10;
+    fu = fuForm / 10;
+    E = EForm / 10;
     beta1 = (0.7 * fy * wc) / (E * it);
     kc = 4 / Math.sqrt(h / tw);
     tr = 0.3 * fy;
-    E = EForm / 10;
     
     // Shear Vrd
     lambV = h / tw;
@@ -145,7 +147,7 @@ function processFormCS() {
     // Bending
     //FLA
     mpl = zx * fy;
-    lambA = h * tw;
+    lambA = h / tw;
     lambpA = 3.76 * Math.sqrt(E / fy);
     lambrA = 5.7 * Math.sqrt(E / fy);
     
@@ -233,7 +235,7 @@ function processFormCS() {
     
     //Compare & Results
     vsd = v * gama;
-    msd = m * gama1;
+    msd = m * gama;
     mrd = Math.min(mrdA, mrdM, mrdT);
     mrdOut = mrd / 100;
     
