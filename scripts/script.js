@@ -207,7 +207,7 @@ function processFormCS() {
     // FLT
     lambT = lb / ry;
     lambpT = 1.76 * Math.sqrt(E / fy);
-    lambrT = ((1.38 * Math.sqrt(fy * it)) / (ry * it * beta1)) * Math.sqrt(1 + Math.sqrt(1 + (27 * cw * beta1 * beta1) / iy));
+    lambrT = ((1.38 * Math.sqrt(iy * it)) / (ry * it * beta1)) * Math.sqrt(1 + Math.sqrt(1 + (27 * cw * beta1 * beta1) / iy));
     
     if (lambT <= lambpT) {
         situationT = "Caso 1";
@@ -228,7 +228,7 @@ function processFormCS() {
         mrdT = (cb / gama1) * (mpl - ((mpl - mrT) * ((lambT - lambpT) / (lambrT - lambpT))));
         break;
     case "Caso 3":
-        mcrT = ((0.69 * E) / (lambT * lambT)) * wx;
+        mcrT = (cb*Math.PI*Math.PI*E*iy)/Math.pow(lb,2))*Math.sqrt((cw/iy)*(1+0.039*(it*lb*lb)/cw);
         mrdT = mcrT / gama1;
         break;
     }
