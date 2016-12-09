@@ -61,7 +61,7 @@ function processFormCS() {
         return false;
     }
     section = perfis[Number(document.formCS.sectionS.value)].bitola;
-    steel = [Number(document.formCS.typeS.value)].steelType;
+    steel = steelProp[Number(document.formCS.typeS.value)].steelType;
     a = Number(document.formCS.aCS.value);
     gama = Number(document.formCS.gama.value);
     gama1 = Number(document.formCS.gama1.value);
@@ -153,7 +153,7 @@ function processFormCS() {
     
     if (lambA <= lambpA) {
         situationA = "Caso 1";
-    } else if (lambpA < lambA || lambpA >= lambrA) {
+    } else if (lambpA < lambA && lambpA >= lambrA) {
         situationA = "Caso 2";
     } else if (lambrA < lambA) {
         situationA = "Caso 3";
@@ -182,7 +182,7 @@ function processFormCS() {
     
     if (lambM <= lambpM) {
         situationM = "Caso 1";
-    } else if (lambpM < lambM || lambpA >= lambrM) {
+    } else if (lambpM < lambM && lambpA >= lambrM) {
         situationM = "Caso 2";
     } else if (lambrM < lambM) {
         situationM = "Caso 3";
@@ -211,7 +211,7 @@ function processFormCS() {
     
     if (lambT <= lambpT) {
         situationT = "Caso 1";
-    } else if (lambpT < lambT || lambpT >= lambrT) {
+    } else if (lambpT < lambT && lambpT >= lambrT) {
         situationT = "Caso 2";
     } else if (lambrT < lambT) {
         situationT = "Caso 3";
