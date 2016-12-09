@@ -2,7 +2,7 @@
 /*global perfis */
 
 // variables
-var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, wc, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
+var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 
 var steelProp = [
     {
@@ -112,7 +112,7 @@ function processFormCS() {
     fy = fyForm / 10;
     fu = fuForm / 10;
     E = EForm / 10;
-    beta1 = (0.7 * fy * wc) / (E * it);
+    beta1 = (0.7 * fy * wx) / (E * it);
     kc = 4 / Math.sqrt(h / tw);
     tr = 0.3 * fy;
     
