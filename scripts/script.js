@@ -2,7 +2,14 @@
 /*global perfis */
 
 // variables
-var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm, ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u, fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a, lambV, lambpV, lambrV, vpl, vrd, mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA, lambM, lambpM, lambrM, mrM, mcrM, mrdM, lambT, lambpT, lambrT, mrT, mcrT, mrdT, vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
+var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm;
+var ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u;
+var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a;
+var lambV, lambpV, lambrV, vpl, vrd;
+var mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA;
+var lambM, lambpM, lambrM, mrM, mcrM, mrdM;
+var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
+var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 
 var steelProp = [
     {
@@ -228,7 +235,7 @@ function processFormCS() {
         mrdT = (cb / gama1) * (mpl - ((mpl - mrT) * ((lambT - lambpT) / (lambrT - lambpT))));
         break;
     case "Caso 3":
-        mcrT = (cb*Math.PI*Math.PI*E*iy)/Math.pow(lb,2))*Math.sqrt((cw/iy)*(1+0.039*(it*lb*lb)/cw);
+        mcrT = ((cb * Math.PI * Math.PI * E * iy) / Math.pow(lb, 2)) * Math.sqrt((cw / iy) * (1 + 0.039 * (it * lb * lb) / cw));
         mrdT = mcrT / gama1;
         break;
     }
