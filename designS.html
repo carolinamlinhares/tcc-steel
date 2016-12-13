@@ -1,1 +1,75 @@
+<!DOCTYPE html>
 
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta name="description" content="Plataforma educacional para dimensionamento de vigas metálicas.">
+		<meta name="author" content="Carolina Linhares">
+        
+	   <title>Dimensionamento de Vigas Metálicas</title>
+	   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1> Dimensionamento de Vigas Metálicas </h1>
+		</div>
+		<div class="form">
+		<form name="formDS">
+			<label>Projeto:</label>
+			<input type="text" name="projectDS" /> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamDS" /> <br>
+
+			<label>Norma:</label>
+			<select name="standart">
+				<option value="NBR 8800:2008"> NBR 8800:2008 </option> 
+			</select> <br> 
+
+			<h2> Esforços </h2>
+			<label>Esforço Cortante V (kN):</label>
+			<input type="text" name="vDS" /> <br>
+
+			<label>Momento Fletor M (kN.m):</label>
+			<input type="text" name="mDS" /> <br>
+
+			<label> Distância entre travamentos laterais (m):</label>
+			<input type="text" name="lbDS" /> <br>
+
+			<h2> Perfil </h2>
+
+			<label>Aço:</label>
+			<select id="acos" name="typeS">
+			</select> <br> <br>
+
+			<input type="checkbox" name="stiffeningDS" value="getK" checked=""> Perifl sem enrijecedor <br>
+
+			<h4> Coeficientes </h4>
+			
+			<label>Gama</label>
+			<input type="text" name="gama" /> <br>
+			<label>Gama A1</label>
+			<input type="text" name="gama1" /> <br>
+			<label>Cb</label>
+			<input type="text" name="Cb" /> <br>
+
+			<br>
+
+
+			<input type="button" value="Dimensionar" onClick="processFormDS()" /> <br>
+			<input type="button" value="Gerar Relatório" onClick="reportDS()" /> <br>
+			<input type="button" value="Limpar" onClick="clearDS()" /> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+
+    <!-- Only to access pages while testing -->
+		<input type="button" value="Verificar" onclick="window.location.href='index.html'">
+            
+  </body>
+
+</html>
