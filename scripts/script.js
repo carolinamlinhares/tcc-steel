@@ -114,7 +114,7 @@ function processFormCS() {
     }
     
     // Calculating parameters 
-    aw = d * tw;
+    aw = (d * tw)/100;
     lb = lbForm * 100;
     fy = fyForm / 10;
     fu = fuForm / 10;
