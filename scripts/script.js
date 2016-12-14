@@ -23,12 +23,6 @@ var steelProp = [
         "fy": 345,
         "fu": 450,
         "E": 200000
-    },
-    {
-        "steelType": "ASTM A572 G50/ AR345",
-        "fy": 345,
-        "fu": 450,
-        "E": 200000
     }
 ];
 
@@ -114,7 +108,7 @@ function processFormCS() {
     }
     
     // Calculating parameters 
-    aw = (d * tw)/100;
+    aw = (d * tw) / 100;
     lb = lbForm * 100;
     fy = fyForm / 10;
     fu = fuForm / 10;
