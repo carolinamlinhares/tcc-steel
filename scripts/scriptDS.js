@@ -27,6 +27,8 @@ var steelProp = [
     }
 ];
 
+kv = 5; // "Enricejedor" not available Kv = 5 
+
 function processFormDS() {
     "use strict";
     var i, j;
@@ -115,14 +117,7 @@ function processFormDS() {
         fyForm = steelProp[j].fy;
         fuForm = steelProp[j].fu;
         EForm = steelProp[j].E;
-
-        // Calculating kv
-        if (((a / h) > 3) || ((a / h) > Math.pow(260 / (h / tw), 2)) || (document.getElementById("stiffeningCS").checked === true)) {
-            kv = 5;
-        } else {
-            kv = 5 + 5 / (Math.pow(a / h, 2));
-        }
-
+       
         // Calculating parameters 
         aw = (d * tw) / 100;
         lb = lbForm * 100;
