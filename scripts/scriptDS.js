@@ -80,7 +80,7 @@ function processFormDS() {
     cb = Number(document.formDS.cb.value);
     
     for (i = 0; i < perfis.length; i += 1) { //Looping through our available sections
-        section = perfis[Number(document.formDS.sectionS.value)].bitola;
+        section = perfis[i].bitola;
     
         // START OF FUNCTION TO SAVE CHECK EACH SECTION
         
