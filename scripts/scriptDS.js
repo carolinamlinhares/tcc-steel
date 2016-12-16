@@ -75,7 +75,6 @@ function processFormDS() {
     }
         
     steel = steelProp[Number(document.formDS.typeS.value)].steelType;
-    a = Number(document.formDS.aDS.value);
     gama = Number(document.formDS.gama.value);
     gama1 = Number(document.formDS.gama1.value);
     cb = Number(document.formDS.cb.value);
