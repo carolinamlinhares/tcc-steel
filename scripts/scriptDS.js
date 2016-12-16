@@ -85,7 +85,6 @@ function processFormDS() {
         // START OF FUNCTION TO SAVE CHECK EACH SECTION
         
         // Getting section properties
-        i = Number(document.getElementById("bitola").value);
 
         ml = perfis[i].ml;
         d = perfis[i].d;
