@@ -2,7 +2,7 @@
 /*global perfis */
 
 // variables
-var project, beam, v, m, lbForm, section, steel, fyForm, fuForm, EForm;
+var project, beam, vk, mk, lbForm, section, steel, fyForm, fuForm, EForm;
 var ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u;
 var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a;
 var lambV, lambpV, lambrV, vpl, vrd;
@@ -10,6 +10,7 @@ var mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA;
 var lambM, lambpM, lambrM, mrM, mcrM, mrdM;
 var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
 var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
+var ratioCSV, ratioCSM, ratiopCSV, ratiopCSM;
 
 var steelProp = [
     {
@@ -32,25 +33,33 @@ function processFormCS() {
 
     // Getting values from HTML form inputs
     project = document.formCS.projectCS.value;
-    if (project === "") {
+    /* if (project === "") {
         alert("Por favor preencha o campo Projeto.");
         console.log("Por favor preencha o campo Projeto.");
         return false;
+    } */
+    if (project === "") {
+        project = "Exemplo 1";
     }
+       
     beam = document.formCS.beamCS.value;
-    if (beam === "") {
+    /* if (beam === "") {
         alert("Por favor preencha o campo Viga.");
         console.log("Por favor preencha o campo Viga.");
         return false;
+    } */
+    if (beam === "") {
+        beam = "V1";
     }
-    v = Number(document.formCS.vCS.value);
-    if (document.formCS.vCS.value === "" || isNaN(v)) {
+    
+    vk = Number(document.formCS.vCS.value);
+    if (document.formCS.vCS.value === "" || isNaN(vk)) {
         alert("Por favor preencha o campo Cortante com números.");
         console.log("Por favor preencha o campo Cortante.");
         return false;
     }
-    m = Number(document.formCS.mCS.value);
-    if (document.formCS.mCS.value === "" || isNaN(m)) {
+    mk = Number(document.formCS.mCS.value);
+    if (document.formCS.mCS.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
         console.log("Por favor preencha o campo Momento.");
         return false;
@@ -87,6 +96,7 @@ function processFormCS() {
     wy = perfis[i].wy;
     ry = perfis[i].ry;
     zy = perfis[i].zy;
+    rt = perfis[i].rt;
     it = perfis[i].it;
     mesa = perfis[i].mesa;
     alma = perfis[i].alma;
@@ -148,7 +158,7 @@ function processFormCS() {
     // Bending
     //FLA
     mpl = zx * fy;
-    lambA = h / tw;
+    lambA = dl / tw; // lambA = h / tw;
     lambpA = 3.76 * Math.sqrt(E / fy);
     lambrA = 5.7 * Math.sqrt(E / fy);
     
@@ -235,10 +245,14 @@ function processFormCS() {
     }
     
     //Compare & Results
-    vsd = v * gama;
-    msd = m * gama;
+    vsd = vk * gama;
+    msd = mk * gama;
     mrd = Math.min(mrdA, mrdM, mrdT);
     mrdOut = mrd / 100;
+    ratioCSV = vsd / vrd;
+    ratioCSM = msd / mrdOut;
+    ratiopCSV = ratioCSV * 100;
+    ratiopCSM = ratioCSM * 100;
     
     if (vsd <= vrd && msd <= mrdOut) {
         result = "OK";
