@@ -33,7 +33,7 @@ kv = 5; // "Enricejedor" not available Kv = 5
 
 function processFormDS() {
     "use strict";
-    var i, j, l;
+    var i, j;
 
     // Getting project values from HTML form inputs
         
@@ -256,12 +256,11 @@ function processFormDS() {
         ratioDSM = msd / mrdOut;
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
-    
-        var l = 0;
-        
+
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            approved [l] = {perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM}; // saves to a list of approved sections
+            perfis.vrd = vrd;
+            approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
         } else {
             result = "Não OK";
         }
@@ -301,3 +300,4 @@ function criarAco(nomeAco, linhaAco) {
 for (i = 0; i < steelProp.length; i += 1) {
     acoLista.appendChild(criarAco(steelProp[i].steelType, i));
 }
+
