@@ -33,7 +33,7 @@ kv = 5; // "Enricejedor" not available Kv = 5
 
 function processFormDS() {
     "use strict";
-    var i, j;
+    var i, j, l;
 
     // Getting project values from HTML form inputs
         
@@ -256,10 +256,12 @@ function processFormDS() {
         ratioDSM = msd / mrdOut;
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
-
+    
+        var l = 0;
+        
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
+            approved [l] = {perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM}; // saves to a list of approved sections
         } else {
             result = "Não OK";
         }
