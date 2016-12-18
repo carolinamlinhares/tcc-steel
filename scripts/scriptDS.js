@@ -10,7 +10,9 @@ var mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA;
 var lambM, lambpM, lambrM, mrM, mcrM, mrdM;
 var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
 var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
-var ratioCSV, ratioCSM, ratiopCSV, ratiopCSM;
+var ratioDSV, ratioDSM, ratiopDSV, ratiopDSM;
+var approved = [];
+
 
 var steelProp = [
     {
@@ -250,30 +252,31 @@ function processFormDS() {
         msd = mk * gama;
         mrd = Math.min(mrdA, mrdM, mrdT);
         mrdOut = mrd / 100;
-        ratioCSV = vsd / vrd;
-        ratioCSM = msd / mrdOut;
-        ratiopCSV = ratioCSV * 100;
-        ratiopCSM = ratioCSM * 100;
+        ratioDSV = vsd / vrd;
+        ratioDSM = msd / mrdOut;
+        ratiopDSV = ratioDSV * 100;
+        ratiopDSM = ratioDSM * 100;
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            alert("OK");
+            approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
         } else {
             result = "Não OK";
-            alert("Não OK");
         }
 
      // END OF FUNCTION TO SAVE CHECK EACH SECTION
 
-
-
-
-
-
-
-
     }
 
+/*
+    Ordering approved list and printing a log to check
+*/
+
+    for (i = 0; i < approved.length; i += 1) { //Log of approved
+        console.log(approved[i]);
+    }
+    
+    
 /*
     Cria um objeto aco
 */
