@@ -53,6 +53,15 @@
 			<input type="text" name="gama1" value=1.1 /> <br>
 			<label>Cb</label>
 			<input type="text" name="cb" value=1 /> <br>
+            <label>Prioridade da escolha do perfil</label>
+			<select id="priority" name="priority">
+                <option value="Maior aproveitamento quanto ao Esforço Cortante"> Maior aproveitamento quanto ao Esforço Cortante </option>
+                <option value="Maior aproveitamento quanto ao Momento Fletor"> Maior aproveitamento quanto ao Momento Fletor </option>
+                <option value="Menor altura"> Menor altura </option>
+                <option value="Menor base"> Menor base </option>
+                <option value="Menor massa linear em cada família W/HP" default> Menor massa linear em cada família W/HP </option>
+                <option value="Menor massa linear"> Menor massa linear </option>
+			</select> <br> <br>
 
 			<br>
 
@@ -70,10 +79,9 @@
     <!-- Only to access pages while testing -->
 	<input type="button" value="Verificar" onclick="window.location.href='index.html'">
         
-        <script type="text/javascript" src="scripts/perfis.js"></script>
+    <script type="text/javascript" src="scripts/perfis.js"></script>
 	<script type="text/javascript" src="scripts/scriptDS.js"></script>
 			
 	</body>
 
 </html>
-
