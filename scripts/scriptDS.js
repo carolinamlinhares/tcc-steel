@@ -4,7 +4,7 @@
 // variables
 var project, beam, vk, mk, lbForm, section, steel, fyForm, fuForm, EForm;
 var ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u;
-var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a;
+var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a, priority;
 var lambV, lambpV, lambrV, vpl, vrd;
 var mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA;
 var lambM, lambpM, lambrM, mrM, mcrM, mrdM;
@@ -12,6 +12,7 @@ var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
 var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 var ratioDSV, ratioDSM, ratiopDSV, ratiopDSM;
 var approved = [];
+var suggestion;
 
 
 var steelProp = [
@@ -82,6 +83,7 @@ function processFormDS() {
     gama = Number(document.formDS.gama.value);
     gama1 = Number(document.formDS.gama1.value);
     cb = Number(document.formDS.cb.value);
+    priority = document.formDS.priority.value;
     
     for (i = 0; i < perfis.length; i += 1) { //Looping through our available sections
         section = perfis[i].bitola;
@@ -259,7 +261,6 @@ function processFormDS() {
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            perfis.vrd = vrd;
             approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
         } else {
             result = "Não OK";
@@ -270,19 +271,72 @@ function processFormDS() {
     }
 
 /*
-    Ordering approved list and printing a log to check
+    APPROVED: Printing a log to check
 */
 
     for (i = 0; i < approved.length; i += 1) { //Log of approved
-        console.log(approved[i].perfis.bitola);
+        console.log(approved[i]);
     }
+    
+/*
+    Suggestion list
+*/
+    switch (priority) {
+    case "Maior aproveitamento quanto ao Esforço Cortante":
+        approved.sort(function (a, b) {return a.ratioDSV - b.ratioDSV});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Maior aproveitamento quanto ao Momento Fletor":
+        approved.sort(function (a, b) {return a.ratioDSM - b.ratioDSM});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor base":
+        approved.sort(function (a, b) {return a.bf - b.bf});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor altura":
+        approved.sort(function (a, b) {return a.d - b.d});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor massa linear em cada família W/HP": //incompleto
+        approved.sort(function (a, b) {return a.ml - b.ml});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor massa linear":
+        approved.sort(function (a, b) {return a.ml - b.ml});
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    }
+            
+/*
+    SUGGESTION: Printing a log to check
+*/
+
+    for (i = 0; i < suggestion.length; i += 1) { //Log of approved
+        console.log(suggestion[i]);
+    }
+    
+    
+}
+
     
     
 /*
     Cria um objeto aco
 */
 
-}
 
 
 var acoLista = document.getElementById("acos"),
@@ -300,4 +354,3 @@ function criarAco(nomeAco, linhaAco) {
 for (i = 0; i < steelProp.length; i += 1) {
     acoLista.appendChild(criarAco(steelProp[i].steelType, i));
 }
-
