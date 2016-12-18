@@ -274,7 +274,7 @@ function processFormDS() {
 */
 
     for (i = 0; i < approved.length; i += 1) { //Log of approved
-        console.log(approved[i]);
+        console.log(approved[i].perfis.bitola);
     }
     
     
