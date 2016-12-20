@@ -12,7 +12,7 @@ var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
 var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 var ratioDSV, ratioDSM, ratiopDSV, ratiopDSM;
 var approved = [];
-var suggestion;
+var suggestion = [];
 
 
 var steelProp = [
@@ -47,7 +47,7 @@ function processFormDS() {
     if (project === "") {
         project = "Exemplo 1";
     }
-        
+
     beam = document.formDS.beamDS.value;
     /* if (beam === "") {
         alert("Por favor preencha o campo Viga.");
@@ -261,7 +261,15 @@ function processFormDS() {
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
+            approved.push({
+              "perfil": perfis[i],
+              "vrd": vrd,
+              "mrdOut": mrdOut,
+              "ratioDSV": ratioDSV,
+              "ratioDSM": ratioDSM,
+              "ratiopDSV": ratiopDSV,
+              "ratiopDSM": ratiopDSM
+            }); // saves to a list of approved sections
         } else {
             result = "Não OK";
         }
