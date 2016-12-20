@@ -303,6 +303,7 @@ function processFormDS() {
         approved.sort(function (a, b) {
             return a.ratioDSM - b.ratioDSM;
         });
+        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
@@ -311,7 +312,6 @@ function processFormDS() {
         approved.sort(function (a, b) {
             return a.perfis.bf - b.perfis.bf;
         });
-        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
@@ -320,7 +320,6 @@ function processFormDS() {
         approved.sort(function (a, b) {
             return a.perfis.d - b.perfis.d;
         });
-        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
