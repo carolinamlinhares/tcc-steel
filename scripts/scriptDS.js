@@ -294,7 +294,6 @@ function processFormDS() {
         approved.sort(function (a, b) {
             return a.ratioDSV - b.ratioDSV;
         });
-        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
