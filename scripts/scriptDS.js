@@ -12,7 +12,7 @@ var lambT, lambpT, lambrT, mrT, mcrT, mrdT;
 var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, result;
 var ratioDSV, ratioDSM, ratiopDSV, ratiopDSM;
 var approved = [];
-var suggestion;
+var suggestion = [];
 
 
 var steelProp = [
@@ -261,7 +261,15 @@ function processFormDS() {
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
-            approved.push(perfis[i], vrd, mrdOut, ratioDSV, ratioDSM, ratiopDSV, ratiopDSM); // saves to a list of approved sections
+            approved.push({    // saves to a list of approved sections
+                "perfil": perfis[i],
+                "vrd": vrd,
+                "mrdOut": mrdOut,
+                "ratioDSV": ratioDSV,
+                "ratioDSM": ratioDSM,
+                "ratiopDSV": ratiopDSV,
+                "ratiopDSM": ratiopDSM
+            });
         } else {
             result = "Não OK";
         }
@@ -283,37 +291,52 @@ function processFormDS() {
 */
     switch (priority) {
     case "Maior aproveitamento quanto ao Esforço Cortante":
-        approved.sort(function (a, b) {return a.ratioDSV - b.ratioDSV});
+        approved.sort(function (a, b) {
+            return a.ratioDSV - b.ratioDSV;
+        });
+        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Maior aproveitamento quanto ao Momento Fletor":
-        approved.sort(function (a, b) {return a.ratioDSM - b.ratioDSM});
+        approved.sort(function (a, b) {
+            return a.ratioDSM - b.ratioDSM;
+        });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Menor base":
-        approved.sort(function (a, b) {return a.bf - b.bf});
+        approved.sort(function (a, b) {
+            return a.perfis.bf - b.perfis.bf;
+        });
+        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Menor altura":
-        approved.sort(function (a, b) {return a.d - b.d});
+        approved.sort(function (a, b) {
+            return a.perfis.d - b.perfis.d;
+        });
+        approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Menor massa linear em cada família W/HP": //incompleto
-        approved.sort(function (a, b) {return a.ml - b.ml});
+        approved.sort(function (a, b) {
+            return a.perfis.ml - b.perfis.ml;
+        });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Menor massa linear":
-        approved.sort(function (a, b) {return a.ml - b.ml});
+        approved.sort(function (a, b) {
+            return a.perfis.ml - b.perfis.ml;
+        });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
