@@ -334,7 +334,7 @@ function processFormDS() {
         break;
     case "Menor massa linear":
         approved.sort(function (a, b) {
-            return a.perfis.ml - b.perfis.ml;
+            return a.ml - b.ml;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
