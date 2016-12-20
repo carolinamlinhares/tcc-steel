@@ -30,7 +30,7 @@ var steelProp = [
     }
 ];
 
-kv = 5; // "Enricejedor" not available Kv = 5 
+kv = 5; // "Enrijecedor" not available Kv = 5 
 
 function processFormDS() {
     "use strict";
@@ -310,7 +310,7 @@ function processFormDS() {
         break;
     case "Menor base":
         approved.sort(function (a, b) {
-            return a.perfis.bf - b.perfis.bf;
+            return a.bf - b.bf;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
@@ -318,7 +318,7 @@ function processFormDS() {
         break;
     case "Menor altura":
         approved.sort(function (a, b) {
-            return a.perfis.d - b.perfis.d;
+            return a.d - b.d;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
@@ -326,7 +326,7 @@ function processFormDS() {
         break;
     case "Menor massa linear em cada família W/HP": //incompleto
         approved.sort(function (a, b) {
-            return a.perfis.ml - b.perfis.ml;
+            return a.ml - b.ml;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
