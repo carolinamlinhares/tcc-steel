@@ -34,8 +34,12 @@ kv = 5; // "Enrijecedor" not available Kv = 5
 
 function processFormDS() {
     "use strict";
-    var i, j;
+    var i, j, contFamily;
 
+    /* Clean suggestion array */
+    suggestion = [];
+    approved = [];
+    
     // Getting project values from HTML form inputs
         
     project = document.formDS.projectDS.value;
@@ -289,28 +293,32 @@ function processFormDS() {
 /*
     Suggestion list
 */
+    contFamily = [];
+    contFamily[610] = 0;
+    contFamily.fill(0);
+    
     switch (priority) {
     case "Maior aproveitamento quanto ao Esforço Cortante":
         approved.sort(function (a, b) {
-            return a.ratioDSV - b.ratioDSV;
+            return b.ratioDSV - a.ratioDSV;
         });
-        approved.reverse();
+        //approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Maior aproveitamento quanto ao Momento Fletor":
         approved.sort(function (a, b) {
-            return a.ratioDSM - b.ratioDSM;
+            return b.ratioDSM - a.ratioDSM;
         });
-        approved.reverse();
+        //approved.reverse();
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
         }
         break;
     case "Menor base":
         approved.sort(function (a, b) {
-            return a.bf - b.bf;
+            return a.perfil.bf - b.perfil.bf;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
@@ -318,7 +326,7 @@ function processFormDS() {
         break;
     case "Menor altura":
         approved.sort(function (a, b) {
-            return a.d - b.d;
+            return a.perfil.d - b.perfil.d;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
@@ -326,15 +334,18 @@ function processFormDS() {
         break;
     case "Menor massa linear em cada família W/HP": //incompleto
         approved.sort(function (a, b) {
-            return a.ml - b.ml;
+            return a.perfil.ml - b.perfil.ml;
         });
-        for (i = 0; i < 5; i += 1) {
-            suggestion[i] = approved[i];
+        for (i = 0; i < approved.length; i += 1) {
+            if (contFamily[approved[i].perfil.family] === 0) {
+                suggestion.push(approved[i]);
+                contFamily[approved[i].perfil.family] = 1;
+            }
         }
         break;
     case "Menor massa linear":
         approved.sort(function (a, b) {
-            return a.ml - b.ml;
+            return a.perfil.ml - b.perfil.ml;
         });
         for (i = 0; i < 5; i += 1) {
             suggestion[i] = approved[i];
