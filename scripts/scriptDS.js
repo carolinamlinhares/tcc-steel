@@ -361,7 +361,7 @@ function processFormDS() {
 */
 
     console.table(suggestion[i]);
-    alert("O perfil pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
+    alert("O perfil " + suggestion[0].perfil.bitola + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
 }
 
     
