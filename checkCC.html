@@ -30,14 +30,12 @@
 			<h2> DADOS </h2>
 
 			<label>Altura da viga (h):</label>
-			<select id="altura" name="hCC">
-			</select> <br>
+			<input type="text" name="hCC" /><br>
             
             <label>Largura da viga (bw):</label>
-			<select id="largura" name="bwCC">
-			</select> <br>
-
-            <label>Concreto Fck:</label>
+			<input type="text" name="bwCC" /> <br>
+			
+            <label>Concreto (Fck):</label>
 			<select id="concrete" name="concreteCC">
 			</select> <br>
    
@@ -52,12 +50,10 @@
 			</select> <br>
 
 			<label>Nº de camadas:</label>
-			<select id="layer" name="layerCC">
-			</select> <br> <br>
+			<input type="text" name="layerCC"><br>
 
 			<label>Nº de barras/camada:</label>
-			<select id="bars" name="barsCC">
-			</select> <br> <br>
+			<input type="text" name="barsCC"><br>
 
             <label>Bitola transversal:</label>
 			<select id="bitolaEst" name="estCC">
@@ -71,13 +67,15 @@
 			<h4> Coeficientes </h4>
 			
 			<label>Gama c</label>
-			<input type="text" name="gama" value=1.4 /> <br>
+			<input type="text" name="gamaCC" value=1.4 /> <br>
 			<label>Gama f</label>
-			<input type="text" name="gamac" value=1.4 /> <br>
+			<input type="text" name="gamacCC" value=1.4 /> <br>
 			<label>Gama s</label>
-			<input type="text" name="gamas" value=1.15 /> <br>
-
-			<br>
+			<input type="text" name="gamasCC" value=1.15 /> <br>
+            <label>Espaçamento entre camadas</label>
+			<input type="text" name="sCC" value=2.5 /> <br>
+			
+            <br>
 
 			<input type="button" value="Verificar" onClick="processFormCC()" /> <br>
 			<input type="button" value="Gerar Relatório" onClick="reportCC()" /> <br>
@@ -100,5 +98,3 @@
 	</body>
 
 </html>
-
-
