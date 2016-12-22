@@ -342,6 +342,9 @@ function processFormDS() {
                 contFamily[approved[i].perfil.family] = 1;
             }
         }
+        suggestion.sort(function (a, b) {
+            return a.perfil.family - b.perfil.family;
+        });
         break;
     case "Menor massa linear":
         approved.sort(function (a, b) {
@@ -357,11 +360,8 @@ function processFormDS() {
     SUGGESTION: Printing a log to check
 */
 
-    for (i = 0; i < suggestion.length; i += 1) { //Log of approved
-        console.log(suggestion[i]);
-    }
-    
-    
+    console.table(suggestion[i]);
+    alert("O perfil " + suggestion.perfil.bitola[0] + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
 }
 
     
