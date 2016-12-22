@@ -33,5 +33,7 @@ var resultado = [];
 
 resultado = JSON.parse(getJsonFromUrl().test);
 
+$(document).ready(function() {
+  $(".project").html(project);
+});
 
-$(".project").html(project);
