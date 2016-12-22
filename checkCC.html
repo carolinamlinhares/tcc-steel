@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Plataforma educacional para dimensionamento de vigas em concreto armado.">
+		<meta name="author" content="Juliana Libório">
+
+		<title>Verificação de Vigas em Concreto Armado</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1> Verificação de Vigas em Concreto Armado </h1>
+		</div>
+		<div class="form">
+		<form name="formCC">
+			<label>Projeto:</label>
+			<input type="text" name="projectCC" placeholder="Ex.: Edifício Canadá"/> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamCC" placeholder="Identifique a viga. Ex.: V1" /> <br>
+
+			<label>Norma:</label>
+			<select name="standard">
+				<option value="NBR 6118:2014"> NBR 6118:2014 </option> 
+			</select> <br> 
+
+			<h2> DADOS </h2>
+
+			<label>Altura da viga (h):</label>
+			<select id="altura" name="hCC">
+			</select> <br>
+            
+            <label>Largura da viga (bw):</label>
+			<select id="largura" name="bwCC">
+			</select> <br>
+
+            <label>Concreto Fck:</label>
+			<select id="concrete" name="concreteCC">
+			</select> <br>
+   
+            <label>Aço:</label>
+			<select id="steel" name="steelCC">
+			</select> <br>
+            
+			<h3> ARRANJO </h3>
+   
+            <label>Bitola longitudinal:</label>
+			<select id="bitolaLong" name="longCC">
+			</select> <br>
+
+			<label>Nº de camadas:</label>
+			<select id="layer" name="layerCC">
+			</select> <br> <br>
+
+			<label>Nº de barras/camada:</label>
+			<select id="bars" name="barsCC">
+			</select> <br> <br>
+
+            <label>Bitola transversal:</label>
+			<select id="bitolaEst" name="estCC">
+			</select> <br>
+
+            <h2> Esforços </h2>
+			
+			<label>Momento Fletor Mk (kN.m):</label>
+			<input type="text" name="mCC" /> <br>
+
+			<h4> Coeficientes </h4>
+			
+			<label>Gama c</label>
+			<input type="text" name="gama" value=1.4 /> <br>
+			<label>Gama f</label>
+			<input type="text" name="gamac" value=1.4 /> <br>
+			<label>Gama s</label>
+			<input type="text" name="gamas" value=1.15 /> <br>
+
+			<br>
+
+			<input type="button" value="Verificar" onClick="processFormCC()" /> <br>
+			<input type="button" value="Gerar Relatório" onClick="reportCC()" /> <br>
+			<input type="reset" value="Limpar" /> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+		</div>
+		
+		<!-- Only to access pages while testing -->
+		<input type="button" value="Dimensionar" onclick="window.location.href='designS.html'">
+		<input type="button" value="Relatorio" onclick="window.location.href='relatorio.html'">
+        <a id="botaoRelatorio" href="reportCS.html"> RELATORIO </a>
+
+		<script type="text/javascript" src="scripts/perfis.js"></script>
+		<script type="text/javascript" src="scripts/script.js"></script>
+	</body>
+
+</html>
+
 
