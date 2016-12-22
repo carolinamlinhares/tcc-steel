@@ -349,7 +349,7 @@ function processFormCS() {
             "ratiopCSM":ratiopCSM
         };
     
-    document.getElementById("botaoRelatorio").href = "reportCS.html?test=" + JSON.stringify(resultado);
+    document.getElementById("botaoRelatorio").href = "relatorio.html?test=" + JSON.stringify(resultado);
 }
 
 /*
