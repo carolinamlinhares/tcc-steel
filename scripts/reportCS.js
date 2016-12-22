@@ -28,11 +28,6 @@ function getJsonFromUrl(hashBased) {
         });
         return result;
     }
-        var endereco = getJsonFromUrl();
-        var texto = document.createElement("h1");
-        var textoEl = document.createTextNode(endereco.test);
-        texto.appendChild(textoEl);
-        document.body.appendChild(texto);
 
 var resultado = [];
 
