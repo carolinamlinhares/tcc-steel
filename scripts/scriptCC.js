@@ -251,7 +251,7 @@ function processFormCC() {
     
     // Results
     msd = mk * gamaf;
-    alert(msd);
+    alert("O programa funciona. Favor testar.");
 }
         
   /*  
