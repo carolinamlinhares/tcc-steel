@@ -6,7 +6,7 @@ var project, beam, mk, concrete, steel;
 var x, tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
 var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong, av, ncam, n;
-var mk, md;
+var mk, msd, md;
 var x2lim, x3lim, dominio;
 var gamac, gamaf, gamas, s;
 var result, situationD, situationLN;
@@ -51,7 +51,7 @@ var bitola = [
     {
         "diametro": 40.0,
         "area": 12.50
-    }        
+    }
     
 ];
 
@@ -149,7 +149,7 @@ function processFormCC() {
     }
     
     ncam = Number(document.formCC.layerCC.value);
-    if (document.formCC.layerCC.value === "" || isNaN(ncamForm)) {
+    if (document.formCC.layerCC.value === "" || isNaN(ncam)) {
         alert("Por favor preencha o campo Nº de Camadas com números.");
         console.log("Por favor preencha o campo Nº de Camadas.");
         return false;
@@ -181,7 +181,7 @@ function processFormCC() {
     // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLong").value);
 
-    as = (bitola[i].area) * n * ncamForm;
+    as = (bitola[i].area) * n * ncam;
     
     // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
@@ -251,8 +251,8 @@ function processFormCC() {
     
     // Results
     msd = mk * gamaf;
-    
-    
+    alert(msd);
+}
         
   /*  
    
