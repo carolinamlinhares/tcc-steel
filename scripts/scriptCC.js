@@ -163,7 +163,7 @@ function processFormCC() {
     }
     
     mk = Number(document.formCC.mCC.value);
-    if (document.formCS.mCS.value === "" || isNaN(mk)) {
+    if (document.formCC.mCC.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
         console.log("Por favor preencha o campo Momento.");
         return false;
