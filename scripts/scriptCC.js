@@ -169,7 +169,7 @@ function processFormCC() {
         return false;
     }
     
-    concrete = concretePro[(document.formCC.concreteCC.value)].concType;
+    concrete = concreteProp[(document.formCC.concreteCC.value)].concType;
     steel = steelProp[(document.formCC.steelCC.value)].steelType;
     diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
     diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro;
