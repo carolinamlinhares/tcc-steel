@@ -264,7 +264,7 @@ function processFormCC() {
     } else if (md < msd && situationD = "Aprovado" && situationLN = "Aprovado"){
         result = "Reprovado Momento";
         alert("Viga reprovada Momento");
-    
+ }
         
   /*  
    
