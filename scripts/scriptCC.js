@@ -395,5 +395,5 @@ function criarConcreto(nomeConcreto, linhaConcreto) {
 }
     
 for (i = 0; i < concreteProp.length; i += 1) {
-    concretoLista.appendChild(criarConcreto(steelProp[i].concType, i));
+    concretoLista.appendChild(criarConcreto(concreteProp[i].concType, i));
 }
