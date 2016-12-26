@@ -252,19 +252,7 @@ function processFormCC() {
     // Results
     msd = mk * gamaf;
     
-    if (md > msd && situationD = "Aprovado" && situationLN = "Aprovado"){
-        result = "Aprovado";
-        alert("Viga aprovada");
-    } else if (md >= msd && situationD = "Aprovado" && situationLN = "Rerovado"){
-        result = "Reprovado devido LN";
-        alert("Viga reprovada LN");
-    } else if (md >= msd && situationD = "Reprovado" && situationLN = "Aprovado"){
-        result = "Reprovado Dominio";
-        alert("Viga reprovada Dominio");
-    } else if (md < msd && situationD = "Aprovado" && situationLN = "Aprovado"){
-        result = "Reprovado Momento";
-        alert("Viga reprovada Momento");
- }
+    
         
   /*  
    
