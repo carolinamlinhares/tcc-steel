@@ -35,7 +35,7 @@ var resultado = [];
 resultado = JSON.parse(getJsonFromUrl().test);
 
 var text1 = "Como " + resultado.lambA + " = " + '\\(c=\\frac{2}{3x}\\) ' + " = " + resultado.lambpA
-MathJax.Hub.Queue(["Typeset",MathJax.Hub, text1])
+
 
 $(document).ready(function() {
     $(".project").html(resultado.project);
