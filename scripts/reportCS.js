@@ -34,8 +34,8 @@ var resultado = [];
 
 resultado = JSON.parse(getJsonFromUrl().test);
 
-var text1 = "Como " + resultado.lambA + " = " + "<span id="text1"> \\(c=\frac{2}{3x}+\ \mathop{\int\!\!\!\!\int}{xdx}\\) </span>" + " = " + resultado.lambpA
-MathJax.Hub.Queue(["Typeset",MathJax.Hub,'text1'])
+var text1 = "Como " + resultado.lambA + " = " + "<span> \\(c=\frac{2}{3x}+\ \mathop{\int\!\!\!\!\int}{xdx}\\) </span>" + " = " + resultado.lambpA
+MathJax.Hub.Queue(["Typeset",MathJax.Hub, text1])
 
 $(document).ready(function() {
     $(".project").html(resultado.project);
