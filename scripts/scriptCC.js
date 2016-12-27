@@ -60,19 +60,19 @@ var steelProp = [
         "steelType": "CA25",
         "fy": 250,
         "fu": 217.4,
-        "E": 210000
+        "E": 21000
     },
     {
         "steelType": "CA50",
         "fy": 500,
         "fu": 434.8,
-        "E": 210000
+        "E": 21000
     },
     {
         "steelType": "CA60",
         "fy": 600,
         "fu": 521.7,
-        "E": 210000
+        "E": 21000
     }
 ];
 
@@ -214,7 +214,7 @@ function processFormCC() {
     
     // Establishing Dominio limits
     betax23 = epc / (epc + eps);
-    epyd = fyd / Es;
+    epyd = fyd / (Es*1000);
     betax34 = epc / (epc + epyd);
     
     // Calculating d (altura útil)
