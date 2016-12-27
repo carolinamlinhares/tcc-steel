@@ -214,7 +214,7 @@ function processFormCC() {
     
     // Establishing Dominio limits
     betax23 = epc / (epc + eps);
-    epyd = fyd / (Es*1000);
+    epyd = (fyd / Es)*1000;
     betax34 = epc / (epc + epyd);
     
     // Calculating d (altura útil)
