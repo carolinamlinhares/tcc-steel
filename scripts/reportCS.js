@@ -34,7 +34,13 @@ var resultado = [];
 
 resultado = JSON.parse(getJsonFromUrl().test);
 
+var text1 = "Como" + lambA + "=" + "\(c=\frac{2}{3x}+\ \mathop{\int\!\!\!\!\int}{xdx}\)" + " = " + lambpA
+
+
 $(document).ready(function() {
-  $(".project").html(resultado.project);
+    $(".project").html(resultado.project);
+    $("#text1").html(text1);
+    
+    
 });
 
