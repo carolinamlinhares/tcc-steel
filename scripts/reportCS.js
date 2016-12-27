@@ -40,7 +40,7 @@ MathJax.Hub.Queue(["Typeset",MathJax.Hub, text1])
 $(document).ready(function() {
     $(".project").html(resultado.project);
     $("#text1").html(text1);
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub,'text1'])
+    
     
     
 });
