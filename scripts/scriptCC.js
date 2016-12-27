@@ -5,7 +5,7 @@
 var project, beam, mk, concrete, steel;
 var x, tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
-var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong, av, ncam, n;
+var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong, ncam, n;
 var mk, msd, md;
 var x2lim, x3lim, dominio;
 var gamac, gamaf, gamas, s;
@@ -220,7 +220,7 @@ function processFormCC() {
     
     // Calculating d (altura útil)
     
-    d = h - (cob + diamEst + 0.5 * diamLong + ((ncam - 1) * (diamLong + av)));
+    d = h - (cob + diamEst + 0.5 * diamLong + ((ncam - 1) * (diamLong + s)));
       
     // Checking Dominio
     
