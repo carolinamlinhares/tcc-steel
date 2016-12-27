@@ -40,6 +40,7 @@ var text1 = "Como " + resultado.lambA + " = " + "<span> \\(c=\frac{2}{3x}+\ \mat
 $(document).ready(function() {
     $(".project").html(resultado.project);
     $("#text1").html(text1);
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,'text1'])
     
     
 });
