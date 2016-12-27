@@ -251,7 +251,12 @@ function processFormCC() {
     
     // Results
     msd = mk * gamaf;
-    alert("O programa funciona. Favor testar.");
+    if (msd <= md) {
+        result = "Aprovada";
+    } else {
+        result = "Reprovada";
+    }
+    alert(result);
 }
         
   /*  
