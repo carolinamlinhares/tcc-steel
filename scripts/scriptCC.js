@@ -224,8 +224,8 @@ function processFormCC() {
       
     // Checking Dominio
     
-    x2lim = 0.259 * d;
-    x3lim = 0.628 * d;
+    x2lim = betax23 * d;
+    x3lim = betax34 * d;
     
     if (x > x2lim && x < x3lim) {
         dominio = "Domínio 3";
