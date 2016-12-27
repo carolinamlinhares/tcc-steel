@@ -177,7 +177,8 @@ function processFormCC() {
     gamaf = Number(document.formCC.gamafCC.value);
     gamas = Number(document.formCC.gamasCC.value);
     s = Number(document.formCC.sCC.value);
-    
+    cob = Number(document.formCC.cobCC.value);
+        
     // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLong").value);
 
