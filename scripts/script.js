@@ -71,7 +71,7 @@ function processFormCS() {
         return false;
     }
     
-    if (document.getElementById("stiffeningCS").checked === true) {
+    if (document.getElementById("stiffeningCS").checked === false) {
         enrij = false;
         a = Number(document.formCS.aCS.value);
         if (document.formCS.aCS.value === "" || isNaN(a)) {
