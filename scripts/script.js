@@ -275,6 +275,8 @@ function processFormCS() {
         alert("Não OK");
     }
     
+    // Fixing decimals 
+    
     lambV = lambV.toFixed(2);
     lambpV = lambpV.toFixed(2);
     lambrV = lambrV.toFixed(2);
@@ -284,31 +286,31 @@ function processFormCS() {
     lambA = lambA.toFixed(2);
     lambpA = lambpA.toFixed(2);
     lambrA = lambrA.toFixed(2);
-    if (mrA !== "undefined") {
+    if (typeof (mrA) !== "undefined") {
         mrA = mrA.toFixed(2);
     }
-    if (mcrA !== "undefined") {
-        mcrA = mrA.toFixed(2);
+    if (typeof (mcrA) !== "undefined") {
+        mcrA = mcrA.toFixed(2);
     }
     mrdA = mrdA.toFixed(2);
     lambM = lambM.toFixed(2);
     lambpM = lambpM.toFixed(2);
     lambrM = lambrM.toFixed(2);
-    if (mrM !== "undefined") {
-        mrM = mrA.toFixed(2);
+    if (typeof (mrM) !== "undefined") {
+        mrM = mrM.toFixed(2);
     }
-    if (mcrM !== "undefined") {
-        mcrM = mrA.toFixed(2);
+    if (typeof (mcrM) !== "undefined") {
+        mcrM = mcrM.toFixed(2);
     }
     mrdM = mrdM.toFixed(2);
     lambT = lambT.toFixed(2);
     lambpT = lambpT.toFixed(2);
     lambrT = lambrT.toFixed(2);
-    if (mrT !== "undefined") {
-        mrT = mrA.toFixed(2);
+    if (typeof (mrT) !== "undefined") {
+        mrT = mrT.toFixed(2);
     }
-    if (mcrT !== "undefined") {
-        mcrT = mrA.toFixed(2);
+    if (typeof (mcrT) !== "undefined") {
+        mcrT = mcrT.toFixed(2);
     }
     mrdT = mrdT.toFixed(2);
     vsd = vsd.toFixed(2);
