@@ -194,7 +194,7 @@ function processFormDC() {
     
     //CÁLCULO DO MOMENTO FLETOR MAJORADO
 
-    md = mk * gamaf;
+    msd = mk * gamaf;
 
     //CÁLCULO DA ALTURA ÚTIL (d)
 
