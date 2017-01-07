@@ -19,64 +19,107 @@
         <h1> Relatório de Verificação </h1>
         
         <div>
-        <p> Projeto <span class="project"> </span> m</p>
+        <p> Projeto <span class="project"> </span> </p>
         <p> Viga <span class="beam"> </span></p>
-        <p> Distância entre travamentos laterais <span class="steel"> </span> </p>
+        <p> Distância entre travamentos laterais <span class="lbForm"> </span> m </p>
         <p> Aço <span class="steel"> </span> </p>
-        <p> fy <span class="fyForm"> </span> </p>
-        <p> fu <span class="fuForm"> </span> </p>
-        <p> Módulo de elasticidade E <span class="E"> </span> </p>    
+        <p> fy <span class="fyForm"> </span> MPa </p>
+        <p> fu <span class="fuForm"> </span> MPa </p>
+        <p> Módulo de elasticidade E <span class="E"> </span> MPa </p>    
         <h4> Esforços </h4>
-        <p> Cortante <span class="vk">  </p>
-        <p> Momento <span class="mk"> </p>
+        <p> Cortante <span class="vk"> KN </p>
+        <p> Momento <span class="mk"> KN </p>
         <p> gama = <span class="bf"> </span> </p>
         <p> gama a1 = <span class="bf"> </span> </p>
-        <p> Cb = <span class="cb"> </span> </p>    
+        <p> Cb = <span class="cb"> </span> </p>
+        <p> Perfil sem enrijecedor <span id="enrij"> </span> </p>
+        <p> Distância entre enrijecedores <span class="a"> </span> m </p>
         </div>
         
         <div>
-        <h4> Perfil </h4>
-        <p> Massa Linear <span id="ml"> </span> </p>
-        <p> d = <span id="d"> </span> </p>
-        <p> bf = <span id="bf"> </span> </p>
-        <p> tw = <span id="tw"> </span> </p>
-        <p> tf = <span id="tf"> </span> </p>
-        <p> h = <span id="h"> </span> </p>
-        <p> dl = <span id="dl"> </span> </p>
-        <p> Área = <span id="tf"> </span> </p>
-        <p> Ix <span id="ix"> </span> </p>
-        <p> Wx <span id="wx"> </span> </p>
-        <p> rx <span id="rx"> </span> </p>
-        <p> Zx <span id="zx"> </span> </p>
-        <p> Iy <span id="iy"> </span> </p>
-        <p> Wy <span id="wy"> </span> </p>
-        <p> ry <span id="ry"> </span> </p>
-        <p> Zy <span id="zy"> </span> </p>
-        <p> rt <span id="rt"> </span> </p>
-        <p> It <span id="it"> </span> </p>
+        <h4> Perfil <span id="section"> </span> </h4>
+        <p> Massa Linear <span id="ml"> </span> kg/m </p>
+        <p> d = <span id="d"> </span> mm </p>
+        <p> bf = <span id="bf"> </span> mm </p>
+        <p> tw = <span class="tw"> </span> mm </p>
+        <p> tf = <span id="tf"> </span> mm </p>
+        <p> h = <span class="h"> </span> mm </p>
+        <p> d' = <span id="dl"> </span> mm </p>
+        <p> Área = <span id="area"> </span> \({cm}^2\) </p>
+        <p> Ix <span id="ix"> </span> \({cm}^4\) </p>
+        <p> Wx <span id="wx"> </span> \({cm}^3\) </p>
+        <p> rx <span id="rx"> </span> cm </p>
+        <p> Zx <span id="zx"> </span> \({cm}^3\) </p>
+        <p> Iy <span id="iy"> </span> \({cm}^4\) </p>
+        <p> Wy <span id="wy"> </span> \({cm}^3\) </p>
+        <p> ry <span id="ry"> </span> cm </p>
+        <p> Zy <span id="zy"> </span> \({cm}^3\) </p>
+        <p> rt <span id="rt"> </span> cm </p>
+        <p> It <span id="it"> </span> \({cm}^4\) </p>
         <p> Esbeltez da mesa <span id="aba"> </span> </p>
         <p> Esbeltez da alma <span id="alma"> </span> </p>
-        <p> Cw <span id="cw"> </span> </p>
-        <p> u <span id="u"> </span> </p>
-        <p> Perfil sem enrijecedor <span id="enrij"> </span> </p>
+        <p> Cw <span id="cw"> </span> \({cm}^6\) </p>
+        <p> u <span id="u"> </span> \({m}^2\)/m </p>
+        
         </div>
         
-        <p> Para a verificação de uma viga metálica deve-se analisar a mesma pelo Estado Limite Último (ELU) e o Estado Limite de Serviço (ELS). O ELU avalia a viga pelos esforço cortante e o momento fletor máximo, enquanto o ELS analisa o deslocamento e a vibração da viga. Esta rotina avalia a viga quanto ao Estado Limite Último (ELU) de acordo com a norma brasileira NBR 8800:2008. </p>
+        <p> Para a verificação de uma viga metálica deve-se analisar a mesma pelo Estado Limite Último (ELU) e o Estado Limite de Serviço (ELS). O ELU avalia a viga pelos esforço cortante e o momento fletor máximo, enquanto o ELS analisa o deslocamento e a vibração da viga. Este relatório avalia a viga quanto ao Estado Limite Último (ELU) de acordo com a norma brasileira NBR 8800:2008. </p>
         
-        <h4> Estado de Limite Último (ELU) </h4>
+        <h2> Estado de Limite Último (ELU) </h2>
         
         <p> O cálculo do esforço cortante e o momento fletor resistente da viga são dependentes do parâmetro de esbeltez, dividida em categorias:</p>
         
-        <p> λ - parâmetro de esbeltez característico; </p>
-        <p> λ_p- parâmetro de esbeltez correspondente à plastificação; </p>
-        <p> λ_r- parâmetro de esbeltez correspondente ao início do escoamento. </p>
+        <p> \(λ\) - parâmetro de esbeltez característico; <br>
+            \(λ_p\) - parâmetro de esbeltez correspondente à plastificação; <br>
+            \(λ_r\) - parâmetro de esbeltez correspondente ao início do escoamento. </p>
 
         <p>Os limites de plastificação e escoamento ditam a situação do perfil perante aos esforços aplicados. Logo, as equações para cálculo do momento resistente são específicas para cada situação. Teremos:</p>
         
-        <p>   λ ≤ $λ_p$ = Caso 1 <br>
-              \(λ_p\)<λ ≤ λ_r = Caso 2 <br>
-              λ > λ_r = Caso 3 <br> 
-       </p>
+        <p>   \(λ\) ≤ \(λ_p\) = Caso 1 <br>
+              \(λ_p\) < \(λ\) ≤ \(λ_r\) = Caso 2 <br>
+              \(λ\) > \(λ_r\) = Caso 3 <br> 
+        </p>
+        
+        <h3> I. Esforço Cortante </h3>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{h}{t_w}\) = <span id="lambV"></span> </p>
+        
+        <p> Onde: <br>
+        h = altura da alma, tomada igual à distância entre faces internas das mesas nos perfis soldados e igual a esse valor menos os dois raios de concordância entre mesa e alma nos perfis laminados e igual ao comprimento da parte plana nas seções tubulares retangulares = <span class="h"> </span> mm; <br>
+        \(t_w\)= espessura da alma = <span class="tw"> </span> mm.
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação \(λ_p\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=1,10\sqrt{\frac{k_v\times E}{f_y}}\) = <span id="lambpV"></span> </p>
+        
+        <p> Onde: <br>
+        \(f_y\) = resistência ao escoamento do aço = <span class="fyForm"> </span> MPa <br>
+        E = módulo de elasticidade do aço = <span class="E"> </span> MPa <br>
+        \(k_v\) = DESCREVER <br>
+            
+        \(k_v\) = 5, para perfis sem enrijecedores ou \(\frac{a}{h}>3\) ou \(\frac{a}{h}>({\frac{260}{{h}/{tw}})}^2\) <br>
+        \(k_v=5+\frac{5}{{({a}/{h})}^2}\), para os demais casos, sendo a distância entre enrijecedores. <br>
+            
+        Neste caso temos, \(k_v\) = <span id="kv"> </span> . 
+        </p>
+    
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento \(λ_r\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=1,37\sqrt{\frac{k_v\times E}{f_y}}\)  = <span id="lambrV"></span> </p>
+        
+        <h5> Cálculo do Esforço Cortante Resistente \(V_{rd}\) </h5>
+        
+        <span id="textV"></span>
+        
+        <h3> II. Momento Fletor </h3>
+        
+        
+        
+        
+        
         
         <span id="text1"> </span>
         
@@ -113,45 +156,5 @@
     
     </body>
 
-    
-    <script type="text/javascript">
-        
-    function getJsonFromUrl(hashBased) {
-        var query;
-        if (hashBased) {
-            var pos = location.href.indexOf("?");
-            if (pos == -1) return [];
-            query = location.href.substr(pos + 1);
-        } else {
-            query = location.search.substr(1);
-        }
-        var result = {};
-        query.split("&").forEach(function(part) {
-            if (!part) return;
-            part = part.split("+").join(" "); // replace every + with space, regexp-free version
-            var eq = part.indexOf("=");
-            var key = eq > -1 ? part.substr(0, eq) : part;
-            var val = eq > -1 ? decodeURIComponent(part.substr(eq + 1)) : "";
-            var from = key.indexOf("[");
-            if (from == -1) result[decodeURIComponent(key)] = val;
-            else {
-                var to = key.indexOf("]");
-                var index = decodeURIComponent(key.substring(from + 1, to));
-                key = decodeURIComponent(key.substring(0, from));
-                if (!result[key]) result[key] = [];
-                if (!index) result[key].push(val);
-                else result[key][index] = val;
-            }
-        });
-        return result;
-    }
-        var endereco = getJsonFromUrl();
-        var texto = document.createElement("h1");
-        var textoEl = document.createTextNode(endereco.test);
-        texto.appendChild(textoEl);
-        document.body.appendChild(texto);
-	    
-	    
-    </script>
     
 </html>
