@@ -142,7 +142,7 @@ function processFormDC() {
     }
     
     bw = Number(document.formDC.bwDC.value);
-    if (document.formCC.bwCC.value === "" || isNaN(bw)) {
+    if (document.formCC.bwDC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Largura da Viga com números.");
         console.log("Por favor preencha o campo Largura da Viga.");
         return false;
