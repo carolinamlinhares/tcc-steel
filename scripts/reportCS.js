@@ -43,7 +43,7 @@ var textT1, textT2, textT3;
 
 // Building variable texts
 
-textV1 = "<p> Como " + resultado.lambV + "≤ " + resultado.lambpV + ", " + "\\(λ\\)" + " ≤ " + "\\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w=\\ \\textrm{\\'{a}}rea\\ da\\ alma=d\\times t_w\\) = " + resultado.aw + "\\({cm}^4\\) </p>"; 
+textV1 = "<p> Como " + resultado.lambV + "≤ " + resultado.lambpV + ", " + "\\(λ\\)" + " ≤ " + "\\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^4\\) </p>"; 
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV1]);
 
 
