@@ -261,7 +261,7 @@ function processFormDC() {
 
     //CÁLCULO DA ÁREA DE AÇO
 
-    as = md/(d-0.4*x);
+    as = md/(tsd*(d-0.4*x));
     result = as;
     alert(result);
     
