@@ -6,6 +6,7 @@ var project, beam, mk, concrete, steel;
 var tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
 var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong;
+var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
@@ -214,20 +215,19 @@ function processFormDC() {
     //md = 0.68*bw*x*fcd*(d-0.4*x);
     //(0.4*x^2)+(d*x)+(md/(0.68*bw*fcd))=0
     
-    var a, b, c, delta;
     a = 0.4;
     b = -d;
     c = md/(0.68*bw*fcd);
     delta = Math.pow(b , 2) - ((4 * a)*c);
     
     if( delta > 0){
-	    var deltaR = Math.sqrt(delta);
-		var  x1 = ((-b +  deltaR)  /(2 * a));
-		var  x2 = ((-b -  deltaR)  /(2 * a));
+	deltaR = Math.sqrt(delta);
+	x1 = ((-b +  deltaR)  /(2 * a));
+	x2 = ((-b -  deltaR)  /(2 * a));
 		    	}
                 else{
-						x1 = ("Sem raiz");
-						x2 = ("Sem raiz");
+			x1 = ("Sem raiz");
+			x2 = ("Sem raiz");
                     }
     
     if (x1 > h) {
