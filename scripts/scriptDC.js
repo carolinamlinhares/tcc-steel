@@ -194,16 +194,13 @@ function processFormDC() {
     eps = 10.0;
     
     //CÁLCULO DO MOMENTO FLETOR MAJORADO
-
     md = mk * gamaf;
 
     //CÁLCULO DA ALTURA ÚTIL (d)
-
-    d = h-dl;
     dl = 3.0; //(estimar valor entre 3 e 6 cm)/
-
+    d = h-dl;
+    
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
-
     //DOMÍNIO 2
     betax23 = epc/(epc+eps)
    
@@ -214,7 +211,7 @@ function processFormDC() {
     //CÁLCULO DA POSIÇÃO DA LINHA NEUTRA (x)
     //md = 0.68*bw*x*fcd*(d-0.4*x);
     //(0.4*x^2)+(d*x)+(md/(0.68*bw*fcd))=0
-    
+	
     a = 0.4;
     b = -1*d;
     c = md/(0.68*bw*fcd);
