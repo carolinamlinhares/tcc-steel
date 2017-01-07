@@ -6,7 +6,7 @@ var project, beam, mk, concrete, steel;
 var tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
 var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong;
-var x, mk, msd, md;
+var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var result, situationD, situationLN;
@@ -194,7 +194,7 @@ function processFormDC() {
     
     //CÁLCULO DO MOMENTO FLETOR MAJORADO
 
-    msd = mk * gamaf;
+    md = mk * gamaf;
 
     //CÁLCULO DA ALTURA ÚTIL (d)
 
@@ -211,9 +211,31 @@ function processFormDC() {
     betax34 = epc/(epc+epyd);
     
     //CÁLCULO DA POSIÇÃO DA LINHA NEUTRA (x)
-
-    md = 0.68*bw*x*fcd*(d-0.4*x);
-
+    //md = 0.68*bw*x*fcd*(d-0.4*x);
+    //(0.4*x^2)+(d*x)+(md/(0.68*bw*fcd))=0
+    
+    var a, b, c, delta;
+    a = 0.4;
+    b = -d;
+    c = md/(0.68*bw*fcd);
+    delta = Math.pow(b , 2) - ((4 * a)*c);
+    
+    if( delta > 0){
+	    var deltaR = Math.sqrt(delta);
+		var  x1 = ((-b +  deltaR)  /(2 * a));
+		var  x2 = ((-b -  deltaR)  /(2 * a));
+		    	}
+                else{
+						x1 = ("Sem raiz");
+						x2 = ("Sem raiz");
+                    }
+    
+    if (x1 > h) {
+        x = x2
+                }
+            else{
+            x = x1
+                }
     //VERIFICAÇÃO DO DOMÍNIO DA VIGA
 
     x2lim = betax23 * d;
