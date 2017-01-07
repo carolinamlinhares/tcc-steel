@@ -196,6 +196,7 @@ function processFormCS() {
     case "Caso 3":
         // mcrA = Anexo H
         mrdA = mcrA / gama1;
+        alert("Cálculo indisponível. Viga com perfil de alma esbelta. Consulte o anexo H da Norma 8800:2008");
         break;
     }
     
