@@ -119,13 +119,13 @@ $(document).ready(function () {
     // Situation V
     switch (resultado.situationV) {
         case "Caso 1":
-            $(#textV).html(textV1);
+            $("#textV").html(textV1);
             break;
         case "Caso 2":
-            $(#textV).html(textV2);
+            $("#textV").html(textV2);
             break;
         case "Caso 3":
-            $(#textV).html(textV3);
+            $("#textV").html(textV3);
             break;
     }
     
@@ -139,8 +139,7 @@ $(document).ready(function () {
     
     
     
-    
-    
+        
     
     
     
