@@ -216,7 +216,7 @@ function processFormDC() {
     //(0.4*x^2)+(d*x)+(md/(0.68*bw*fcd))=0
     
     a = 0.4;
-    b = -d;
+    b = -1*d;
     c = md/(0.68*bw*fcd);
     delta = Math.pow(b , 2) - ((4 * a)*c);
     
