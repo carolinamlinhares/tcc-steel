@@ -27,10 +27,10 @@
         <p> fu <span class="fuForm"> </span> MPa </p>
         <p> Módulo de elasticidade E <span class="E"> </span> MPa </p>    
         <h4> Esforços </h4>
-        <p> Cortante <span class="vk"> KN </p>
-        <p> Momento <span class="mk"> KN </p>
-        <p> gama = <span class="bf"> </span> </p>
-        <p> gama a1 = <span class="bf"> </span> </p>
+        <p> Cortante <span class="vk"> </span> KN </p>
+        <p> Momento <span class="mk"> </span> KN.m </p>
+        <p> gama = <span class="gama"> </span> </p>
+        <p> gama a1 = <span class="gama1"> </span> </p>
         <p> Cb = <span class="cb"> </span> </p>
         <p> Perfil sem enrijecedor <span id="enrij"> </span> </p>
         <p> Distância entre enrijecedores <span class="a"> </span> m </p>
@@ -46,20 +46,20 @@
         <p> h = <span class="h"> </span> mm </p>
         <p> d' = <span id="dl"> </span> mm </p>
         <p> Área = <span id="area"> </span> \({cm}^2\) </p>
-        <p> Ix <span id="ix"> </span> \({cm}^4\) </p>
-        <p> Wx <span id="wx"> </span> \({cm}^3\) </p>
-        <p> rx <span id="rx"> </span> cm </p>
-        <p> Zx <span id="zx"> </span> \({cm}^3\) </p>
-        <p> Iy <span id="iy"> </span> \({cm}^4\) </p>
-        <p> Wy <span id="wy"> </span> \({cm}^3\) </p>
-        <p> ry <span id="ry"> </span> cm </p>
-        <p> Zy <span id="zy"> </span> \({cm}^3\) </p>
-        <p> rt <span id="rt"> </span> cm </p>
-        <p> It <span id="it"> </span> \({cm}^4\) </p>
-        <p> Esbeltez da mesa <span id="aba"> </span> </p>
-        <p> Esbeltez da alma <span id="alma"> </span> </p>
-        <p> Cw <span id="cw"> </span> \({cm}^6\) </p>
-        <p> u <span id="u"> </span> \({m}^2\)/m </p>
+        <p> Ix = <span id="ix"> </span> \({cm}^4\) </p>
+        <p> Wx = <span id="wx"> </span> \({cm}^3\) </p>
+        <p> rx = <span id="rx"> </span> cm </p>
+        <p> Zx = <span id="zx"> </span> \({cm}^3\) </p>
+        <p> Iy = <span id="iy"> </span> \({cm}^4\) </p>
+        <p> Wy = <span id="wy"> </span> \({cm}^3\) </p>
+        <p> ry = <span id="ry"> </span> cm </p>
+        <p> Zy = <span id="zy"> </span> \({cm}^3\) </p>
+        <p> rt = <span id="rt"> </span> cm </p>
+        <p> It = <span id="it"> </span> \({cm}^4\) </p>
+        <p> Esbeltez da mesa = <span id="aba"> </span> </p>
+        <p> Esbeltez da alma = <span id="alma"> </span> </p>
+        <p> Cw = <span id="cw"> </span> \({cm}^6\) </p>
+        <p> u = <span id="u"> </span> \({m}^2\)/m </p>
         
         </div>
         
@@ -156,5 +156,45 @@
     
     </body>
 
+    
+    <script type="text/javascript">
+        
+    function getJsonFromUrl(hashBased) {
+        var query;
+        if (hashBased) {
+            var pos = location.href.indexOf("?");
+            if (pos == -1) return [];
+            query = location.href.substr(pos + 1);
+        } else {
+            query = location.search.substr(1);
+        }
+        var result = {};
+        query.split("&").forEach(function(part) {
+            if (!part) return;
+            part = part.split("+").join(" "); // replace every + with space, regexp-free version
+            var eq = part.indexOf("=");
+            var key = eq > -1 ? part.substr(0, eq) : part;
+            var val = eq > -1 ? decodeURIComponent(part.substr(eq + 1)) : "";
+            var from = key.indexOf("[");
+            if (from == -1) result[decodeURIComponent(key)] = val;
+            else {
+                var to = key.indexOf("]");
+                var index = decodeURIComponent(key.substring(from + 1, to));
+                key = decodeURIComponent(key.substring(0, from));
+                if (!result[key]) result[key] = [];
+                if (!index) result[key].push(val);
+                else result[key][index] = val;
+            }
+        });
+        return result;
+    }
+        var endereco = getJsonFromUrl();
+        var texto = document.createElement("h1");
+        var textoEl = document.createTextNode(endereco.test);
+        texto.appendChild(textoEl);
+        document.body.appendChild(texto);
+	    
+	    
+    </script>
     
 </html>
