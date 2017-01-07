@@ -4,7 +4,7 @@
 // variables
 var project, beam, vk, mk, lbForm, section, steel, fyForm, fuForm, EForm;
 var ml, d, bf, tw, tf, h, dl, area, ix, wx, rx, zx, iy, wy, ry, zy, rt, it, mesa, alma, cw, u;
-var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a;
+var fy, fu, E, aw, gama, gama1, cb, kv, lb, kc, tr, beta1, a, enrij;
 var lambV, lambpV, lambrV, vpl, vrd;
 var mpl, lambA, lambpA, lambrA, mrA, mcrA, mrdA;
 var lambM, lambpM, lambrM, mrM, mcrM, mrdM;
@@ -70,9 +70,19 @@ function processFormCS() {
         console.log("Por favor preencha o campo Distância entre travamentos laterais com números.");
         return false;
     }
+    
+    if (document.getElementById("stiffeningCS").checked === true) {
+        enrij = true;
+        a = Number(document.formCS.aCS.value);
+        if (document.formCS.aCS.value === "" || isNaN(a)) {
+            alert("Por favor preencha o campo Distância entre enrijecedores com números.");
+            console.log("Por favor preencha o campo Distância entre enrijecedores com números.");
+            return false;
+        }
+    }
+   
     section = perfis[Number(document.formCS.sectionS.value)].bitola;
     steel = steelProp[Number(document.formCS.typeS.value)].steelType;
-    a = Number(document.formCS.aCS.value);
     gama = Number(document.formCS.gama.value);
     gama1 = Number(document.formCS.gama1.value);
     cb = Number(document.formCS.cb.value);
@@ -262,91 +272,131 @@ function processFormCS() {
         alert("Não OK");
     }
     
+    lambV = lambV.toFixed(2);
+    lambpV = lambpV.toFixed(2);
+    lambrV = lambrV.toFixed(2);
+    vpl = vpl.toFixed(2);
+    vrd = vrd.toFixed(2);
+    mpl = mpl.toFixed(2);
+    lambA = lambA.toFixed(2);
+    lambpA = lambpA.toFixed(2);
+    lambrA = lambrA.toFixed(2);
+    mrA = mrA.toFixed(2);
+    mcrA = mcrA.toFixed(2);
+    mrdA = mrdA.toFixed(2);
+    lambM = lambM.toFixed(2);
+    lambpM = lambpM.toFixed(2);
+    lambrM = lambrM.toFixed(2);
+    mrM = mrM.toFixed(2);
+    mcrM = mcrM.toFixed(2);
+    mrdM = mrdM.toFixed(2);
+    lambT = lambT.toFixed(2);
+    lambpT = lambpT.toFixed(2);
+    lambrT = lambrT.toFixed(2);
+    mrT = mrT.toFixed(2);
+    mcrT = mcrT.toFixed(2);
+    mrdT = mrdT.toFixed(2);
+    vsd = vsd.toFixed(2);
+    msd = msd.toFixed(2);
+    vrd = vrd.toFixed(2);
+    mrd = mrd.toFixed(2);
+    mrdOut = mrdOut.toFixed(2);
+    situationV = situationV.toFixed(2);
+    situationA = situationA.toFixed(2);
+    situationM = situationM.toFixed(2);
+    situationT = situationT.toFixed(2);
+    result = result.toFixed(2);
+    ratioCSV = ratioCSV.toFixed(2);
+    ratioCSM = ratioCSM.toFixed(2);
+    ratiopCSV = ratiopCSV.toFixed(2);
+    ratiopCSM = ratiopCSM.toFixed(2);
+
     var resultado = 
         {
-            "project":project,
-            "beam":beam,
-            "vk":vk,
-            "mk":mk,
-            "lbForm":lbForm,
-            "section":section,
-            "steel":steel,
-            "fyForm":fyForm,
-            "fuForm":fuForm,
-            "EForm":EForm,
-            "ml":ml,
-            "d":d,
-            "bf":bf,
-            "tw":tw,
-            "tf":tf,
-            "h":h,
-            "dl":dl,
-            "area":area,
-            "ix":ix,
-            "wx":wx,
-            "rx":rx,
-            "zx":zx,
-            "iy":iy,
-            "wy":wy,
-            "ry":ry,
-            "zy":zy,
-            "rt":rt,
-            "it":it,
-            "mesa":mesa,
-            "alma":alma,
-            "cw":cw,
-            "u":u,
-            "fy":fy,
-            "fu":fu,
-            "E":E,
-            "aw":aw,
-            "gama":gama,
-            "gama1":gama1,
-            "cb":cb,
-            "kv":kv,
-            "lb":lb,
-            "kc":kc,
-            "tr":tr,
-            "beta1":beta1,
-            "a":a,
-            "lambV":lambV,
-            "lambpV":lambpV,
-            "lambrV":lambrV,
-            "vpl":vpl,
-            "vrd":vrd,
-            "mpl":mpl,
-            "lambA":lambA,
-            "lambpA":lambpA,
-            "lambrA":lambrA,
-            "mrA":mrA,
-            "mcrA":mcrA,
-            "mrdA":mrdA,
-            "lambM":lambM,
-            "lambpM":lambpM,
-            "lambrM":lambrM,
-            "mrM":mrM,
-            "mcrM":mcrM,
-            "mrdM":mrdM,
-            "lambT":lambT,
-            "lambpT":lambpT,
-            "lambrT":lambrT,
-            "mrT":mrT,
-            "mcrT":mcrT,
-            "mrdT":mrdT,
-            "vsd":vsd,
-            "msd":msd,
-            "vrd":vrd,
-            "mrd":mrd,
-            "mrdOut":mrdOut,
-            "situationV":situationV,
-            "situationA":situationA,
-            "situationM":situationM,
-            "situationT":situationT,
-            "result":result,
-            "ratioCSV":ratioCSV,
-            "ratioCSM":ratioCSM,
-            "ratiopCSV":ratiopCSV,
-            "ratiopCSM":ratiopCSM
+            "project": project,
+            "beam": beam,
+            "vk": vk,
+            "mk": mk,
+            "lbForm": lbForm,
+            "section": section,
+            "steel": steel,
+            "fyForm": fyForm,
+            "fuForm": fuForm,
+            "EForm": EForm,
+            "ml": ml,
+            "d": d,
+            "bf": bf,
+            "tw": tw,
+            "tf": tf,
+            "h": h,
+            "dl": dl,
+            "area": area,
+            "ix": ix,
+            "wx": wx,
+            "rx": rx,
+            "zx": zx,
+            "iy": iy,
+            "wy": wy,
+            "ry": ry,
+            "zy": zy,
+            "rt": rt,
+            "it": it,
+            "mesa": mesa,
+            "alma": alma,
+            "cw": cw,
+            "u": u,
+            "fy": fy,
+            "fu": fu,
+            "E": E,
+            "aw": aw,
+            "gama": gama,
+            "gama1": gama1,
+            "cb": cb,
+            "kv": kv,
+            "lb": lb,
+            "kc": kc,
+            "tr": tr,
+            "beta1": beta1,
+            "a": a,
+            "enrij": enrij,
+            "lambV": lambV,
+            "lambpV": lambpV,
+            "lambrV": lambrV,
+            "vpl": vpl,
+            "vrd": vrd,
+            "mpl": mpl,
+            "lambA": lambA,
+            "lambpA": lambpA,
+            "lambrA": lambrA,
+            "mrA": mrA,
+            "mcrA": mcrA,
+            "mrdA": mrdA,
+            "lambM": lambM,
+            "lambpM": lambpM,
+            "lambrM": lambrM,
+            "mrM": mrM,
+            "mcrM": mcrM,
+            "mrdM": mrdM,
+            "lambT": lambT,
+            "lambpT": lambpT,
+            "lambrT": lambrT,
+            "mrT": mrT,
+            "mcrT": mcrT,
+            "mrdT": mrdT,
+            "vsd": vsd,
+            "msd": msd,
+            "vrd": vrd,
+            "mrd": mrd,
+            "mrdOut": mrdOut,
+            "situationV": situationV,
+            "situationA": situationA,
+            "situationM": situationM,
+            "situationT": situationT,
+            "result": result,
+            "ratioCSV": ratioCSV,
+            "ratioCSM": ratioCSM,
+            "ratiopCSV": ratiopCSV,
+            "ratiopCSM": ratiopCSM
         };
     
     document.getElementById("botaoRelatorio").href = "reportCS.html?test=" + JSON.stringify(resultado);
