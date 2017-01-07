@@ -43,11 +43,14 @@ var textT1, textT2, textT3;
 
 // Building variable texts
 
-textV1 = "<p> Como " + resultado.lambV + "≤ " + resultado.lambpV + ", " + "\\(λ\\)" + " ≤ " + "\\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^4\\) </p>"; 
+textV1 = "<p> Como " + resultado.lambV + "≤ " + resultado.lambpV + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV1]);
 
+textV2 = "<p> Como " + resultado.lampV + "<" + resultado.lambV + "≤ " + resultado.lambpV + ",  \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\[V_{Rd}=\\frac{{\\lambda }_p}{\\lambda }\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\]  = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV2]);
 
-
+textV3 = "<p> Como " + resultado.lambV + "> " + resultado.lambrV + ", " + "\\(λ\\) > \\(λ_r\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=1,24\\ \\times \\ ({\\frac{{\\lambda }_p}{\\lambda })}^2\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\)  = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV3]);
 
 
 
