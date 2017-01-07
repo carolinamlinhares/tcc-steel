@@ -285,8 +285,6 @@ function processFormCS() {
     lambA = lambA.toFixed(2);
     lambpA = lambpA.toFixed(2);
     lambrA = lambrA.toFixed(2);
-    mrA = mrA.toFixed(2);
-    mcrA = mcrA.toFixed(2);
     mrdA = mrdA.toFixed(2);
     lambM = lambM.toFixed(2);
     lambpM = lambpM.toFixed(2);
