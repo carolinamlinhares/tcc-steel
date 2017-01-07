@@ -195,8 +195,7 @@ function processFormCS() {
         break;
     case "Caso 3":
         // mcrA = Anexo H
-        mrdA = mcrA / gama1;
-        alert("Cálculo indisponível. Viga com perfil de alma esbelta. Consulte o anexo H da Norma 8800:2008");
+        alert("Cálculo indisponível. Viga com perfil de alma esbelta, consulte o anexo H da Norma 8800:2008.");
         break;
     }
     
@@ -285,18 +284,32 @@ function processFormCS() {
     lambA = lambA.toFixed(2);
     lambpA = lambpA.toFixed(2);
     lambrA = lambrA.toFixed(2);
+    if (mrA !== 'undefined') {
+        mrA = mrA.toFixed(2);
+    }
+    if (mcrA !== 'undefined') {
+        mcrA = mrA.toFixed(2);
+    }
     mrdA = mrdA.toFixed(2);
     lambM = lambM.toFixed(2);
     lambpM = lambpM.toFixed(2);
     lambrM = lambrM.toFixed(2);
-    mrM = mrM.toFixed(2);
-    mcrM = mcrM.toFixed(2);
+    if (mrM !== 'undefined') {
+        mrM = mrA.toFixed(2);
+    }
+    if (mcrM !== 'undefined') {
+        mcrM = mrA.toFixed(2);
+    }
     mrdM = mrdM.toFixed(2);
     lambT = lambT.toFixed(2);
     lambpT = lambpT.toFixed(2);
     lambrT = lambrT.toFixed(2);
-    mrT = mrT.toFixed(2);
-    mcrT = mcrT.toFixed(2);
+    if (mrT !== 'undefined') {
+        mrT = mrA.toFixed(2);
+    }
+    if (mcrT !== 'undefined') {
+        mcrT = mrA.toFixed(2);
+    }
     mrdT = mrdT.toFixed(2);
     vsd = vsd.toFixed(2);
     msd = msd.toFixed(2);
