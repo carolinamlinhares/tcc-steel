@@ -315,7 +315,6 @@ function processFormCS() {
     mrdT = mrdT.toFixed(2);
     vsd = vsd.toFixed(2);
     msd = msd.toFixed(2);
-    vrd = vrd.toFixed(2);
     mrd = mrd.toFixed(2);
     mrdOut = mrdOut.toFixed(2);
     situationV = situationV.toFixed(2);
@@ -402,7 +401,6 @@ function processFormCS() {
             "mrdT": mrdT,
             "vsd": vsd,
             "msd": msd,
-            "vrd": vrd,
             "mrd": mrd,
             "mrdOut": mrdOut,
             "situationV": situationV,
