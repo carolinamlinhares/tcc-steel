@@ -199,20 +199,16 @@ function processFormDC() {
     //CÁLCULO DA ALTURA ÚTIL (d)
 
     d = h - dl;
-    dl = 3; //(estimar valor entre 3 e 6 cm)/
+    dl = 3.0; //(estimar valor entre 3 e 6 cm)/
 
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
 
     //DOMÍNIO 2
-    var epc = 3.5
-    var eps = 10
     betax23 = epc/(epc+eps)
    
     //DOMÍNIO 3
-    var epc = 3.5;
-    var eps = epyd;
-    var epyd = (fyd/Es)*1000;
-    betax34 = epc/(epc+eps);
+    epyd = (fyd/Es)*1000;
+    betax34 = epc/(epc+epyd);
     
     //CÁLCULO DA POSIÇÃO DA LINHA NEUTRA (x)
 
