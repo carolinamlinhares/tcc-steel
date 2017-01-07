@@ -284,30 +284,30 @@ function processFormCS() {
     lambA = lambA.toFixed(2);
     lambpA = lambpA.toFixed(2);
     lambrA = lambrA.toFixed(2);
-    if (mrA !== 'undefined') {
+    if (mrA !== "undefined") {
         mrA = mrA.toFixed(2);
     }
-    if (mcrA !== 'undefined') {
+    if (mcrA !== "undefined") {
         mcrA = mrA.toFixed(2);
     }
     mrdA = mrdA.toFixed(2);
     lambM = lambM.toFixed(2);
     lambpM = lambpM.toFixed(2);
     lambrM = lambrM.toFixed(2);
-    if (mrM !== 'undefined') {
+    if (mrM !== "undefined") {
         mrM = mrA.toFixed(2);
     }
-    if (mcrM !== 'undefined') {
+    if (mcrM !== "undefined") {
         mcrM = mrA.toFixed(2);
     }
     mrdM = mrdM.toFixed(2);
     lambT = lambT.toFixed(2);
     lambpT = lambpT.toFixed(2);
     lambrT = lambrT.toFixed(2);
-    if (mrT !== 'undefined') {
+    if (mrT !== "undefined") {
         mrT = mrA.toFixed(2);
     }
-    if (mcrT !== 'undefined') {
+    if (mcrT !== "undefined") {
         mcrT = mrA.toFixed(2);
     }
     mrdT = mrdT.toFixed(2);
