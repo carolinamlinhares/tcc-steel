@@ -72,14 +72,17 @@ function processFormCS() {
     }
     
     if (document.getElementById("stiffeningCS").checked === true) {
-        enrij = true;
+        enrij = false;
         a = Number(document.formCS.aCS.value);
         if (document.formCS.aCS.value === "" || isNaN(a)) {
             alert("Por favor preencha o campo Distância entre enrijecedores com números.");
             console.log("Por favor preencha o campo Distância entre enrijecedores com números.");
             return false;
         }
+    } else {
+        enrij = false;
     }
+    
    
     section = perfis[Number(document.formCS.sectionS.value)].bitola;
     steel = steelProp[Number(document.formCS.typeS.value)].steelType;
