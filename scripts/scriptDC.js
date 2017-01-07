@@ -3,10 +3,10 @@
 
 // variables
 var project, beam, mk, concrete, steel;
-var x, tsd, as, bw, fcd;
+var tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
 var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong;
-var mk, msd, md;
+var x, mk, msd, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var result, situationD, situationLN;
