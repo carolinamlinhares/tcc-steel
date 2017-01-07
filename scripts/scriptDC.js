@@ -199,7 +199,7 @@ function processFormDC() {
 
     //CÁLCULO DA ALTURA ÚTIL (d)
 
-    d = h - dl;
+    d = h-dl;
     dl = 3.0; //(estimar valor entre 3 e 6 cm)/
 
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
