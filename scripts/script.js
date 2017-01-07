@@ -317,11 +317,6 @@ function processFormCS() {
     msd = msd.toFixed(2);
     mrd = mrd.toFixed(2);
     mrdOut = mrdOut.toFixed(2);
-    situationV = situationV.toFixed(2);
-    situationA = situationA.toFixed(2);
-    situationM = situationM.toFixed(2);
-    situationT = situationT.toFixed(2);
-    result = result.toFixed(2);
     ratioCSV = ratioCSV.toFixed(2);
     ratioCSM = ratioCSM.toFixed(2);
     ratiopCSV = ratiopCSV.toFixed(2);
