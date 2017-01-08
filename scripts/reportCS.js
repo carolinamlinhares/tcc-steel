@@ -41,6 +41,12 @@ var textM1, textM2, textM3;
 var textT1, textT2, textT3;
 var textApp, textNAppV, textNAppM, textNAppVM;
 
+resultado.vsd = Number (resultado.vsd);
+resultado.msd = Number (resultado.msd);
+resultado.vrd = Number (resultado.vrd);
+resultado.mrd = Number (resultado.mrd);
+resultado.mrdOut = Number (resultado.mrdOut);
+
 // Building variable texts
 textV1 = "<p> Como " + resultado.lambV + " ≤ " + resultado.lambpV + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV1]);
@@ -75,7 +81,7 @@ MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT1]);
 textT2 = "<p> Como " + resultado.lambpT + " < " + resultado.lambT + " ≤ " + resultado.lambrT + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrT + " KN.cm </span> </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT2]);
 
-textT3 = "<p> Como " + resultado.lambT + " > " + resultado.lambrT + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br>; <span class='eqcenter'> \\(M_{cr}=\\ \\frac{C_b\times \\ {\pi }^2}{L_b}\\ \\times E\\ \\times \\ I_y\\ \\ \\times \\ \\sqrt{\\frac{C_w}{I_y}\\ \\times \\ \\left(1+0,039\\ \\times \\ \\frac{J\\times {L_b}^2}{C_w}\\right)}\\)  = " + resultado.mcrT + " KN.cm </span> </p>" + "<p> Onde: <br> \\(C_b)\\ = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> </p>";
+textT3 = "<p> Como " + resultado.lambT + " > " + resultado.lambrT + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br> <span class='eqcenter'> \\(M_{cr}=\\ \\frac{C_b\\times \\ {\pi }^2}{L_b}\\ \\times E\\ \\times \\ I_y\\ \\ \\times \\ \\sqrt{\\frac{C_w}{I_y}\\ \\times \\ \\left(1+0,039\\ \\times \\ \\frac{J\\times {L_b}^2}{C_w}\\right)}\\)  = " + resultado.mcrT + " KN.cm </span> </p>" + "<p> Onde: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT3]);
 
 textApp = "\\(V_{sd}\\) ≤ \\(V_{rd}\\) = " + resultado.vsd + " ≤ " +  resultado.vrd + " KN = APROVADO, Ratio " + resultado.ratioCSV + "<br> \\(M_{sd}\\) ≤ \\(M_{rd}\\) = " + resultado.msd + " ≤ " +  resultado.mrdOut + " KN.m = APROVADO, Ratio " + resultado.ratioCSM + "<br><br> Como o esforço solicitante é menor do que o resistente, a viga está aprovada na verificação quanto à flexão simples de acordo com os critérios da NBR 8800:2008.";
@@ -224,11 +230,11 @@ $(document).ready(function() {
     // Conclusion
     if (resultado.result === "OK") {
         $("#textR").html(textApp);
-    } else if (resultado.vsd >= resultado.vrd && resultado.msd <= resultado.mrd) {
+    } else if (resultado.vsd >= resultado.vrd && resultado.msd <= resultado.mrdOut) {
         $("#textR").html(textNAppV);
-    } else if (resultado.vsd <= resultado.vrd && resultado.msd > resultado.mrd) {
+    } else if (resultado.vsd <= resultado.vrd && resultado.msd > resultado.mrdOut) {
         $("#textR").html(textNAppM);
-    } else if (resultado.vsd > resultado.vrd && resultado.msd > resultado.mrd) {
+    } else if (resultado.vsd > resultado.vrd && resultado.msd > resultado.mrdOut) {
         $("#textR").html(textNAppVM);
     }
 
