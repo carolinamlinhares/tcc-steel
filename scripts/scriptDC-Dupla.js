@@ -264,13 +264,13 @@ function processFormDC() {
 
     //CÁLCULO DA ÁREA DE AÇO
 
-    if (situationD = "Aprovado" && situationLN = "Aprovada") {
-        situationS = "Simples";
+    //if (situationD = "Aprovado" && situationLN = "Aprovada") {
+        //situationS = "Simples";
 	as = md/(tsd*(d-0.4*x));
-        alert(as);
+        //alert(as);
      
-    } else {
-        situationS = "Dupla";
+    //} else {
+        //situationS = "Dupla";
         //Cálculo da nova posição da LN
         xd = 0.45*d;
         
@@ -292,8 +292,8 @@ function processFormDC() {
         ast = as1 + as2;
         
         //Resultados
-        result = "Área de aço comprimida = "+asl+". Área de aço tracionada = "+ast;
-        alert(result);
+        //result = "Área de aço comprimida = "+asl+". Área de aço tracionada = "+ast;
+        //alert(result);
         
     }
        
@@ -301,94 +301,6 @@ function processFormDC() {
     
             
   /*  
-   
-    var resultado = 
-        {
-            "project":project,
-            "beam":beam,
-            "vk":vk,
-            "mk":mk,
-            "lbForm":lbForm,
-            "section":section,
-            "steel":steel,
-            "fyForm":fyForm,
-            "fuForm":fuForm,
-            "EForm":EForm,
-            "ml":ml,
-            "d":d,
-            "bf":bf,
-            "tw":tw,
-            "tf":tf,
-            "h":h,
-            "dl":dl,
-            "area":area,
-            "ix":ix,
-            "wx":wx,
-            "rx":rx,
-            "zx":zx,
-            "iy":iy,
-            "wy":wy,
-            "ry":ry,
-            "zy":zy,
-            "rt":rt,
-            "it":it,
-            "mesa":mesa,
-            "alma":alma,
-            "cw":cw,
-            "u":u,
-            "fy":fy,
-            "fu":fu,
-            "E":E,
-            "aw":aw,
-            "gama":gama,
-            "gama1":gama1,
-            "cb":cb,
-            "kv":kv,
-            "lb":lb,
-            "kc":kc,
-            "tr":tr,
-            "beta1":beta1,
-            "a":a,
-            "lambV":lambV,
-            "lambpV":lambpV,
-            "lambrV":lambrV,
-            "vpl":vpl,
-            "vrd":vrd,
-            "mpl":mpl,
-            "lambA":lambA,
-            "lambpA":lambpA,
-            "lambrA":lambrA,
-            "mrA":mrA,
-            "mcrA":mcrA,
-            "mrdA":mrdA,
-            "lambM":lambM,
-            "lambpM":lambpM,
-            "lambrM":lambrM,
-            "mrM":mrM,
-            "mcrM":mcrM,
-            "mrdM":mrdM,
-            "lambT":lambT,
-            "lambpT":lambpT,
-            "lambrT":lambrT,
-            "mrT":mrT,
-            "mcrT":mcrT,
-            "mrdT":mrdT,
-            "vsd":vsd,
-            "msd":msd,
-            "vrd":vrd,
-            "mrd":mrd,
-            "mrdOut":mrdOut,
-            "situationV":situationV,
-            "situationA":situationA,
-            "situationM":situationM,
-            "situationT":situationT,
-            "result":result,
-            "ratioCSV":ratioCSV,
-            "ratioCSM":ratioCSM,
-            "ratiopCSV":ratiopCSV,
-            "ratiopCSM":ratiopCSM
-        };
-    
     document.getElementById("botaoRelatorio").href = "reportCS.html?test=" + JSON.stringify(resultado);
 } */
 
