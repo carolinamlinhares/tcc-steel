@@ -72,7 +72,7 @@ function processFormCS() {
     }
     
     if (document.getElementById("stiffeningCS").checked === false) {
-        enrij = false;
+        enrij = "Sim";
         a = Number(document.formCS.aCS.value);
         if (document.formCS.aCS.value === "" || isNaN(a)) {
             alert("Por favor preencha o campo Distância entre enrijecedores com números.");
@@ -80,7 +80,7 @@ function processFormCS() {
             return false;
         }
     } else {
-        enrij = false;
+        enrij = "Não";
         a = "N/A"
     }
     
