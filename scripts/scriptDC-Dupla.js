@@ -11,7 +11,7 @@ var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var situationD, situationLN;
-var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS;
+var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 
 var bitola = [
     {
@@ -200,41 +200,39 @@ function processFormDC() {
     md = mk * gamaf;
 
     //CÁLCULO DA ALTURA ÚTIL (d)
-    d = h-dl;
+    d = h - dl;
     
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
     //DOMÍNIO 2
-    betax23 = epc/(epc+eps)
+    betax23 = epc / (epc + eps);
    
     //DOMÍNIO 3
-    epyd = (fyd/Es)*1000;
-    betax34 = epc/(epc+epyd);
+    epyd = (fyd / Es) * 1000;
+    betax34 = epc / (epc + epyd);
     
     //CÁLCULO DA POSIÇÃO DA LINHA NEUTRA (x)
     //md = 0.68*bw*x*fcd*(d-0.4*x);
     //(0.4*x^2)+(d*x)+(md/(0.68*bw*fcd))=0
 	
     a = 0.4;
-    b = -1*d;
-    c = md/(0.68*bw*fcd);
-    delta = Math.pow(b , 2) - ((4 * a)*c);
+    b = -1 * d;
+    c = md / (0.68 * bw * fcd);
+    delta = Math.pow(b, 2) - ((4 * a) * c);
     
-    if( delta > 0){
-	deltaR = Math.sqrt(delta);
-	x1 = ((-b +  deltaR)  /(2 * a));
-	x2 = ((-b -  deltaR)  /(2 * a));
-		    	}
-                else{
-			x1 = ("Sem raiz");
-			x2 = ("Sem raiz");
-                    }
+    if (delta > 0) {
+	    deltaR = Math.sqrt(delta);
+	    x1 = ((-b +  deltaR)  / (2 * a));
+	    x2 = ((-b -  deltaR)  / (2 * a));
+    } else {
+        x1 = ("Sem raiz");
+		x2 = ("Sem raiz");
+    }
     
     if (x1 > h) {
-        x = x2
-                }
-            else{
-            x = x1
-                }
+        x = x2;
+    } else {
+        x = x1;
+    }
     
     //VERIFICAÇÃO DO DOMÍNIO DA VIGA
 
@@ -264,18 +262,19 @@ function processFormDC() {
 
     //CÁLCULO DA ÁREA DE AÇO
 
-    //if (situationD = "Aprovado" && situationLN = "Aprovada") {
-        //situationS = "Simples";
-	as = md/(tsd*(d-0.4*x));
-        //alert(as);
+    if (situationD === "Aprovado" && situationLN === "Aprovada") {
+        situationS = "Simples";
+	    as = md / (tsd * (d - 0.4 * x));
+        alert(as);
      
-    //} else {
-        //situationS = "Dupla";
+    } else {
+        situationS = "Dupla";
+        
         //Cálculo da nova posição da LN
-        xd = 0.45*d;
+        xd = 0.45 * d;
         
         //Cálculo de M1d
-        m1d = 0.68*bw*xd*fcd*(d-0.4*xd);
+        m1d = 0.68 * bw * xd * fcd * (d - 0.4 * xd);
         
         //Cálculo de M2d
         m2d = md - m1d;
@@ -284,20 +283,20 @@ function processFormDC() {
         tlsd = 43.5;
             
         //Encontrar área de aço comprimida A's
-        asl = m2d/(tlsd*(d-dlc));
+        asl = m2d / (tlsd * (d - dlc));
         
         //Encontrar área de aço tracionada As
-        as1 = m1d/(tsd*(d-0.4*xd));
-        as2 = m2d/(tsd*(d-dlc));
+        as1 = m1d / (tsd * (d - 0.4 * xd));
+        as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
         //Resultados
-        //result = "Área de aço comprimida = "+asl+". Área de aço tracionada = "+ast;
-        //alert(result);
+        result = "Área de aço comprimida = " + asl + ". Área de aço tracionada = " + ast;
+        alert(result);
         
     }
        
-//}
+}
     
             
   /*  
