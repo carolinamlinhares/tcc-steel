@@ -291,7 +291,10 @@ function processFormDS() {
      // END OF FUNCTION TO SAVE CHECK EACH SECTION
 
     }
-
+    
+    if (approved === null){
+        alert("Nenhum perfil satisfaz as condições");
+    }
 /*
     APPROVED: Printing a log to check
 */
