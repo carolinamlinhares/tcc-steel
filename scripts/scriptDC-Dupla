@@ -10,8 +10,8 @@ var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
-var resultsimples, situationD, situationLN;
-var dll, xd, m1d, m2d, tlsd, ascomp, as1, as2, astracao, resultdupla situationS;
+var situationD, situationLN;
+var dll, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS;
 
 var bitola = [
     {
@@ -265,13 +265,12 @@ function processFormDC() {
     //CÁLCULO DA ÁREA DE AÇO
 
     if (situationD = "Aprovado" && situationLN = "Aprovada") {
-        as = md/(tsd*(d-0.4*x));
-        resultsimples = as;
-        situationS = simples;
-        alert(resultsimples);
+        situationS = "Simples";
+	as = md/(tsd*(d-0.4*x));
+        alert(as);
      
     } else {
-        situationS = dupla;
+        situationS = "Dupla";
         //Cálculo da nova posição da LN
         xd = 0.45*d;
         
@@ -285,16 +284,16 @@ function processFormDC() {
         tlsd = 43.5;
             
         //Encontrar área de aço comprimida A's
-        ascomp = m2d/(tlsd*(d-dll));
+        asl = m2d/(tlsd*(d-dll));
         
         //Encontrar área de aço tracionada As
         as1 = m1d/(tsd*(d-0.4*xd));
         as2 = m2d/(tsd*(d-dll));
-        astracao = as1 + as2;
+        ast = as1 + as2;
         
         //Resultados
-        resultdupla = "Área de aço comprimida = "+ascomp+". Área de aço tracionada = "+astracao;
-        alert(resultdupla);
+        result = "Área de aço comprimida = "+asl+". Área de aço tracionada = "+ast;
+        alert(result);
         
     }
        
