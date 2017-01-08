@@ -11,7 +11,7 @@ var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var resultsimples, situationD, situationLN;
-var dll, xd, m1d, m2d, tlsd, ascomp, as1, as2, astracao, resultdupla;
+var dll, xd, m1d, m2d, tlsd, ascomp, as1, as2, astracao, resultdupla situationS;
 
 var bitola = [
     {
@@ -267,9 +267,11 @@ function processFormDC() {
     if (situationD = "Aprovado" && situationLN = "Aprovada") {
         as = md/(tsd*(d-0.4*x));
         resultsimples = as;
+        situationS = simples;
         alert(resultsimples);
      
     } else {
+        situationS = dupla;
         //Cálculo da nova posição da LN
         xd = 0.45*d;
         
@@ -291,7 +293,7 @@ function processFormDC() {
         astracao = as1 + as2;
         
         //Resultados
-        resultdupla = "Área de aço comprimida = "+ascomp+"Área de aço tracionada = "+astracao;
+        resultdupla = "Área de aço comprimida = "+ascomp+". Área de aço tracionada = "+astracao;
         alert(resultdupla);
         
     }
