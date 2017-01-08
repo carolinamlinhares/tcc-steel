@@ -89,6 +89,14 @@ function processFormDS() {
     cb = Number(document.formDS.cb.value);
     priority = document.formDS.priority.value;
     
+    
+    // Getting values from steel properties array
+    j = Number(document.getElementById("acos").value);
+
+    fyForm = steelProp[j].fy;
+    fuForm = steelProp[j].fu;
+    EForm = steelProp[j].E;
+    
     for (i = 0; i < perfis.length; i += 1) { //Looping through our available sections
         section = perfis[i].bitola;
     
@@ -118,13 +126,6 @@ function processFormDS() {
         alma = perfis[i].alma;
         cw = perfis[i].cw;
         u = perfis[i].u;
-
-        // Getting values from steel properties array
-        j = Number(document.getElementById("acos").value);
-
-        fyForm = steelProp[j].fy;
-        fuForm = steelProp[j].fu;
-        EForm = steelProp[j].E;
        
         // Calculating parameters 
         aw = (d * tw) / 100;
@@ -262,6 +263,13 @@ function processFormDS() {
         ratioDSM = msd / mrdOut;
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
+        
+        vrd = vrd.toFixed(2);
+        mrdOut = mrdOut.toFixed(2);
+        ratioDSV = ratioDSV.toFixed(2);
+        ratioDSM = ratioDSM.toFixed(2);
+        ratiopDSV = ratiopDSV.toFixed(2);
+        ratiopDSM = ratiopDSM.toFixed(2);
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
@@ -360,10 +368,27 @@ function processFormDS() {
     SUGGESTION: Printing a log to check
 */
 
-    console.table(suggestion[i]);
+    console.table(suggestion);
     alert("O perfil " + suggestion[0].perfil.bitola + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
 }
 
+// Report Array
+
+var resultado = {
+    "project": project,
+    "beam": beam,
+    "vk": vk,
+    "mk": mk,
+    "lbForm": lbForm,
+    "section": section,
+    "steel": steel,
+    "fyForm": fyForm,
+    "fuForm": fuForm,
+    "EForm": EForm,
+    "vsd": vsd,
+    "msd": msd,
+    "suggestion": suggestion
+};
     
     
 /*
