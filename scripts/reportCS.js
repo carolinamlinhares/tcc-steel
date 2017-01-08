@@ -108,7 +108,7 @@ $(document).ready(function() {
     $(".gama").html(resultado.gama);
     $(".gama1").html(resultado.gama1);
     $(".cb").html(resultado.cb);
-    $(".enrij").html(resultado.enrij);
+    $("#enrij").html(resultado.enrij);
     $(".a").html(resultado.a);
 
     // Section
