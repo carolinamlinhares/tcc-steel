@@ -1,244 +1,296 @@
-// Start of parsing results
-function getJsonFromUrl(hashBased) {
-    'use strict'
-    var query;
-    if (hashBased) {
-        var pos = location.href.indexOf("?");
-        if (pos === -1) return [];
-        query = location.href.substr(pos + 1);
-    } else {
-        query = location.search.substr(1);
-    }
-    var result = {};
-    query.split("&").forEach(function(part) {
-        if (!part) return;
-        part = part.split("+").join(" "); // replace every + with space, regexp-free version
-        var eq = part.indexOf("=");
-        var key = eq > -1 ? part.substr(0, eq) : part;
-        var val = eq > -1 ? decodeURIComponent(part.substr(eq + 1)) : "";
-        var from = key.indexOf("[");
-        if (from == -1) result[decodeURIComponent(key)] = val;
-        else {
-            var to = key.indexOf("]");
-            var index = decodeURIComponent(key.substring(from + 1, to));
-            key = decodeURIComponent(key.substring(0, from));
-            if (!result[key]) result[key] = [];
-            if (!index) result[key].push(val);
-            else result[key][index] = val;
-        }
-    });
-    return result;
-}
+<!DOCTYPE html>
 
-var resultado = [];
-resultado = JSON.parse(getJsonFromUrl().test);
-//End of parsing results
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Relatório de Verificação">
+		<meta name="author" content="Carolina Linhares">
 
-//Variables
-var textV1, textV2, textV3;
-var textA1, textA2, textA3;
-var textM1, textM2, textM3;
-var textT1, textT2, textT3;
-var textApp, textNAppV, textNAppM, textNAppVM;
+		<title>Relatório de Verificação</title>
+		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/reportCS.js"></script>
+		
+	</head>
 
-resultado.vsd = Number (resultado.vsd);
-resultado.msd = Number (resultado.msd);
-resultado.vrd = Number (resultado.vrd);
-resultado.mrd = Number (resultado.mrd);
-resultado.mrdOut = Number (resultado.mrdOut);
+    <body>
+        
+        <h1> Relatório de Verificação </h1>
+        
+        <div>
+        <p> Projeto <span class="project"> </span> </p>
+        <p> Viga <span class="beam"> </span></p>
+        <p> Distância entre travamentos laterais <span class="lbForm"> </span> m </p>
+        <p> Aço <span class="steel"> </span> </p>
+        <p> fy = <span class="fyForm"> </span> MPa </p>
+        <p> fu = <span class="fuForm"> </span> MPa </p>
+        <p> Módulo de elasticidade (E) = <span class="E"> </span> MPa </p>    
+        <h4> Esforços </h4>
+        <p> Cortante \(V_k\) = <span class="vk"> </span> KN </p>
+        <p> Momento \(M_k\) = <span class="mk"> </span> KN.m </p>
+        <p> Gama \({\gamma}\) = <span class="gama"> </span> </p>
+        <p> Gama a1 \({\gamma}_{a1}\) = <span class="gama1"> </span> </p>
+        <p> Cb = <span class="cb"> </span> </p>
+        <p> Perfil com enrijecedor <span id="enrij"> </span> </p>
+        <p> Distância entre enrijecedores <span class="a"> </span> m </p>
+        </div>
+        
+        <div>
+        <h4> Perfil <span id="section"> </span> </h4>
+        <p> Massa Linear <span id="ml"> </span> kg/m </p>
+        <p> d = <span id="d"> </span> mm </p>
+        <p> bf = <span class="bf"> </span> mm </p>
+        <p> tw = <span class="tw"> </span> mm </p>
+        <p> tf = <span class="tf"> </span> mm </p>
+        <p> h = <span class="h"> </span> mm </p>
+        <p> d' = <span class="dl"> </span> mm </p>
+        <p> Área = <span id="area"> </span> \({cm}^2\) </p>
+        <p> Ix = <span id="ix"> </span> \({cm}^4\) </p>
+        <p> Wx = <span class="wx"> </span> \({cm}^3\) </p>
+        <p> rx = <span id="rx"> </span> cm </p>
+        <p> Zx = <span id="zx"> </span> \({cm}^3\) </p>
+        <p> Iy = <span class="iy"> </span> \({cm}^4\) </p>
+        <p> Wy = <span id="wy"> </span> \({cm}^3\) </p>
+        <p> ry = <span class="ry"> </span> cm </p>
+        <p> Zy = <span id="zy"> </span> \({cm}^3\) </p>
+        <p> rt = <span id="rt"> </span> cm </p>
+        <p> It = <span class="it"> </span> \({cm}^4\) </p>
+        <p> Esbeltez da mesa = <span id="mesa"> </span> </p>
+        <p> Esbeltez da alma = <span id="alma"> </span> </p>
+        <p> Cw = <span class="cw"> </span> \({cm}^6\) </p>
+        <p> u = <span id="u"> </span> \({m}^2\)/m </p>
+        
+        </div>
+        
+        <p> Para a verificação de uma viga metálica deve-se analisar a mesma pelo Estado Limite Último (ELU) e o Estado Limite de Serviço (ELS). O ELU avalia a viga pelos esforço cortante e o momento fletor máximo, enquanto o ELS analisa o deslocamento e a vibração da viga. Este relatório avalia a viga quanto ao Estado Limite Último (ELU) de acordo com a norma brasileira NBR 8800:2008. </p>
+        
+        <h2> Estado de Limite Último (ELU) </h2>
+        
+        <p> O cálculo do esforço cortante e o momento fletor resistente da viga são dependentes do parâmetro de esbeltez, dividida em categorias:</p>
+        
+        <p> \(λ\) - parâmetro de esbeltez característico; <br>
+            \(λ_p\) - parâmetro de esbeltez correspondente à plastificação; <br>
+            \(λ_r\) - parâmetro de esbeltez correspondente ao início do escoamento. </p>
 
-// Building variable texts
-textV1 = "<p> Como " + resultado.lambV + " ≤ " + resultado.lambpV + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV1]);
+        <p>Os limites de plastificação e escoamento ditam a situação do perfil perante aos esforços aplicados. Logo, as equações para cálculo do momento resistente são específicas para cada situação. Teremos:</p>
+        
+        <p>   \(λ\) ≤ \(λ_p\) = Caso 1 <br>
+              \(λ_p\) < \(λ\) ≤ \(λ_r\) = Caso 2 <br>
+              \(λ\) > \(λ_r\) = Caso 3 <br> 
+        </p>
+        
+        <h3> I. Esforço Cortante </h3>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{h}{t_w}\) = <span id="lambV"></span> </p>
+        
+        <p> Onde: <br><br>
+        h = altura da alma, tomada igual à distância entre faces internas das mesas nos perfis soldados e igual a esse valor menos os dois raios de concordância entre mesa e alma nos perfis laminados e igual ao comprimento da parte plana nas seções tubulares retangulares; valor retirado da especificação do perfil = <span class="h"> </span> mm; <br>
+        \(t_w\)= espessura da alma; valor retirado da especificação do perfil = <span class="tw"> </span> mm.
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação (\(λ_p\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=1,10\sqrt{\frac{k_v\times E}{f_y}}\) = <span id="lambpV"></span> </p>
+        
+        <p> Onde: <br><br>
+        \(f_y\) = resistência ao escoamento do aço = <span class="fyForm"> </span> MPa <br>
+        E = módulo de elasticidade do aço = <span class="E"> </span> MPa <br>
+        \(k_v\) = DESCREVER <br>
+            
+        \(k_v\) = 5, para perfis sem enrijecedores ou \(\frac{a}{h}>3\) ou \(\frac{a}{h}>({\frac{260}{{h}/{tw}})}^2\) <br>
+        \(k_v=5+\frac{5}{{({a}/{h})}^2}\), para os demais casos, sendo a distância entre enrijecedores. <br>
+            
+        Neste caso temos, \(k_v\) = <span id="kv"> </span> . 
+        </p>
+    
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento (\(λ_r\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=1,37\sqrt{\frac{k_v\times E}{f_y}}\)  = <span id="lambrV"></span> </p>
+        
+        <h5> Cálculo do Esforço Cortante Resistente (\(V_{rd}\)) </h5>
+        
+        <span id="textV"></span>
+        
+        <h3> II. Momento Fletor </h3>
+        
+        <p> São considerados os casos de Flambagem Local da Alma (FLA), Flambagem Local da Mesa Comprimida (FLM) e Flambagem Lateral com Torção (FLT). O momento fletor resitente é adotado como a resistência mínima entre os três casos.</p>
+        
+        <h4> a) Flambagem Local da Alma (FLA) </h4>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{d'}{t_w}\) = <span id="lambA"></span> </p>
+        
+        <p> Onde: <br><br>
+        d' = altura livre da alma; valor retirado da especificação do perfil = <span class="dl"> </span> mm; 
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação (\(λ_p\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=3,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpA"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento (\(λ_r\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=5,70\sqrt{\frac{E}{f_y}}\) = <span id="lambrA"></span> </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLA (\(M_{rd}\)) </h5>
+        
+        <span id="textA"></span>
+        
+        <h4> b) Flambagem Local da Mesa Comprimida (FLM) </h4>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{b_f}{2t_f}\) = <span id="lambM"></span> </p>
+        
+        <p> Onde: <br><br>
+        \(b_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="bf"> </span> mm; <br>
+        \(t_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="tf"> </span> mm; <br>
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação (\(λ_p\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=3,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpM"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento (\(λ_r\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=0,83\sqrt{\frac{E}{\left(f_y-{\sigma }_r\right)}}\) = <span id="lambrM"></span> </p>
+       
+        <p> Onde: <br><br>
+        \({\sigma }_r=0,3\ \times \ f_y\) = <span id="tr"> </span> \(KN.{cm}^2\) <br>
+        </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLM (\(M_{rd}\)) </h5>
+        
+        <span id="textM"></span>
+        
+        <h4> c) Flambagem Lateral com Torção (FLT) </h4>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{L_b}{r_y}\) = <span id="lambT"></span> </p>
+        
+        <p> Onde: <br><br>
+        \(L_b\) = distância entre duas seções contidas à flambagem lateral com torção (comprimento destravado) = <span class="lbForm"> </span> m; <br>
+        \(r_y\) = raio de giração da seção em relação ao eixo principal de inércia perpendicular ao eixo de flexão = <span class="ry"> </span> cm. <br>
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação (\(λ_p\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=1,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpT"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento (\(λ_r\)) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=\frac{1,38\sqrt{I_YJ}}{r_yJ{\beta }_1}\times \sqrt{1+\sqrt{1+\frac{27C_w{{\beta }_1}^2}{I_y}}}\)  = <span id="lambrT"></span> </p>
+       
+        <p> Onde: <br><br>
+        \({\beta }_1=\ \frac{\left(f_y-\ {\sigma }_r\right)\ \times \ W_x\ }{E\ \times \ J}\) = <span id="beta1"> </span> <br>
+        Sendo: <br>
+        \(C_w\) = constante do empenamento da seção transversal; valor retirado das especificações do perfil = <span class="cw"></span> ;<br>
+        \(I_y\) = momento de inércia da seção em relação ao eixo que passa pelo plano médio da alma; valor retirado das especificações do perfil = <span class="iy"></span> \({cm}^4\);<br>
+        \(J\) = constante de torção da seção transversal; valor retirado das especificações do perfil = <span class="it"></span> \({cm}^4\);<br>
+        \(W_x\) = módulo de resistência (mínimo) elástico da seção, relativo ao eixo de flexão, no caso o eixo x; valor retirado das especificações do perfil = <span class="wx"></span> \({cm}^3\).<br> 
+            
+        </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLT (\(M_{rd}\)) </h5>
+        
+        <span id="textT"></span>
+        
+        <h3> III. Análise dos resultados </h3>
+        
+        <h4> a)	Esforços solicitantes</h4>
+        
+        <p> Os esforços solicitantes inseridos pelo usuário \(V_k\) e \(M_k\) são majorados pelo fator γ, normalmente acrescendo 40% do valor existente. O programa permite alternar o coeficiente padrão, para esta verificação foi adotado γ = <span class="gama"></span>.</p>
+        
+        <p class="eqcenter"> \(V_{sd}=\ \gamma \ \times \ V_k\)  = <span class="vsd"></span> KN </p>
+        <p class="eqcenter"> \(M_{sd}=\ \gamma \ \times \ M_k\)  = <span class="msd"></span> KN.m </p>
+       
+        <h4> b)	Esforços resistentes </h4>
+        
+        <p> Com base nos cálculos apresentados nos itens acima, temos: </p>
+        
+        <p> Esforço cortante resistente: \(V_{rd}\) = <span class="vrd"></span> KN</p>
+        <p> Momento fletor resistente: \(M_{rd}\) = <span class="mrdOut"></span> KN.m</p>
+        
+        <h4> Resultado </h4>
+        
+        <p> Se o esforço solicitante for menor ou igual esforço resistente, a viga poderá ser submetida aos esforços apresentados. Para a viga <span class="beam"> </span>, temos: </p>
+        
+        <span id="textR"></span>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <br>
+        <br>
+        <br>
+	<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+	<br>
+        <br>
+        <br>
+	<br>
+        <br>
+        <br>
+	<br>
+        <br>
+        <br>
+        
+	<p> Testes </p>   
+	<span id="text1"> </span>
+	<br>
+        <p> Caso 1 </p>
+        
+         \[c=\frac{2}{3x}\] 
+        
+        
+         Equacao \(c=\frac{2}{3x}+\ \mathop{\int\!\!\!\!\int}{xdx}\) = variavel
+    
+        
+         $$c=\mathop{\int\!\!\!\!\int}{xdx}$$ 
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    </body>
 
-textV2 = "<p> Como " + resultado.lambpV + " < " + resultado.lambV + " ≤ " + resultado.lambrV + ",  \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\[V_{Rd}=\\frac{{\\lambda }_p}{\\lambda }\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\]  = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV2]);
-
-textV3 = "<p> Como " + resultado.lambV + " > " + resultado.lambrV + ", " + "\\(λ\\) > \\(λ_r\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=1,24\\ \\times \\ ({\\frac{{\\lambda }_p}{\\lambda })}^2\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\)  = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV3]);
-
-textA1 = "<p> Como " + resultado.lambA + " ≤ " + resultado.lambpA + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdA + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA1]);
-
-textA2 = "<p> Como " + resultado.lambpA + " < " + resultado.lambA + " ≤ " + resultado.lambrA + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdA + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrA + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA2]);
-
-textA3 = "<p> Como " + resultado.lambA + " > " + resultado.lambrA + ", " + "\\(λ\\) > \\(λ_r\\), tem-se uma viga de alma esbelta conforme Anexo H da NBR 8800:2008. Não é indicado o uso, sugere-se a escolha de outro perfil ao projeto." 
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA3]);
-
-textM1 = "<p> Como " + resultado.lambM + " ≤ " + resultado.lambpM + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM1]);
-
-textM2 = "<p> Como " + resultado.lambpM + " < " + resultado.lambM + " ≤ " + resultado.lambrM + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrM + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM2]);
-
-textM3 = "<p> Como " + resultado.lambM + " > " + resultado.lambrM + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br>; <span class='eqcenter'> \\(M_{cr}=\\frac{0,69\\times E}{{\\lambda }^2}W_c\\)  = " + resultado.mcrM + " KN.cm </span> </p>" + "<p> Onde: <br> \\(W_c\\) = módulo de resistência elástico do lado comprimido da seção, relativo ao eixo de flexão, neste caso, o eixo x; valor retirado das especificações do perfil = " + resultado.wx + "\\({cm}^3\\).</p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM3]);
-
-textT1 = "<p> Como " + resultado.lambT + " ≤ " + resultado.lambpT + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT1]);
-
-textT2 = "<p> Como " + resultado.lambpT + " < " + resultado.lambT + " ≤ " + resultado.lambrT + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrT + " KN.cm </span> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT2]);
-
-textT3 = "<p> Como " + resultado.lambT + " > " + resultado.lambrT + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br> <span class='eqcenter'> \\(M_{cr}=\\ \\frac{C_b\\times \\ {\pi }^2}{L_b}\\ \\times E\\ \\times \\ I_y\\ \\ \\times \\ \\sqrt{\\frac{C_w}{I_y}\\ \\times \\ \\left(1+0,039\\ \\times \\ \\frac{J\\times {L_b}^2}{C_w}\\right)}\\)  = " + resultado.mcrT + " KN.cm </span> </p>" + "<p> Onde: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> </p>";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT3]);
-
-textApp = "\\(V_{sd}\\) ≤ \\(V_{rd}\\) = " + resultado.vsd + " ≤ " +  resultado.vrd + " KN = APROVADO, Ratio " + resultado.ratioCSV + "<br> \\(M_{sd}\\) ≤ \\(M_{rd}\\) = " + resultado.msd + " ≤ " +  resultado.mrdOut + " KN.m = APROVADO, Ratio " + resultado.ratioCSM + "<br><br> Como o esforço solicitante é menor do que o resistente, a viga está aprovada na verificação quanto à flexão simples de acordo com os critérios da NBR 8800:2008.";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textApp]);
-
-textNAppV = "\\(V_{sd}\\) > \\(V_{rd}\\) = " + resultado.vsd + " > " +  resultado.vrd + " KN = REPROVADO, Ratio Cortante " + resultado.ratioCSV + "<br> \\(M_{sd}\\) ≤ \\(M_{rd}\\) = " + resultado.msd + " ≤ " +  resultado.mrdOut + " KN.m = APROVADO, Ratio Momento Fletor " + resultado.ratioCSM + "<br><br> Como o esforço solicitante de cortante é maior do que o resistente, a viga não está aprovada na verificação quanto à flexão simples de acordo com os critérios da NBR 8800:2008.";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textNAppV]);
-
-textNAppM = "\\(V_{sd}\\) ≤ \\(V_{rd}\\) = " + resultado.vsd + " ≤ " +  resultado.vrd + " KN = APROVADO, Ratio Cortante " + resultado.ratioCSV + "<br> \\(M_{sd}\\) > \\(M_{rd}\\) = " + resultado.msd + " > " +  resultado.mrdOut + " KN.m = REPROVADO, Ratio Momento Fletor " + resultado.ratioCSM + "<br><br> Como o esforço solicitante de momento fletor é maior do que o resistente, a viga não está aprovada na verificação quanto à flexão simples de acordo com os critérios da NBR 8800:2008.";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textNAppM]);
-
-textNAppVM = "\\(V_{sd}\\) > \\(V_{rd}\\) = " + resultado.vsd + " > " +  resultado.vrd + " KN = REPROVADO, Ratio Cortante " + resultado.ratioCSV + "<br> \\(M_{sd}\\) > \\(M_{rd}\\) = " + resultado.msd + " > " +  resultado.mrdOut + " KN.m = REPROVADO, Ratio Momento Fletor " + resultado.ratioCSM + "<br><br> Como os esforços solicitantes são maiores do que os resistentes, a viga não está aprovada na verificação quanto à flexão simples de acordo com os critérios da NBR 8800:2008.";
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, textNAppVM]);
-
-// Teste
-var text1 = "Como " + resultado.lambA + " = " + '\\(c=\\frac{2}{3x}\\) ' + " = " + resultado.lambpA
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, text1]);
-
-$(document).ready(function() {
-    // Header
-    $(".project").html(resultado.project);
-    $(".beam").html(resultado.beam);
-    $(".lbForm").html(resultado.lbForm);
-    $(".steel").html(resultado.steel);
-    $(".fyForm").html(resultado.fyForm);
-    $(".fuForm").html(resultado.fuForm);
-    $(".E").html(resultado.EForm);
-    $(".vk").html(resultado.vk);
-    $(".mk").html(resultado.mk);
-    $(".gama").html(resultado.gama);
-    $(".gama1").html(resultado.gama1);
-    $(".cb").html(resultado.cb);
-    $("#enrij").html(resultado.enrij);
-    $(".a").html(resultado.a);
-
-    // Section
-    $("#section").html(resultado.section);
-    $("#ml").html(resultado.ml);
-    $("#d").html(resultado.d);
-    $(".bf").html(resultado.bf);
-    $(".tw").html(resultado.tw);
-    $(".tf").html(resultado.tf);
-    $(".h").html(resultado.h);
-    $(".dl").html(resultado.dl);
-    $("#area").html(resultado.area);
-    $("#ix").html(resultado.ix);
-    $(".wx").html(resultado.wx);
-    $("#rx").html(resultado.rx);
-    $("#zx").html(resultado.zx);
-    $(".iy").html(resultado.iy);
-    $("#wy").html(resultado.wy);
-    $(".ry").html(resultado.ry);
-    $("#zy").html(resultado.zy);
-    $("#rt").html(resultado.rt);
-    $(".it").html(resultado.it);
-    $("#mesa").html(resultado.mesa);
-    $("#alma").html(resultado.alma);
-    $(".cw").html(resultado.cw);
-    $("#u").html(resultado.u);
-
-    // Lambs V
-    $("#lambV").html(resultado.lambV);
-    $("#lambpV").html(resultado.lambpV);
-    $("#kv").html(resultado.kv);
-    $("#lambrV").html(resultado.lambrV);
-
-    // Situation V
-    switch (resultado.situationV) {
-        case "Caso 1":
-            $("#textV").html(textV1);
-            break;
-        case "Caso 2":
-            $("#textV").html(textV2);
-            break;
-        case "Caso 3":
-            $("#textV").html(textV3);
-            break;
-    }
-
-    // Lambs A
-    $("#lambA").html(resultado.lambA);
-    $("#lambpA").html(resultado.lambpA);
-    $("#lambrA").html(resultado.lambrA);
-
-    // Situation A
-    switch (resultado.situationA) {
-        case "Caso 1":
-            $("#textA").html(textA1);
-            break;
-        case "Caso 2":
-            $("#textA").html(textA2);
-            break;
-        case "Caso 3":
-            $("#textA").html(textA3);
-            break;
-    }
-
-    // Lambs M
-    $("#lambM").html(resultado.lambM);
-    $("#lambpM").html(resultado.lambpM);
-    $("#lambrM").html(resultado.lambrM);
-    $("#tr").html(resultado.tr);
-
-    // Situation M
-    switch (resultado.situationM) {
-        case "Caso 1":
-            $("#textM").html(textM1);
-            break;
-        case "Caso 2":
-            $("#textM").html(textM2);
-            break;
-        case "Caso 3":
-            $("#textM").html(textM3);
-            break;
-    }
-
-    // Lambs T
-    $("#lambT").html(resultado.lambT);
-    $("#lambpT").html(resultado.lambpT);
-    $("#lambrT").html(resultado.lambrT);
-    $("#beta1").html(resultado.beta1);
-
-    // Situation T
-    switch (resultado.situationT) {
-        case "Caso 1":
-            $("#textT").html(textT1);
-            break;
-        case "Caso 2":
-            $("#textT").html(textT2);
-            break;
-        case "Caso 3":
-            $("#textT").html(textT3);
-            break;
-    }
-
-    // Results
-
-    // Sd
-    $(".vsd").html(resultado.vsd);
-    $(".msd").html(resultado.msd);
-
-    // Rd
-    $(".vrd").html(resultado.vrd);
-    $(".mrdOut").html(resultado.mrdOut);
-
-    // Conclusion
-    if (resultado.result === "OK") {
-        $("#textR").html(textApp);
-    } else if (resultado.vsd >= resultado.vrd && resultado.msd <= resultado.mrdOut) {
-        $("#textR").html(textNAppV);
-    } else if (resultado.vsd <= resultado.vrd && resultado.msd > resultado.mrdOut) {
-        $("#textR").html(textNAppM);
-    } else if (resultado.vsd > resultado.vrd && resultado.msd > resultado.mrdOut) {
-        $("#textR").html(textNAppVM);
-    }
-
-
-    $("#text1").html(text1);
-
-});
+    
+    <script type="text/javascript">
+  
+        var endereco = getJsonFromUrl();
+        var texto = document.createElement("h1");
+        var textoEl = document.createTextNode(endereco.test);
+        texto.appendChild(textoEl);
+        document.body.appendChild(texto);
+	    
+	    
+    </script>
+ 
+</html>
