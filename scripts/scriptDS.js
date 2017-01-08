@@ -394,7 +394,7 @@ function processFormDS() {
         "suggestion": suggestion
     };
 
-    document.getElementById("botaoRelatorio").href = "reportDS.html?test=" + JSON.stringify(resultado);
+    document.getElementById("reportDS").href = "reportDS.html?test=" + JSON.stringify(resultado);
 
 }
 
