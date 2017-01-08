@@ -13,6 +13,9 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 
+var nBarras, nBarrasC, nBarrasT;
+var arranjos = [];
+
 var bitola = [
     {
         "diametro": 5.0,
@@ -114,7 +117,10 @@ var concreteProp = [
 function processFormDC() {
     "use strict";
     var i, j, k;
-
+    
+    /* Clean suggestion array */
+    arranjos = [];
+   
     // Getting values from HTML form inputs
     project = document.formDC.projectDC.value;
     /* if (project === "") {
@@ -293,6 +299,27 @@ function processFormDC() {
         //Resultados
         result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         alert(result);
+        
+        //Arranjos
+        if (situationS === "Simples") {
+            for (i = 0; i < arranjos.length; i += 1) { //Log of approved
+                console.log(arranjos[i]);
+                nBarras = as / (bitola[i].area);
+        
+            } else if (situationS === "Dupla") {
+                for (i = 0; i < arranjos.length; i += 1) { //Log of approved
+                console.log(arranjos[i]);
+                nBarrasC = asl / (bitola[i].area);
+                nBarrasT = ast / (bitola[i].area);
+                }
+        }
+            
+        arranjos.push({    // saves to a list of approved sections
+                "bitola": bitola[i],
+                "area": bitola[i].area,
+                "nº de barras": nbarras,
+
+            });
         
     }
        
