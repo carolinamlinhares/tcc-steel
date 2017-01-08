@@ -291,7 +291,7 @@ function processFormDC() {
         ast = as1 + as2;
         
         //Resultados
-        result = "Área de aço comprimida = " + asl + ". Área de aço tracionada = " + ast;
+        result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         alert(result);
         
     }
