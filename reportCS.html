@@ -86,7 +86,7 @@
         
         <p class="eqcenter"> \(\lambda =\frac{h}{t_w}\) = <span id="lambV"></span> </p>
         
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         h = altura da alma, tomada igual à distância entre faces internas das mesas nos perfis soldados e igual a esse valor menos os dois raios de concordância entre mesa e alma nos perfis laminados e igual ao comprimento da parte plana nas seções tubulares retangulares; valor retirado da especificação do perfil = <span class="h"> </span> mm; <br>
         \(t_w\)= espessura da alma; valor retirado da especificação do perfil = <span class="tw"> </span> mm.
         </p>
@@ -95,7 +95,7 @@
         
         <p class="eqcenter"> \({\lambda }_p=1,10\sqrt{\frac{k_v\times E}{f_y}}\) = <span id="lambpV"></span> </p>
         
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         \(f_y\) = resistência ao escoamento do aço = <span class="fyForm"> </span> MPa <br>
         E = módulo de elasticidade do aço = <span class="E"> </span> MPa <br>
         \(k_v\) = DESCREVER <br>
@@ -124,7 +124,7 @@
         
         <p class="eqcenter"> \(\lambda =\frac{d'}{t_w}\) = <span id="lambA"></span> </p>
         
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         d' = altura livre da alma; valor retirado da especificação do perfil = <span class="dl"> </span> mm; 
         </p>
         
@@ -136,7 +136,7 @@
         
         <p class="eqcenter"> \({\lambda }_r=5,70\sqrt{\frac{E}{f_y}}\) = <span id="lambrA"></span> </p>
         
-        <h5> Cálculo do Momento Fletor Resistente FLA \(M_{rd}\) </h5>
+        <h5> Cálculo do Momento Fletor Resistente FLA (\(M_{rd}\)) </h5>
         
         <span id="textA"></span>
         
@@ -146,7 +146,7 @@
         
         <p class="eqcenter"> \(\lambda =\frac{b_f}{2t_f}\) = <span id="lambM"></span> </p>
         
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         \(b_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="bf"> </span> mm; <br>
         \(t_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="tf"> </span> mm; <br>
         </p>
@@ -157,13 +157,13 @@
         
         <h5> Parâmetro de esbeltez correspondente ao início do escoamento \(λ_r\) </h5>
         
-        <p class="eqcenter"> \({\lambda }_r=0,83x\sqrt{\frac{E}{\left(f_y-{\sigma }_r\right)}}\) = <span id="lambrM"></span> </p>
+        <p class="eqcenter"> \({\lambda }_r=0,83\sqrt{\frac{E}{\left(f_y-{\sigma }_r\right)}}\) = <span id="lambrM"></span> </p>
        
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         \({\sigma }_r=0,3\ \times \ f_y\) = <span id="tr"> </span> \(KN.{cm}^2\) <br>
         </p>
         
-        <h5> Cálculo do Momento Fletor Resistente FLM \(M_{rd}\) </h5>
+        <h5> Cálculo do Momento Fletor Resistente FLM (\(M_{rd}\)) </h5>
         
         <span id="textM"></span>
         
@@ -173,7 +173,7 @@
         
         <p class="eqcenter"> \(\lambda =\frac{L_b}{r_y}\) = <span id="lambT"></span> </p>
         
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         \(L_b\) = distância entre duas seções contidas à flambagem lateral com torção (comprimento destravado) = <span class="lbForm"> </span> m; <br>
         \(r_y\) = raio de giração da seção em relação ao eixo principal de inércia perpendicular ao eixo de flexão = <span class="ry"> </span> cm. <br>
         </p>
@@ -186,7 +186,7 @@
         
         <p class="eqcenter"> \({\lambda }_r=\frac{1,38\sqrt{I_YJ}}{r_yJ{\beta }_1}\times \sqrt{1+\sqrt{1+\frac{27C_w{{\beta }_1}^2}{I_y}}}\)  = <span id="lambrT"></span> </p>
        
-        <p> Onde: <br>
+        <p> Onde: <br><br>
         \({\beta }_1=\ \frac{\left(f_y-\ {\sigma }_r\right)\ \times \ W_x\ }{E\ \times \ J}\) = <span id="beta1"> </span>. <br>
         Sendo: <br>
         \(C_w\) = constante do empenamento da seção transversal; valor retirado das especificações do perfil = <span class="cw"></span> ;<br>
@@ -196,9 +196,9 @@
             
         </p>
         
-        <h5> Cálculo do Momento Fletor Resistente FLM \(M_{rd}\) </h5>
+        <h5> Cálculo do Momento Fletor Resistente FLT (\(M_{rd}\)) </h5>
         
-        <span id="textM"></span>
+        <span id="textT"></span>
         
         <h3> Análise dos resultados </h3>
         
@@ -206,15 +206,15 @@
         
         <p> Os esforços solicitantes inseridos pelo usuário \(V_k\) e \(M_k\) são majorados pelo fator γ, normalmente acrescendo 40% do valor existente. O programa permite alternar o coeficiente padrão, para esta verificação foi adotado γ = <span class="gama"></span>.</p>
         
-        <p class="eqcenter"> \[V_{sd}=\ \gamma \ \times \ V_k\]  = <span class="vsd"></span> KN </p>
-        <p class="eqcenter"> \[M_{sd}=\ \gamma \ \times \ M_k\]  = <span class="msd"></span> KN.m </p>
+        <p class="eqcenter"> \(V_{sd}=\ \gamma \ \times \ V_k\)  = <span class="vsd"></span> KN </p>
+        <p class="eqcenter"> \(M_{sd}=\ \gamma \ \times \ M_k\)  = <span class="msd"></span> KN.m </p>
        
         <h4> b)	Esforços resistentes </h4>
         
         <p> Com base nos cálculos apresentados nos itens acima, temos: </p>
         
-        <p> Esforço cortante resistente: \(V_rd\) = <span class="vrd"></span> KN.</p>
-        <p> Momento fletor resistente: \(M_rd\) = <span class="mrdOut"></span> KN.</p>
+        <p> Esforço cortante resistente: \(V_{rd}\) = <span class="vrd"></span> KN.</p>
+        <p> Momento fletor resistente: \(M_{rd}\) = <span class="mrdOut"></span> KN.m</p>
         
         <h4> Resultado </h4>
         
