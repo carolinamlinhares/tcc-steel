@@ -11,7 +11,7 @@ var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var situationD, situationLN;
-var dll, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS;
+var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS;
 
 var bitola = [
     {
@@ -167,7 +167,7 @@ function processFormDC() {
     s = Number(document.formDC.sDC.value);
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
-    dll = Number(document.formDC.dllDC.value);
+    dlc = Number(document.formDC.dlcDC.value);
         
     // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLong").value);
@@ -284,11 +284,11 @@ function processFormDC() {
         tlsd = 43.5;
             
         //Encontrar área de aço comprimida A's
-        asl = m2d/(tlsd*(d-dll));
+        asl = m2d/(tlsd*(d-dlc));
         
         //Encontrar área de aço tracionada As
         as1 = m1d/(tsd*(d-0.4*xd));
-        as2 = m2d/(tsd*(d-dll));
+        as2 = m2d/(tsd*(d-dlc));
         ast = as1 + as2;
         
         //Resultados
