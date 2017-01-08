@@ -372,25 +372,29 @@ function processFormDS() {
 
     console.table(suggestion);
     alert("O perfil " + suggestion[0].perfil.bitola + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
+
+    // Report Array
+
+    resultado = {
+        "project": project,
+        "beam": beam,
+        "vk": vk,
+        "mk": mk,
+        "lbForm": lbForm,
+        "section": section,
+        "steel": steel,
+        "fyForm": fyForm,
+        "fuForm": fuForm,
+        "EForm": EForm,
+        "vsd": vsd,
+        "msd": msd,
+        "suggestion": suggestion
+    };
+
+
 }
 
-// Report Array
 
-resultado = {
-    "project": project,
-    "beam": beam,
-    "vk": vk,
-    "mk": mk,
-    "lbForm": lbForm,
-    "section": section,
-    "steel": steel,
-    "fyForm": fyForm,
-    "fuForm": fuForm,
-    "EForm": EForm,
-    "vsd": vsd,
-    "msd": msd,
-    "suggestion": suggestion
-};
     
     
 /*
