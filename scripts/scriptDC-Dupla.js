@@ -306,7 +306,7 @@ function processFormDC() {
                 console.log(arranjos[i]);
                 nBarras = as / (bitola[i].area);
         
-            } else if (situationS === "Dupla") {
+            } else {
                 for (i = 0; i < arranjos.length; i += 1) { //Log of approved
                 console.log(arranjos[i]);
                 nBarrasC = asl / (bitola[i].area);
