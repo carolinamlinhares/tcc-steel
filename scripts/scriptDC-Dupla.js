@@ -305,16 +305,15 @@ function processFormDC() {
             for (i = 0; i < arranjos.length; i += 1) { //Log of approved
                 console.log(arranjos[i]);
                 nBarras = as / (bitola[i].area);
-        	
-            } else {
+            }
+        } else {
                 for (i = 0; i < arranjos.length; i += 1) { //Log of approved
                 console.log(arranjos[i]);
                 nBarrasC = asl / (bitola[i].area);
                 nBarrasT = ast / (bitola[i].area);
                 }
         }
-	}
-	    
+                    
         arranjos.push({    // saves to a list of approved sections
                 "bitola": bitola[i],
                 "area": bitola[i].area,
