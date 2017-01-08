@@ -81,6 +81,7 @@ function processFormCS() {
         }
     } else {
         enrij = false;
+        a = "N/A"
     }
     
    
@@ -306,6 +307,8 @@ function processFormCS() {
     lambT = lambT.toFixed(2);
     lambpT = lambpT.toFixed(2);
     lambrT = lambrT.toFixed(2);
+    beta1 = beta1.toFixed(2);
+    kc = kc.toFixed(2);
     if (typeof (mrT) !== "undefined") {
         mrT = mrT.toFixed(2);
     }
