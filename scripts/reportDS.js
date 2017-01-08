@@ -34,6 +34,8 @@ var resultado = [];
 resultado = JSON.parse(getJsonFromUrl().test);
 //End of parsing results
 
+var i = 0;
+
 $(document).ready(function() {
     // Header
     $(".project").html(resultado.project);
@@ -83,7 +85,6 @@ $(document).ready(function() {
     
     $('#suggestion_table').append('<table></table>');
     var table = $('#suggestion_table').children();
-    var i;
     table.append('<tr><th> Perfil </th> <th> Cortante \(V_{rd}\) (KN) </th> <th> Momento \(M_{rd}\) (KN.m) </th> <th> Ratio Cortante </th> <th> Ratio Momento </th> </tr>');
     for (i = 0; i < resultado.suggestion.length; i += 1) {
         table.append('<tr><td>' +  resultado.suggestion[i].perfil.bitola + '</td>' + '<td>' +  resultado.suggestion[i].vrd + '</td>' + '<td>' +  resultado.suggestion[i].mrdOut + '</td>' + '<td>' +  resultado.suggestion[i].ratioDSV + '</td>' + '<td>' +  resultado.suggestion[i].ratioDSM + '</td>' + '</tr>');
