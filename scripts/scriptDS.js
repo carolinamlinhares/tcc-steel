@@ -13,7 +13,7 @@ var vsd, msd, vrd, mrd, mrdOut, situationV, situationA, situationM, situationT, 
 var ratioDSV, ratioDSM, ratiopDSV, ratiopDSM;
 var approved = [];
 var suggestion = [];
-
+var resultado = [];
 
 var steelProp = [
     {
@@ -264,6 +264,8 @@ function processFormDS() {
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
         
+        vsd = vsd.toFixed(2);
+        msd = msd.toFixed(2);
         vrd = vrd.toFixed(2);
         mrdOut = mrdOut.toFixed(2);
         ratioDSV = ratioDSV.toFixed(2);
@@ -374,7 +376,7 @@ function processFormDS() {
 
 // Report Array
 
-var resultado = {
+resultado = {
     "project": project,
     "beam": beam,
     "vk": vk,
