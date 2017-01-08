@@ -60,7 +60,7 @@ MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA2]);
 textA3 = "<p> Como " + resultado.lambA + " > " + resultado.lambrA + ", " + "\\(λ\\) > \\(λ_r\\), tem-se uma viga de alma esbelta conforme Anexo H da NBR 8800:2008. Não é indicado o uso, sugere-se a escolha de outro perfil ao projeto." 
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA3]);
 
-textM1 = "<p> Como " + resultado.lambM + " ≤ " + resultado.lambpM + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
+textM1 = "<p> Como " + resultado.lambM + " ≤ " + resultado.lambpM + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)); <br> <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM1]);
 
 textM2 = "<p> Como " + resultado.lambpM + " < " + resultado.lambM + " ≤ " + resultado.lambrM + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b\\) = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrM + " KN.cm </span> </p>";
@@ -131,7 +131,7 @@ $(document).ready(function() {
     $("#zy").html(resultado.zy);
     $("#rt").html(resultado.rt);
     $(".it").html(resultado.it);
-    $("#aba").html(resultado.mesa);
+    $("#mesa").html(resultado.mesa);
     $("#alma").html(resultado.alma);
     $(".cw").html(resultado.cw);
     $("#u").html(resultado.u);
