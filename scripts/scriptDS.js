@@ -381,16 +381,20 @@ function processFormDS() {
         "vk": vk,
         "mk": mk,
         "lbForm": lbForm,
-        "section": section,
         "steel": steel,
         "fyForm": fyForm,
         "fuForm": fuForm,
         "EForm": EForm,
+        "gama": gama,
+        "gama1": gama1,
+        "cb": cb,
+        "priority": priority,
         "vsd": vsd,
         "msd": msd,
         "suggestion": suggestion
     };
 
+    document.getElementById("botaoRelatorio").href = "reportDS.html?test=" + JSON.stringify(resultado);
 
 }
 
