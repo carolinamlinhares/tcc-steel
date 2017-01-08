@@ -23,12 +23,12 @@
         <p> Viga <span class="beam"> </span></p>
         <p> Distância entre travamentos laterais <span class="lbForm"> </span> m </p>
         <p> Aço <span class="steel"> </span> </p>
-        <p> fy <span class="fyForm"> </span> MPa </p>
-        <p> fu <span class="fuForm"> </span> MPa </p>
-        <p> Módulo de elasticidade E <span class="E"> </span> MPa </p>    
+        <p> fy = <span class="fyForm"> </span> MPa </p>
+        <p> fu = <span class="fuForm"> </span> MPa </p>
+        <p> Módulo de elasticidade (E) = <span class="E"> </span> MPa </p>    
         <h4> Esforços </h4>
-        <p> Cortante <span class="vk"> </span> KN </p>
-        <p> Momento <span class="mk"> </span> KN.m </p>
+        <p> Cortante = <span class="vk"> </span> KN </p>
+        <p> Momento = <span class="mk"> </span> KN.m </p>
         <p> gama = <span class="gama"> </span> </p>
         <p> gama a1 = <span class="gama1"> </span> </p>
         <p> Cb = <span class="cb"> </span> </p>
@@ -40,25 +40,25 @@
         <h4> Perfil <span id="section"> </span> </h4>
         <p> Massa Linear <span id="ml"> </span> kg/m </p>
         <p> d = <span id="d"> </span> mm </p>
-        <p> bf = <span id="bf"> </span> mm </p>
+        <p> bf = <span class="bf"> </span> mm </p>
         <p> tw = <span class="tw"> </span> mm </p>
-        <p> tf = <span id="tf"> </span> mm </p>
+        <p> tf = <span class="tf"> </span> mm </p>
         <p> h = <span class="h"> </span> mm </p>
-        <p> d' = <span id="dl"> </span> mm </p>
+        <p> d' = <span class="dl"> </span> mm </p>
         <p> Área = <span id="area"> </span> \({cm}^2\) </p>
         <p> Ix = <span id="ix"> </span> \({cm}^4\) </p>
-        <p> Wx = <span id="wx"> </span> \({cm}^3\) </p>
+        <p> Wx = <span class="wx"> </span> \({cm}^3\) </p>
         <p> rx = <span id="rx"> </span> cm </p>
         <p> Zx = <span id="zx"> </span> \({cm}^3\) </p>
-        <p> Iy = <span id="iy"> </span> \({cm}^4\) </p>
+        <p> Iy = <span class="iy"> </span> \({cm}^4\) </p>
         <p> Wy = <span id="wy"> </span> \({cm}^3\) </p>
-        <p> ry = <span id="ry"> </span> cm </p>
+        <p> ry = <span class="ry"> </span> cm </p>
         <p> Zy = <span id="zy"> </span> \({cm}^3\) </p>
         <p> rt = <span id="rt"> </span> cm </p>
-        <p> It = <span id="it"> </span> \({cm}^4\) </p>
+        <p> It = <span class="it"> </span> \({cm}^4\) </p>
         <p> Esbeltez da mesa = <span id="aba"> </span> </p>
         <p> Esbeltez da alma = <span id="alma"> </span> </p>
-        <p> Cw = <span id="cw"> </span> \({cm}^6\) </p>
+        <p> Cw = <span class="cw"> </span> \({cm}^6\) </p>
         <p> u = <span id="u"> </span> \({m}^2\)/m </p>
         
         </div>
@@ -87,8 +87,8 @@
         <p class="eqcenter"> \(\lambda =\frac{h}{t_w}\) = <span id="lambV"></span> </p>
         
         <p> Onde: <br>
-        h = altura da alma, tomada igual à distância entre faces internas das mesas nos perfis soldados e igual a esse valor menos os dois raios de concordância entre mesa e alma nos perfis laminados e igual ao comprimento da parte plana nas seções tubulares retangulares = <span class="h"> </span> mm; <br>
-        \(t_w\)= espessura da alma = <span class="tw"> </span> mm.
+        h = altura da alma, tomada igual à distância entre faces internas das mesas nos perfis soldados e igual a esse valor menos os dois raios de concordância entre mesa e alma nos perfis laminados e igual ao comprimento da parte plana nas seções tubulares retangulares; valor retirado da especificação do perfil = <span class="h"> </span> mm; <br>
+        \(t_w\)= espessura da alma; valor retirado da especificação do perfil = <span class="tw"> </span> mm.
         </p>
         
         <h5> Parâmetro de esbeltez correspondente à plastificação \(λ_p\) </h5>
@@ -116,10 +116,118 @@
         
         <h3> II. Momento Fletor </h3>
         
+        <p> São considerados os casos de Flambagem Local da Alma (FLA), Flambagem Local da Mesa Comprimida (FLM) e Flambagem Lateral com Torção (FLT). O momento fletor resitente é adotado como a resistência mínima entre os três casos.</p>
         
+        <h4> a) Flambagem Local da Alma (FLA) </h4>
         
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
         
+        <p class="eqcenter"> \(\lambda =\frac{d'}{t_w}\) = <span id="lambA"></span> </p>
         
+        <p> Onde: <br>
+        d' = altura livre da alma; valor retirado da especificação do perfil = <span class="dl"> </span> mm; 
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação \(λ_p\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=3,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpA"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento \(λ_r\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=5,70\sqrt{\frac{E}{f_y}}\) = <span id="lambrA"></span> </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLA \(M_{rd}\) </h5>
+        
+        <span id="textA"></span>
+        
+        <h4> b) Flambagem Local da Mesa Comprimida (FLM) </h4>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{b_f}{2t_f}\) = <span id="lambM"></span> </p>
+        
+        <p> Onde: <br>
+        \(b_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="bf"> </span> mm; <br>
+        \(t_f\) = largura da mesa do perfil; valor retirado da especificação do perfil = <span class="tf"> </span> mm; <br>
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação \(λ_p\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=3,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpM"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento \(λ_r\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=0,83x\sqrt{\frac{E}{\left(f_y-{\sigma }_r\right)}}\) = <span id="lambrM"></span> </p>
+       
+        <p> Onde: <br>
+        \({\sigma }_r=0,3\ \times \ f_y\) = <span id="tr"> </span> \(KN.{cm}^2\) <br>
+        </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLM \(M_{rd}\) </h5>
+        
+        <span id="textM"></span>
+        
+        <h4> c) Flambagem Lateral com Torção (FLT) </h4>
+        
+        <h5> Parâmetro de esbeltez característico (\(λ\)) </h5>
+        
+        <p class="eqcenter"> \(\lambda =\frac{L_b}{r_y}\) = <span id="lambT"></span> </p>
+        
+        <p> Onde: <br>
+        \(L_b\) = distância entre duas seções contidas à flambagem lateral com torção (comprimento destravado) = <span class="lbForm"> </span> m; <br>
+        \(r_y\) = raio de giração da seção em relação ao eixo principal de inércia perpendicular ao eixo de flexão = <span class="ry"> </span> cm. <br>
+        </p>
+        
+        <h5> Parâmetro de esbeltez correspondente à plastificação \(λ_p\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_p=1,76\sqrt{\frac{E}{f_y}}\) = <span id="lambpT"></span> </p>
+        
+        <h5> Parâmetro de esbeltez correspondente ao início do escoamento \(λ_r\) </h5>
+        
+        <p class="eqcenter"> \({\lambda }_r=\frac{1,38\sqrt{I_YJ}}{r_yJ{\beta }_1}\times \sqrt{1+\sqrt{1+\frac{27C_w{{\beta }_1}^2}{I_y}}}\)  = <span id="lambrT"></span> </p>
+       
+        <p> Onde: <br>
+        \({\beta }_1=\ \frac{\left(f_y-\ {\sigma }_r\right)\ \times \ W_x\ }{E\ \times \ J}\) = <span id="beta1"> </span>. <br>
+        Sendo: <br>
+        \(C_w\) = constante do empenamento da seção transversal; valor retirado das especificações do perfil = <span class="cw"></span> ;<br>
+        \(I_y\) = momento de inércia da seção em relação ao eixo que passa pelo plano médio da alma; valor retirado das especificações do perfil = <span class="iy"></span> \({cm}^4\);<br>
+        \(J\) = constante de torção da seção transversal; valor retirado das especificações do perfil = <span class="it"></span> \({cm}^4\);<br>
+        \(W_x\) = módulo de resistência (mínimo) elástico da seção, relativo ao eixo de flexão, no caso o eixo x; valor retirado das especificações do perfil = <span class="wx"></span> \({cm}^3\).<br> 
+            
+        </p>
+        
+        <h5> Cálculo do Momento Fletor Resistente FLM \(M_{rd}\) </h5>
+        
+        <span id="textM"></span>
+        
+        <h3> Análise dos resultados </h3>
+        
+        <h4> a)	Esforços solicitantes</h4>
+        
+        <p> Os esforços solicitantes inseridos pelo usuário \(V_k\) e \(M_k\) são majorados pelo fator γ, normalmente acrescendo 40% do valor existente. O programa permite alternar o coeficiente padrão, para esta verificação foi adotado γ = <span class="gama"></span>.</p>
+        
+        <p class="eqcenter"> \[V_{sd}=\ \gamma \ \times \ V_k\]  = <span class="vsd"></span> KN </p>
+        <p class="eqcenter"> \[M_{sd}=\ \gamma \ \times \ M_k\]  = <span class="msd"></span> KN.m </p>
+       
+        <h4> b)	Esforços resistentes </h4>
+        
+        <p> Com base nos cálculos apresentados nos itens acima, temos: </p>
+        
+        <p> Esforço cortante resistente: \(V_rd\) = <span class="vrd"></span> KN.</p>
+        <p> Momento fletor resistente: \(M_rd\) = <span class="mrdOut"></span> KN.</p>
+        
+        <h4> Resultado </h4>
+        
+        <p> Se o esforço solicitante for menor ou igual esforço resistente, a viga poderá ser submetida aos esforços apresentados. Para a viga <span class="beam"> </span>, temos: </p>
+        
+        <span id="textR"></span>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    
         
         <span id="text1"> </span>
         
