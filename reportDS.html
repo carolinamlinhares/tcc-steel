@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Relatório de Dimensionamento">
+		<meta name="author" content="Carolina Linhares">
+
+		<title>Relatório de Dimensionamento</title>
+		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/reportDS.js"></script>
+		
+	</head>
+
+    <body>
+        
+        <h1> Relatório de Dimensionamento </h1>
+        
+        <div>
+        <p> Projeto <span class="project"> </span> </p>
+        <p> Viga <span class="beam"> </span></p>
+        <p> Distância entre travamentos laterais <span class="lbForm"> </span> m </p>
+        <p> Aço <span class="steel"> </span> </p>
+        <p> fy = <span class="fyForm"> </span> MPa </p>
+        <p> fu = <span class="fuForm"> </span> MPa </p>
+        <p> Módulo de elasticidade (E) = <span class="E"> </span> MPa </p>    
+        <h4> Esforços </h4>
+        <p> Cortante \(V_k\) = <span class="vk"> </span> KN </p>
+        <p> Momento \(M_k\) = <span class="mk"> </span> KN.m </p>
+        <p> Gama \({\gamma}\) = <span class="gama"> </span> </p>
+        <p> Gama a1 \({\gamma}_{a1}\) = <span class="gama1"> </span> </p>
+        <p> Cb = <span class="cb"> </span> </p>
+        <p> Perfil com enrijecedor <span id="enrij"> Não </span> </p>
+        <p> Prioridade na escolha do perfil <span class="priority"> </span> </p>
+        </div>
+        
+        <div>
+        <h4> Perfil <span id="section"> </span> </h4>
+        <p> Massa Linear <span id="ml"> </span> kg/m </p>
+        <p> d = <span id="d"> </span> mm </p>
+        <p> bf = <span class="bf"> </span> mm </p>
+        <p> tw = <span class="tw"> </span> mm </p>
+        <p> tf = <span class="tf"> </span> mm </p>
+        <p> h = <span class="h"> </span> mm </p>
+        <p> d' = <span class="dl"> </span> mm </p>
+        <p> Área = <span id="area"> </span> \({cm}^2\) </p>
+        <p> Ix = <span id="ix"> </span> \({cm}^4\) </p>
+        <p> Wx = <span class="wx"> </span> \({cm}^3\) </p>
+        <p> rx = <span id="rx"> </span> cm </p>
+        <p> Zx = <span id="zx"> </span> \({cm}^3\) </p>
+        <p> Iy = <span class="iy"> </span> \({cm}^4\) </p>
+        <p> Wy = <span id="wy"> </span> \({cm}^3\) </p>
+        <p> ry = <span class="ry"> </span> cm </p>
+        <p> Zy = <span id="zy"> </span> \({cm}^3\) </p>
+        <p> rt = <span id="rt"> </span> cm </p>
+        <p> It = <span class="it"> </span> \({cm}^4\) </p>
+        <p> Esbeltez da mesa = <span id="mesa"> </span> </p>
+        <p> Esbeltez da alma = <span id="alma"> </span> </p>
+        <p> Cw = <span class="cw"> </span> \({cm}^6\) </p>
+        <p> u = <span id="u"> </span> \({m}^2\)/m </p>
+        
+        </div>
+        
+        <p> O dimensionamento da viga <span class="beam"> </span> foi feito para atender ao Estado Limite Último (ELU) da viga submetida à flexão simples de acordo com a norma brasileira NBR 8800:2008. A viga foi avaliada pelo esforço cortante e o momento fletor máximo resistentes, face às condições solicitantes. </p>
+        
+        <p> Os esforços atuantes \(V_k\) e \(M_k\) são majorados pelo fator \({\gamma}_{a1}\), resultando nos esforços solicitantes apresentados na tabela a seguir. </p>
+        
+        <table>
+            <tr>
+                <th> Esforço </th>
+                <th> Cortante \(V_{sd}\) (KN) </th>
+                <th> Momento Fletor \(M_{sd}\) (KN.m) </th>
+            </tr>
+            <tr>
+                <td> Solicitação </td>
+                <td> <span id="vsd"> </span> </td>
+                <td> <span id="msd"> </span> </td>          
+            </tr>
+         </table>
+        
+        <p> A prioridade para o dimensionamento da viga foi o critério de <span class="priority"> </span>. Assim, são listadas na tabela abaixo sugestões de perfis que atendem aos requisitos com seus respectivos esforços resistentes e a proporção de utilização (Ratio = Solicitação/Resistência). Poderá ser usado qualquer perfil sugerido, desde que sejam consideradas outras variáveis como flecha admissível, custos, manuseio e questões estruturais. </p>
+        
+        <div id="suggestion_table"> </div>
+        
+        <p> Para obter a verificação completa de cada perfil sugerido, visite a página de Verificação de Vigas Metálicas. </p>
+        
+    </body>
+    
+</html>
+        
+        
