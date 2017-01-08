@@ -35,27 +35,47 @@ resultado = JSON.parse(getJsonFromUrl().test);
 //End of parsing results
 
 //Variables
-
 var textV1, textV2, textV3;
 var textA1, textA2, textA3;
 var textM1, textM2, textM3;
 var textT1, textT2, textT3;
 
 // Building variable texts
-
-textV1 = "<p> Como " + resultado.lambV + "≤ " + resultado.lambpV + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
+textV1 = "<p> Como " + resultado.lambV + " ≤ " + resultado.lambpV + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=\\frac{V_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV1]);
 
-textV2 = "<p> Como " + resultado.lampV + "<" + resultado.lambV + "≤ " + resultado.lambpV + ",  \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\[V_{Rd}=\\frac{{\\lambda }_p}{\\lambda }\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\]  = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
+textV2 = "<p> Como " + resultado.lampV + " < " + resultado.lambV + " ≤ " + resultado.lambpV + ",  \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\[V_{Rd}=\\frac{{\\lambda }_p}{\\lambda }\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\]  = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV2]);
 
-textV3 = "<p> Como " + resultado.lambV + "> " + resultado.lambrV + ", " + "\\(λ\\) > \\(λ_r\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=1,24\\ \\times \\ ({\\frac{{\\lambda }_p}{\\lambda })}^2\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\)  = " + resultado.vrd + " KN </span>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>"; 
+textV3 = "<p> Como " + resultado.lambV + " > " + resultado.lambrV + ", " + "\\(λ\\) > \\(λ_r\\)" + ", o esforço cortante resistente é dado por: <br>" + "<span class='eqcenter'> \\(V_{Rd}=1,24\\ \\times \\ ({\\frac{{\\lambda }_p}{\\lambda })}^2\\times \\frac{V_{pl}}{{\\gamma }_{a1}}\\)  = " + resultado.vrd + " KN </span> </p>" + "<p> Sendo: <br> \\(V_{pl}=0,5\\times A_w\\times f_y\\) = " + resultado.vpl + "KN <br> \\(A_w\\) = área da alma = \\(d\\times t_w\\) = " + resultado.aw + "\\({cm}^2\\) </p>";
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV3]);
 
+textA1 = "<p> Como " + resultado.lambA + " ≤ " + resultado.lambpA + ", " + "\\(λ\\) ≤ \\(λ_p\\)" + ", o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdA + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA1]);
 
+textA2 = "<p> Como " + resultado.lampA + " < " + resultado.lambA + " ≤ " + resultado.lambpA + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdA + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b)\\ = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrA + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA2]);
 
+textA3 = "<p> Como " + resultado.lambA + " > " + resultado.lambrA + ", " + "\\(λ\\) > \\(λ_r\\), tem-se uma viga de alma esbelta conforme Anexo H da NBR 8800:2008. Não é indicado o uso, sugere-se a escolha de outro perfil ao projeto." 
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textA3]);
 
+textM1 = "<p> Como " + resultado.lambM + " ≤ " + resultado.lambpM + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM1]);
 
+textM2 = "<p> Como " + resultado.lampM + " < " + resultado.lambM + " ≤ " + resultado.lambpM + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b)\\ = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrM + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM2]);
+
+textM3 = "<p> Como " + resultado.lambM + " > " + resultado.lambrM + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdM + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br>; <span class='eqcenter'> \\(M_{cr}=\\frac{0,69\\times E}{{\\lambda }^2}W_c\\)  = " + resultado.mcrM + " KN.cm </span> </p>" + "<p> Onde: <br> \\(W_c\\) = módulo de resistência elástico do lado comprimido da seção, relativo ao eixo de flexão, neste caso, o eixo x; valor retirado das especificações do perfil = " + resultado.wx + "\\({cm}^3\\).</p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textM3]);
+
+textT1 = "<p> Como " + resultado.lambT + " ≤ " + resultado.lambpT + ", \\(λ\\) ≤ \\(λ_p\\) , o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{pl}}{{\\gamma }_{a1}}\\) = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT1]);
+
+textT2 = "<p> Como " + resultado.lampT + " < " + resultado.lambT + " ≤ " + resultado.lambpT + ", \\(λ_p\\) < \\(λ\\) ≤ \\(λ_r\\), o momento fletor resistente é dado por: <br> <span class='eqcenter'> \\(M_{Rd}=\\frac{Cb}{{\\gamma }_{a1}}\\times (M_{pl}-(M_{pl}-\\ M_r)(\\frac{\\lambda -{\\lambda }_p}{{\\lambda }_r-{\\lambda }_p})\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(C_b)\\ = coeficiente para majorar momento DESCREVER = " + resultado.cb + " ; <br> \\(M_{pl}\\) = momento fletor de plastificação da seção transversal, igual ao produto do módulo de resistência plástico (z) pela resistência ao escoamento do aço (\\(fy\\)) <br>; <span class='eqcenter'> \\(M_{pl}=z_x\\ \\times f_y\\)  = " + resultado.mpl + " KN.cm </span> <br> \\(M_r\\) = momento fletor correspondente ao início do escoamento, incluindo a influência das tensões residuais em alguns casos; <br> <span class='eqcenter'> \\(M_r=0,7f_yW_x\\)   = " + resultado.mrT + " KN.cm </span> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT2]);
+
+textT3 = "<p> Como " + resultado.lambT + " > " + resultado.lambrT + ", \\(λ\\) > \\(λ_r\\), o momento fletor resistente é dado por: <br>" + "<span class='eqcenter'> \\(M_{Rd}=\\frac{M_{cr}}{{\\gamma }_{a1}}\\)  = " + resultado.mrdT + " KN.cm </span> </p>" + "<p> Sendo: <br> \\(M_{cr}\\) = momento fletor de flambagem elástica. Para perfis laminados: <br>; <span class='eqcenter'> \\(M_{cr}=\\ \\frac{C_b\times \\ {\pi }^2}{L_b}\\ \\times E\\ \\times \\ I_y\\ \\ \\times \\ \\sqrt{\\frac{C_w}{I_y}\\ \\times \\ \\left(1+0,039\\ \\times \\ \\frac{J\\times {L_b}^2}{C_w}\\right)}\\)  = " + resultado.mcrT + " KN.cm </span> </p>" + "<p> Onde: <br> \\(C_b)\\ = coeficiente para majorar momento DESCREVER = " + resultado.cb + "; <br> </p>";
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, textT3]);
 
 
 
@@ -72,7 +92,7 @@ MathJax.Hub.Queue(["Typeset", MathJax.Hub, textV3]);
 var text1 = "Como " + resultado.lambA + " = " + '\\(c=\\frac{2}{3x}\\) ' + " = " + resultado.lambpA
 MathJax.Hub.Queue(["Typeset", MathJax.Hub, text1]);
 
-$(document).ready(function () {
+$(document).ready(function() {
     // Header
     $(".project").html(resultado.project);
     $(".beam").html(resultado.beam);
@@ -87,38 +107,38 @@ $(document).ready(function () {
     $(".gama1").html(resultado.gama1);
     $(".cb").html(resultado.cb);
     $(".a").html(resultado.a);
-    
+
     // Section
     $("#section").html(resultado.section);
     $("#ml").html(resultado.ml);
     $("#d").html(resultado.d);
-    $("#bf").html(resultado.bf);
+    $(".bf").html(resultado.bf);
     $(".tw").html(resultado.tw);
-    $("#tf").html(resultado.tf);
+    $(".tf").html(resultado.tf);
     $(".h").html(resultado.h);
-    $("#dl").html(resultado.dl);
+    $(".dl").html(resultado.dl);
     $("#area").html(resultado.area);
     $("#ix").html(resultado.ix);
-    $("#wx").html(resultado.wx);
+    $(".wx").html(resultado.wx);
     $("#rx").html(resultado.rx);
     $("#zx").html(resultado.zx);
-    $("#iy").html(resultado.iy);
+    $(".iy").html(resultado.iy);
     $("#wy").html(resultado.wy);
-    $("#ry").html(resultado.ry);
+    $(".ry").html(resultado.ry);
     $("#zy").html(resultado.zy);
     $("#rt").html(resultado.rt);
-    $("#it").html(resultado.it);
+    $(".it").html(resultado.it);
     $("#aba").html(resultado.aba);
     $("#alma").html(resultado.alma);
-    $("#cw").html(resultado.cw);
+    $(".cw").html(resultado.cw);
     $("#u").html(resultado.u);
-    
+
     // Lambs V
     $("#lambV").html(resultado.lambV);
     $("#lambpV").html(resultado.lambpV);
     $("#kv").html(resultado.kv);
     $("#lambrV").html(resultado.lambrV);
-    
+
     // Situation V
     switch (resultado.situationV) {
         case "Caso 1":
@@ -131,23 +151,78 @@ $(document).ready(function () {
             $("#textV").html(textV3);
             break;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    // Lambs A
+    $("#lambA").html(resultado.lambA);
+    $("#lambpA").html(resultado.lambpA);
+    $("#lambrA").html(resultado.lambrA);
+
+    // Situation A
+    switch (resultado.situationA) {
+        case "Caso 1":
+            $("#textA").html(textA1);
+            break;
+        case "Caso 2":
+            $("#textA").html(textA2);
+            break;
+        case "Caso 3":
+            $("#textA").html(textA3);
+            break;
+    }
+
+    // Lambs M
+    $("#lambM").html(resultado.lambM);
+    $("#lambpM").html(resultado.lambpM);
+    $("#lambrM").html(resultado.lambrM);
+    $("#tr").html(resultado.tr);
+
+    // Situation M
+    switch (resultado.situationM) {
+        case "Caso 1":
+            $("#textM").html(textM1);
+            break;
+        case "Caso 2":
+            $("#textM").html(textM2);
+            break;
+        case "Caso 3":
+            $("#textM").html(textM3);
+            break;
+    }
+
+    // Lambs T
+    $("#lambT").html(resultado.lambT);
+    $("#lambpT").html(resultado.lambpT);
+    $("#lambrT").html(resultado.lambrT);
+    $("#beta1").html(resultado.beta1);
+
+    // Situation T
+    switch (resultado.situationT) {
+        case "Caso 1":
+            $("#textT").html(textT1);
+            break;
+        case "Caso 2":
+            $("#textT").html(textT2);
+            break;
+        case "Caso 3":
+            $("#textT").html(textT3);
+            break;
+    }
+
+    // Results
+
+    // Sd
+    $(".vsd").html(resultado.vsd);
+    $(".msd").html(resultado.msd);
+
+    // Rd
+    $(".vrd").html(resultado.vrd);
+    $(".mrd").html(resultado.mrdOut);
+
+    // Conclusion
+
+
+
+
     $("#text1").html(text1);
 
 
