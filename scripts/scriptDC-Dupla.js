@@ -16,43 +16,43 @@ var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var bitola = [
     {
         "diametro": 5.0,
-        "area": 0.20
+        "area": 0.196349540849362
     },
     {
         "diametro": 6.3,
-        "area": 0.315
+        "area": 0.311724531052447
     },
     {
         "diametro": 8.0,
-        "area": 0.50
+        "area": 0.502654824574367
     },
     {
         "diametro": 10.0,
-        "area": 0.80
+        "area": 0.785398163397448
     },
     {
         "diametro": 12.5,
-        "area": 1.25
+        "area": 1.22718463030851
     },
     {
         "diametro": 16.0,
-        "area": 2.0
+        "area": 2.01061929829747
     },
     {
         "diametro": 20.0,
-        "area": 3.15
+        "area": 3.80132711084365
     },
     {
         "diametro": 25.0,
-        "area": 5.0
+        "area": 4.90873852123405
     },
     {
         "diametro": 32.0,
-        "area": 8.0
+        "area": 8.04247719318987
     },
     {
         "diametro": 40.0,
-        "area": 12.50
+        "area": 12.5663706143592
     }
     
 ];
