@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8">
+		<meta name="description" content="Plataforma educacional para dimensionamento de vigas metálicas.">
+		<meta name="author" content="Carolina Linhares">
+        
+	   	<title>Dimensionamento de Vigas Metálicas</title>
+	  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="header">
+        <h1> Dimensionamento de Vigas Metálicas </h1>
+		</div>
+		<div class="form">
+		<form name="formDS">
+			<label>Projeto:</label>
+			<input type="text" name="projectDS" placeholder="Ex.: Edifício Califórnia"/> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamDS" placeholder="Identifique a viga. Ex.: V1" /> <br>
+
+			<label>Norma:</label>
+			<select name="standart">
+				<option value="NBR 8800:2008"> NBR 8800:2008 </option> 
+			</select> <br> 
+
+			<h2> Esforços </h2>
+			<label>Esforço Cortante Vk (kN):</label>
+			<input type="text" name="vDS" /> <br>
+
+			<label>Momento Fletor Mk (kN.m):</label>
+			<input type="text" name="mDS" /> <br>
+
+			<label> Distância entre travamentos laterais (m):</label>
+			<input type="text" name="lbDS" /> <br>
+
+			<h2> Perfil </h2>
+
+			<label>Aço:</label>
+			<select id="acos" name="typeS">
+			</select> <br> <br>
+
+			<input type="checkbox" name="stiffeningDS" value="getK" checked="" onclick="return false;" onkeydown="return false;"> Perfil sem enrijecedor <br>
+
+			<h4> Coeficientes </h4>
+			
+			<label>Gama</label>
+			<input type="text" name="gama" value=1.4 /> <br>
+			<label>Gama A1</label>
+			<input type="text" name="gama1" value=1.1 /> <br>
+			<label>Cb</label>
+			<input type="text" name="cb" value=1 /> <br>
+            <label>Prioridade da escolha do perfil</label>
+			<select id="priority" name="priority">
+                <option value="Maior aproveitamento quanto ao Esforço Cortante"> Maior aproveitamento quanto ao Esforço Cortante </option>
+                <option value="Maior aproveitamento quanto ao Momento Fletor"> Maior aproveitamento quanto ao Momento Fletor </option>
+                <option value="Menor altura"> Menor altura </option>
+		<option value="Menor base"> Menor base </option>
+                <option value="Menor massa linear"> Menor massa linear </option>
+		<option value="Menor massa linear em cada família W/HP" default> Menor massa linear em cada família W/HP </option>
+			</select> <br> <br>
+
+			<br>
+
+
+			<input type="button" value="Dimensionar" onClick="processFormDS()" /> <br>
+			<input type="reset" value="Limpar"/> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+
+    <!-- Only to access pages while testing -->
+    <input type="button" value="Verificar" onclick="window.location.href='index.html'">
+        
+    <script type="text/javascript" src="scripts/perfis.js"></script>
+    <script type="text/javascript" src="scripts/testeDS.js"></script>
+			
+	</body>
+
+</html>
