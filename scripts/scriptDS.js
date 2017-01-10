@@ -264,6 +264,7 @@ function processFormDS() {
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
         
+        
         vsd = vsd.toFixed(2);
         msd = msd.toFixed(2);
         vrd = vrd.toFixed(2);
@@ -302,6 +303,7 @@ function processFormDS() {
     for (i = 0; i < approved.length; i += 1) { //Log of approved
         console.log(approved[i]);
     }
+    /*
     
 /*
     Suggestion list
@@ -401,6 +403,7 @@ function processFormDS() {
 
 }
 
+*/
 
     
     
