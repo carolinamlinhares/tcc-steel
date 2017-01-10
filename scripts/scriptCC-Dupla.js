@@ -327,9 +327,14 @@ function processFormDC() {
         ast = as1 + as2;
         
         //Calcular Área de Aço Utilizada na Viga em Verificação
-        astcalc = nBarrasT * ncamT * bitola[i].area; //iguais !!!!!!!!!!
-        asccalc = nBarrasC * ncamC * bitola[w].area; //iguais !!!!!!!!!!
-        
+        astcalc = nBarrasT * ncamT * bitola[i].area;
+        asccalc = nBarrasC * ncamC * bitola[w].area;
+        if (astcalc >= ast && asccalc >= asl) {
+            result = "A viga resiste ao momento cortante solicitado";
+            alert(result);
+        } else {result = "A viga não resiste ao momento cortante solicitado";
+                alert(result);
+               }
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         //alert(result);
