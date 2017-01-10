@@ -303,11 +303,8 @@ function processFormDS() {
     for (i = 0; i < approved.length; i += 1) { //Log of approved
         console.log(approved[i]);
     }
-    /*
-    
 /*
-    Suggestion list
-*/
+    
     contFamily = [];
     contFamily[610] = 0;
     contFamily.fill(0);
@@ -371,9 +368,6 @@ function processFormDS() {
         break;
     }
             
-/*
-    SUGGESTION: Printing a log to check
-*/
 
     console.table(suggestion);
     alert("O perfil " + suggestion[0].perfil.bitola + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
