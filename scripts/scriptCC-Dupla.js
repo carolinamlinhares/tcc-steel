@@ -123,7 +123,7 @@ function processFormDC() {
     arranjos = [];
    
     // Getting values from HTML form inputs
-    project = document.formDC.projectDC.value;
+    project = document.formCC.projectCC.value;
     /* if (project === "") {
         alert("Por favor preencha o campo Projeto.");
         console.log("Por favor preencha o campo Projeto.");
@@ -133,7 +133,7 @@ function processFormDC() {
         project = "Exemplo 1";
     }
        
-    beam = document.formDC.beamDC.value;
+    beam = document.formDC.beamCC.value;
     /* if (beam === "") {
         alert("Por favor preencha o campo Viga.");
         console.log("Por favor preencha o campo Viga.");
@@ -143,66 +143,66 @@ function processFormDC() {
         beam = "V1";
     }
     
-    h = Number(document.formDC.hDC.value);
-    if (document.formDC.hDC.value === "" || isNaN(h)) {
+    h = Number(document.formDC.hCC.value);
+    if (document.formCC.hCC.value === "" || isNaN(h)) {
         alert("Por favor preencha o campo Altura da Viga com números.");
         console.log("Por favor preencha o campo Altura da Viga.");
         return false;
     }
     
-    bw = Number(document.formDC.bwDC.value);
+    bw = Number(document.formCC.bwCC.value);
     if (document.formDC.bwDC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Largura da Viga com números.");
         console.log("Por favor preencha o campo Largura da Viga.");
         return false;
     }
     
-    ncamT = Number(document.formDC.layerTCC.value);
-    if (document.formDC.layerTCC.value === "" || isNaN(bw)) {
+    ncamT = Number(document.formCC.layerTCC.value);
+    if (document.formCC.layerTCC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de camadas tracionadas com números.");
         console.log("Por favor preencha o Nº de camadas tracionadas.");
         return false;
     }
     
-    nBarrasT = Number(document.formDC.barsTCC.value);
-    if (document.formDC.barsTCC.value === "" || isNaN(bw)) {
+    nBarrasT = Number(document.formCC.barsTCC.value);
+    if (document.formCC.barsTCC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de barras com números.");
         console.log("Por favor preencha o Nº de barras.");
         return false;
     }
     
-    ncamC = Number(document.formDC.layerCCC.value);
-    if (document.formDC.layerCCC.value === "" || isNaN(bw)) {
+    ncamC = Number(document.formCC.layerCCC.value);
+    if (document.formCC.layerCCC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de camadas comprimidas com números.");
         console.log("Por favor preencha o Nº de camadas comprimidas.");
         return false;
     }
     
-    nBarrasC = Number(document.formDC.barsCCC.value);
-    if (document.formDC.barsCCC.value === "" || isNaN(bw)) {
+    nBarrasC = Number(document.formCC.barsCCC.value);
+    if (document.formCC.barsCCC.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de barras com números.");
         console.log("Por favor preencha o Nº de barras.");
         return false;
     }
     
-    mk = Number(document.formDC.mDC.value);
-    if (document.formDC.mDC.value === "" || isNaN(mk)) {
+    mk = Number(document.formCC.mCC.value);
+    if (document.formCC.mCC.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
         console.log("Por favor preencha o campo Momento.");
         return false;
     }
     
-    concrete = concreteProp[(document.formDC.concreteDC.value)].concType;
-    steel = steelProp[(document.formDC.steelDC.value)].steelType;
-    diamLongForm = bitola[Number(document.formDC.longDC.value)].diametro;
-    diamEstForm = bitola[Number(document.formDC.estDC.value)].diametro;
-    gamac = Number(document.formDC.gamacDC.value);
-    gamaf = Number(document.formDC.gamafDC.value);
-    gamas = Number(document.formDC.gamasDC.value);
-    s = Number(document.formDC.sDC.value);
-    cob = Number(document.formDC.cobDC.value);
-    dl = Number(document.formDC.dlDC.value);
-    dlc = Number(document.formDC.dlcDC.value);
+    concrete = concreteProp[(document.formCC.concreteCC.value)].concType;
+    steel = steelProp[(document.formCC.steelCC.value)].steelType;
+    diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
+    diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro;
+    gamac = Number(document.formCC.gamacCC.value);
+    gamaf = Number(document.formCC.gamafCC.value);
+    gamas = Number(document.formCC.gamasCC.value);
+    s = Number(document.formCC.sCC.value);
+    cob = Number(document.formCC.cobCC.value);
+    dl = Number(document.formCC.dlCC.value);
+    dlc = Number(document.formCC.dlcCC.value);
         
     // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLongT").value);
