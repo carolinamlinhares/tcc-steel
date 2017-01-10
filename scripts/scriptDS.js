@@ -264,7 +264,6 @@ function processFormDS() {
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
         
-        
         vsd = vsd.toFixed(2);
         msd = msd.toFixed(2);
         vrd = vrd.toFixed(2);
@@ -303,7 +302,112 @@ function processFormDS() {
     for (i = 0; i < approved.length; i += 1) { //Log of approved
         console.log(approved[i]);
     }
+    
+/*
+    Suggestion list
+*/
+    contFamily = [];
+    contFamily[610] = 0;
+    contFamily.fill(0);
+    
+    switch (priority) {
+    case "Maior aproveitamento quanto ao Esforço Cortante":
+        approved.sort(function (a, b) {
+            return b.ratioDSV - a.ratioDSV;
+        });
+        //approved.reverse();
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Maior aproveitamento quanto ao Momento Fletor":
+        approved.sort(function (a, b) {
+            return b.ratioDSM - a.ratioDSM;
+        });
+        //approved.reverse();
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor base":
+        approved.sort(function (a, b) {
+            return a.perfil.bf - b.perfil.bf;
+        });
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor altura":
+        approved.sort(function (a, b) {
+            return a.perfil.d - b.perfil.d;
+        });
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    case "Menor massa linear em cada família W/HP": //incompleto
+        approved.sort(function (a, b) {
+            return a.perfil.ml - b.perfil.ml;
+        });
+        for (i = 0; i < approved.length; i += 1) {
+            if (contFamily[approved[i].perfil.family] === 0) {
+                suggestion.push(approved[i]);
+                contFamily[approved[i].perfil.family] = 1;
+            }
+        }
+        suggestion.sort(function (a, b) {
+            return a.perfil.family - b.perfil.family;
+        });
+        break;
+    case "Menor massa linear":
+        approved.sort(function (a, b) {
+            return a.perfil.ml - b.perfil.ml;
+        });
+        for (i = 0; i < 5; i += 1) {
+            suggestion[i] = approved[i];
+        }
+        break;
+    }
+            
+/*
+    SUGGESTION: Printing a log to check
+*/
+
+    console.table(suggestion);
+    alert("O perfil " + suggestion[0].perfil.bitola + " pode ser utilizado para a Viga " + beam + ". Confira o relatório para mais opções.");
+
+    // Report Array
+
+    resultado = {
+        "project": project,
+        "beam": beam,
+        "vk": vk,
+        "mk": mk,
+        "lbForm": lbForm,
+        "steel": steel,
+        "fyForm": fyForm,
+        "fuForm": fuForm,
+        "EForm": EForm,
+        "gama": gama,
+        "gama1": gama1,
+        "cb": cb,
+        "priority": priority,
+        "vsd": vsd,
+        "msd": msd,
+        "suggestion": suggestion
+    };
+
+    document.getElementById("botaoRelatorio2").href = "reportDS.html?test=" + JSON.stringify(resultado);
+
 }
+
+
+    
+    
+/*
+    Cria um objeto aco
+*/
+
 
 
 var acoLista = document.getElementById("acos"),
