@@ -39,6 +39,7 @@ function processFormDS() {
     /* Clean suggestion array */
     suggestion = [];
     approved = [];
+    resultado = [];
     
     // Getting project values from HTML form inputs
         
