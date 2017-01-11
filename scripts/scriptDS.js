@@ -265,14 +265,14 @@ function processFormDS() {
         ratiopDSV = ratioDSV * 100;
         ratiopDSM = ratioDSM * 100;
         
-        vsd = vsd.toFixed(2);
-        msd = msd.toFixed(2);
-        vrd = vrd.toFixed(2);
-        mrdOut = mrdOut.toFixed(2);
-        ratioDSV = ratioDSV.toFixed(2);
-        ratioDSM = ratioDSM.toFixed(2);
-        ratiopDSV = ratiopDSV.toFixed(2);
-        ratiopDSM = ratiopDSM.toFixed(2);
+        vsd = Number(vsd.toFixed(2));
+        msd = Number(msd.toFixed(2));
+        vrd = Number(vrd.toFixed(2));
+        mrdOut = Number(mrdOut.toFixed(2));
+        ratioDSV = Number(ratioDSV.toFixed(2));
+        ratioDSM = Number(ratioDSM.toFixed(2));
+        ratiopDSV = Number(ratiopDSV.toFixed(2));
+        ratiopDSM = Number(ratiopDSM.toFixed(2));
 
         if (vsd <= vrd && msd <= mrdOut) {
             result = "OK";
