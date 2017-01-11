@@ -293,8 +293,9 @@ function processFormDS() {
 
     }
     
-    if (approved === null){
-        alert("Nenhum perfil satisfaz as condições");
+    if (approved.length === 0){
+        alert("Ops! Nenhum perfil satisfaz as condições apresentadas pela viga.");
+        return;
     }
 /*
     APPROVED: Printing a log to check
