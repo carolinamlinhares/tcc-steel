@@ -347,7 +347,7 @@ function processFormCD() {
         } else {
             result = "A viga não resiste ao momento fletor solicitado";
         }
-        
+    }
         
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
