@@ -209,7 +209,7 @@ function processFormCD() {
     i = Number(document.getElementById("bitolaLongT").value);
     w = Number(document.getElementById("bitolaLongC").value);
     
-        // Getting concrete properties
+    // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
     
     fckForm = concreteProp[j].fckProp;
@@ -301,13 +301,7 @@ function processFormCD() {
     //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
     astcalc = nBarrasT * ncamT * bitola[i].area;
     asccalc = nBarrasC * ncamC * bitola[w].area;
-    if (astcalc >= ast && asccalc >= asl) {
-        result = "A viga resiste ao momento fletor solicitado";
-        alert(result);
-    } else {result = "A viga não resiste ao momento fletor solicitado";
-            alert(result);
-            }
-
+    
     //CÁLCULO DA ÁREA DE AÇO NECESSÁRIA
 
     if (situationD === "Aprovado" && situationLN === "Aprovada") {
@@ -315,8 +309,10 @@ function processFormCD() {
 	    as = md / (tsd * (d - 0.4 * x));
         if (astcalc >= as) {
             result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
+            alert(result);
         } else {
             result = "A viga não resiste ao momento fletor solicitado";
+            alert(result);
         }
                     
     } else {
@@ -334,20 +330,20 @@ function processFormCD() {
         //Encontrar valor de tlsd na tabela (!!!!)
         tlsd = 43.5;
             
-        //Encontrar área de aço comprimida A's
+        //Encontrar área de aço comprimida necessária A's
         asl = m2d / (tlsd * (d - dlc));
         
-        //Encontrar área de aço tracionada As
+        //Encontrar área de aço tracionada necessária As
         as1 = m1d / (tsd * (d - 0.4 * xd));
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
         if (astcalc >= ast && asccalc >= asl) {
             result = "A viga resiste ao momento fletor solicitado";
-        } else {
-            result = "A viga não resiste ao momento fletor solicitado";
-        }
-        
+            alert(result);
+        } else {result = "A viga não resiste ao momento fletor solicitado";
+            alert(result);
+            }
     }
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
@@ -367,16 +363,10 @@ function processFormCD() {
         }
     }
                     
-    arranjos.push({    // saves to a list of approved sections
-        "bitola": bitola[i],
-        "area": bitola[i].area,
-        "nº de barras": nBarras
-
-    });
-        
+   
 }
-       
-    
+        
+
             
   /*  
     document.getElementById("botaoRelatorio").href = "reportCS.html?test=" + JSON.stringify(resultado);
