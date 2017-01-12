@@ -297,14 +297,28 @@ function processFormCD() {
     } else {
         situationLN = "Reprovada";
     }
+    
+    //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
+        astcalc = nBarrasT * ncamT * bitola[i].area;
+        asccalc = nBarrasC * ncamC * bitola[w].area;
+        if (astcalc >= ast && asccalc >= asl) {
+            result = "A viga resiste ao momento fletor solicitado";
+            alert(result);
+        } else {result = "A viga não resiste ao momento fletor solicitado";
+                alert(result);
+               }
 
-    //CÁLCULO DA ÁREA DE AÇO
+    //CÁLCULO DA ÁREA DE AÇO NECESSÁRIA
 
     if (situationD === "Aprovado" && situationLN === "Aprovada") {
         situationS = "Simples";
 	    as = md / (tsd * (d - 0.4 * x));
-        alert(as);
-     
+        if (astcalc >= as) {
+            result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada"
+        } else {
+            result = "A viga não resiste ao momento fletor solicitado"
+        }
+                    
     } else {
         situationS = "Dupla";
         
@@ -328,15 +342,13 @@ function processFormCD() {
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
-        //Calcular Área de Aço Utilizada na Viga em Verificação
-        astcalc = nBarrasT * ncamT * bitola[i].area;
-        asccalc = nBarrasC * ncamC * bitola[w].area;
         if (astcalc >= ast && asccalc >= asl) {
-            result = "A viga resiste ao momento fletor solicitado";
-            alert(result);
-        } else {result = "A viga não resiste ao momento fletor solicitado";
-                alert(result);
-               }
+            result = "A viga resiste ao momento fletor solicitado"
+        } else {
+            result = "A viga não resiste ao momento fletor solicitado"
+        }
+        
+        
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         //alert(result);
