@@ -299,14 +299,14 @@ function processFormCD() {
     }
     
     //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
-        astcalc = nBarrasT * ncamT * bitola[i].area;
-        asccalc = nBarrasC * ncamC * bitola[w].area;
-        if (astcalc >= ast && asccalc >= asl) {
-            result = "A viga resiste ao momento fletor solicitado";
+    astcalc = nBarrasT * ncamT * bitola[i].area;
+    asccalc = nBarrasC * ncamC * bitola[w].area;
+    if (astcalc >= ast && asccalc >= asl) {
+        result = "A viga resiste ao momento fletor solicitado";
+        alert(result);
+    } else {result = "A viga não resiste ao momento fletor solicitado";
             alert(result);
-        } else {result = "A viga não resiste ao momento fletor solicitado";
-                alert(result);
-               }
+            }
 
     //CÁLCULO DA ÁREA DE AÇO NECESSÁRIA
 
@@ -314,9 +314,9 @@ function processFormCD() {
         situationS = "Simples";
 	    as = md / (tsd * (d - 0.4 * x));
         if (astcalc >= as) {
-            result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada"
+            result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
         } else {
-            result = "A viga não resiste ao momento fletor solicitado"
+            result = "A viga não resiste ao momento fletor solicitado";
         }
                     
     } else {
@@ -343,9 +343,9 @@ function processFormCD() {
         ast = as1 + as2;
         
         if (astcalc >= ast && asccalc >= asl) {
-            result = "A viga resiste ao momento fletor solicitado"
+            result = "A viga resiste ao momento fletor solicitado";
         } else {
-            result = "A viga não resiste ao momento fletor solicitado"
+            result = "A viga não resiste ao momento fletor solicitado";
         }
         
         
