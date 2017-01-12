@@ -332,9 +332,9 @@ function processFormCD() {
         astcalc = nBarrasT * ncamT * bitola[i].area;
         asccalc = nBarrasC * ncamC * bitola[w].area;
         if (astcalc >= ast && asccalc >= asl) {
-            result = "A viga resiste ao momento cortante solicitado";
+            result = "A viga resiste ao momento fletor solicitado";
             alert(result);
-        } else {result = "A viga não resiste ao momento cortante solicitado";
+        } else {result = "A viga não resiste ao momento fletor solicitado";
                 alert(result);
                }
                 
