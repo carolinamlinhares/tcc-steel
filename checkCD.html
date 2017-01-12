@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Plataforma educacional para dimensionamento de vigas em concreto armado.">
+		<meta name="author" content="Juliana Libório">
+
+		<title>Verificação de Vigas em Concreto Armado</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1> Verificação de Vigas em Concreto Duplamente Armado </h1>
+		</div>
+		<div class="form">
+		<form name="formCD">
+			<label>Projeto:</label>
+			<input type="text" name="projectCD" placeholder="Ex.: Edifício Canadá"/> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamCD" placeholder="Identifique a viga. Ex.: V1" /> <br>
+
+			<label>Norma:</label>
+			<select name="standard">
+				<option value="NBR 6118:2014"> NBR 6118:2014 </option> 
+			</select> <br> 
+
+			<h2> DADOS </h2>
+
+			<label>Altura da viga (cm):</label>
+			<input type="text" name="hCD" /><br>
+            
+            <label>Largura da viga (cm):</label>
+			<input type="text" name="bwCD" /> <br>
+            
+            <label>Concreto (Fck):</label>
+			<select id="concrete" name="concreteCD">
+			</select> <br>
+   
+            <label>Aço:</label>
+			<select id="steel" name="steelCD">
+			</select> <br>
+            
+			<h3> ARRANJO </h3>
+   
+            <label>Bitola longitudinal tracionada (mm):</label>
+			<select id="bitolaLongT" name="longTCD">
+			</select> <br>
+
+			<label>Nº de camadas:</label>
+			<input type="text" name="layerTCD" /><br>
+
+			<label>Nº de barras/camada:</label>
+			<input type="text" name="barsTCD" /><br>
+
+            <label>Distância da borda tracionada ao centro de gravidade da armadura tracionada (cm)</label>
+			<input type="text" name="dlCD" /><br>
+            <br>
+            
+            <label>Bitola longitudinal comprimida (mm):</label>
+			<select id="bitolaLongC" name="longCCD">
+			</select> <br>
+
+			<label>Nº de camadas:</label>
+			<input type="text" name="layerCCD" /><br>
+
+			<label>Nº de barras/camada:</label>
+			<input type="text" name="barsCCD" /><br>
+
+            <label>Distância da borda comprimida ao centro de gravidade da armadura comprimida (cm)</label>
+			<input type="text" name="dlcCD" /> <br>
+            <br>
+            
+            <label>Bitola transversal (mm):</label>
+			<select id="bitolaEst" name="estCD">
+			</select> <br>
+            
+            <br>
+            
+            <h2> ESFORÇOS </h2>
+			
+			<label>Momento Fletor Mk (kN.cm):</label>
+			<input type="text" name="mCD" /> <br>
+
+			<h4> COEFICIENTES </h4>
+			
+			<label>Gama c</label>
+			<input type="text" name="gamacCD" value=1.4 /> <br>
+			<label>Gama f</label>
+			<input type="text" name="gamafCD" value=1.4 /> <br>
+			<label>Gama s</label>
+			<input type="text" name="gamasCD" value=1.15 /> <br>
+            <label>Espaçamento entre camadas (cm)</label>
+			<input type="text" name="sCD" value=2.5 /> <br>
+			<label>Cobrimento (cm)</label>
+			<input type="text" name="cobCD" value=3.0 /> <br>
+                        
+            <br>
+
+			<input type="button" value="Verificar" onClick="processFormCD()" /> <br>
+			<input type="button" value="Gerar Relatório" onClick="reportCD()" /> <br>
+			<input type="reset" value="Limpar" /> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+		</div>
+		
+		<!-- Only to access pages while testing -->
+		<input type="button" value="Dimensionar" onclick="window.location.href='designS.html'">
+		<input type="button" value="Relatorio" onclick="window.location.href='relatorio.html'">
+        <a id="botaoRelatorio" href="reportCS.html"> RELATORIO </a>
+
+		<script type="text/javascript" src="scripts/scriptCD.js"></script>
+        
+	</body>
+
+</html>
+
