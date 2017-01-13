@@ -12,6 +12,7 @@ var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
+var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
 
 var nBarras, nBarrasC, nBarrasT;
 var arranjos = [];
@@ -265,7 +266,7 @@ function processFormDC() {
     } else {
         situationLN = "Reprovada";
     }
-
+    
     //CÁLCULO DA ÁREA DE AÇO
 
     if (situationD === "Aprovado" && situationLN === "Aprovada") {
@@ -296,30 +297,69 @@ function processFormDC() {
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
+        //CÁLCULO DA TAXA DE ARMADURA
+        if (situationS === "Simples") {
+            txCalc = (as / (bw * h)) * 100;
+        } else {
+            txCalcT = (ast / (bw * h)) * 100;
+            txCalcC = (asl / (bw * h)) * 100;
+        }
+        
+        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
+        inercia = (b * Math.pow(h, 3)) / 12;
+        wo = inercia / dl;
+        fctm = 0.3 * fck * 0.667;
+        fctkSup = 1.3 * fctm;
+        mdMin = 0.8 * wo * fctkSup;
+        astMin = mdMin / (tsd * (d - 0.4 * x));
+        astMinAbs = 0.0015 * bw * h;
+        
+        //CÁLCULO DA TAXA MÁXIMA DE ARMADURA
+        if (situationS === "Simples" && (as <= 0.04 * bw * h)) {
+            situationTxMax = "OK";
+        } else if (situationS === "Simples") {
+            situationTxMax = "Taxa de armadura excede 4%";
+        } else if (situationS === "Dupla" && ((asl + ast) <= 0.04 * bw * h)) {
+            situationTxMax = "OK. A soma de ast e asc não excede 4%";
+        } else {
+            situationTxMax = "Não OK. A soma de ast e asc não excede 4%";
+        }
+        
+        //CÁLCULO DA ARMADURA DE PELE
+        if (h >= 60) {
+            situationArmPele = "A viga dispensa uso de armadura de pele devido à sua altura";
+        } else {
+            situationArmPele = "A viga necessita do uso de armadura de pele";
+        }
+        if (situationArmPele === "A viga necessita do uso de armadura de pele") {
+            armPele = 0.0010 * bw * h;
+        }
+        
+        //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
+        //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face
+        
         //Resultados
         result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         alert(result);
         
         //Arranjos
         if (situationS === "Simples") {
-            for (i = 0; i < arranjos.length; i += 1) { //Log of approved
-                console.log(arranjos[i]);
+            for (i = 0; i < bitola.length; i += 1) { //Log of approved
                 nBarras = as / (bitola[i].area);
             }
         } else {
-                for (i = 0; i < arranjos.length; i += 1) { //Log of approved
-                console.log(arranjos[i]);
+            for (i = 0; i < bitola.length; i += 1) { //Log of approved
                 nBarrasC = asl / (bitola[i].area);
                 nBarrasT = ast / (bitola[i].area);
-                }
+            }
         }
                     
         arranjos.push({    // saves to a list of approved sections
-                "bitola": bitola[i],
-                "area": bitola[i].area,
-                "nº de barras": nbarras,
-
-            });
+            "bitola": bitola[i],
+            "area": bitola[i].area,
+            "nº de barras": nBarras,
+            
+        });
         
     }
        
