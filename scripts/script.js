@@ -278,6 +278,8 @@ function processFormCS() {
     
     // Fixing decimals 
     
+    aw = aw.toFixed(2);
+    kv = kv.toFixed(2);
     lambV = lambV.toFixed(2);
     lambpV = lambpV.toFixed(2);
     lambrV = lambrV.toFixed(2);
