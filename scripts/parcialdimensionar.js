@@ -5,7 +5,7 @@
 var project, beam, mk, concrete, steel;
 var tsd, as, bw, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
-var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong;
+var d, h, cob, dagreg, agreg, diamEstForm, diamEst, diamLongForm, diamLong, diamLongT, diamLongC;
 var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
@@ -13,8 +13,8 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var resultP, resultTx, conditionTx, conditionEsp;
-var nBarras, nBarrasC, nBarrasT;
+var ac, sv, sh, shT, shC, shSugg, shSuggT, shSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
+var nBarras, nBarrasC, nBarrasT, nBarrasPele;
 var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
@@ -174,7 +174,9 @@ function processFormDC() {
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
-        
+    dagreg = Number(document.formDC.agregDC.value);
+    agreg = document.formDC.agregDC.name;
+    
     // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLong").value);
 
@@ -307,8 +309,8 @@ function processFormDC() {
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
-        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO (ver se As' tambem cai neste caso)
-        inercia = (b * Math.pow(h, 3)) / 12;
+        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO (ver se As' tambem cai neste caso) -- A norma se refere à armadura de tração mesmo.
+        inercia = (bw * Math.pow(h, 3)) / 12;
         wo = inercia / dl;
         fctm = 0.3 * fck * 0.667;
         fctkSup = 1.3 * fctm;
@@ -325,38 +327,52 @@ function processFormDC() {
     } //NOVO
          
     //CÁLCULO DA TAXA DE ARMADURA
+    ac = bw * h;
+    
     if (situationS === "Simples") {
-        txCalc = (as / (bw * h)) * 100;
-        if ((txCalc >= 0.14) && (txCalc <= 0.4)) {
+        txCalc = (as / ac) * 100;
+        if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
             resultTx = "OK";
         } else {
-            resultTx = "Taxa Reprovada.";   
+            resultTx = "Taxa Simples Reprovada.";
         }
     } else if (situationS === "Dupla") {
-        txCalcT = (ast / (bw * h)) * 100;
-        txCalcC = (asl / (bw * h)) * 100;
+        txCalcT = (ast / ac) * 100;
+        txCalcC = (asl / ac) * 100;
         txCalc = txCalcT + txCalcC;
-        if ((txCalc >= 0.0014) && (txCalc <= 0.04)) {
+        if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
             resultTx = "OK";
         } else {
-            resultTx = "Taxa Reprovada.";   
+            resultTx = "Taxa Dupla Reprovada.";
         }
     }
     
     //Arranjos
     switch (situationS) {
     case "Simples":
-        for (i = 0; i < bitola.length; i += 1) { 
+        for (i = 0; i < bitola.length; i += 1) {
             nBarras = Math.ceil(as / (bitola[i].area));
             asSugg = nBarras * bitola[i].area;
-            txCalcSugg = (asSugg / (bw * h)) * 100;
+            txCalcSugg = (asSugg / ac) * 100;
+            
             //Verificar taxa max CONDITION
-            if ((txCalcSugg >= 0.14) && (txCalcSugg <= 0.4)) {
+            if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
                 conditionTx = "OK";
             } else {
-                conditionTx = "Reprovado";   
+                conditionTx = "Reprovado";
             }
             //Verificar viabilidade espacamento CONDITION
+            sh = (bw - 2 * (cob + diamEst) - (nBarras * diamLong)) / (nBarras - 1);
+            if (sh >= 2 && sh >= diamLong && sh >= 1.2 * dagreg) {
+                conditionEsp = "sh OK";
+            } else {
+                conditionEsp = "sh insuficiente";
+            }
+            
+            if (conditionEsp === "sh OK") {
+                shSugg = Math.min(2, diamLong, (1.2 * dagreg));     //E se der Não OK?????
+            }
+            
             if ((conditionTx === "OK") && (conditionEsp === "OK")) {
                 arranjos.push({
                     "bitola": bitola[i],
@@ -364,7 +380,7 @@ function processFormDC() {
                     "qtd": nBarras,
                     "as": asSugg,
                     "taxa": txCalcSugg,
-                    "esp": BLABLABLA
+                    "esp": shSugg
                 });
             }
         }
@@ -373,10 +389,10 @@ function processFormDC() {
             situationArmPele = "Não";
         } else {
             situationArmPele = "Sim";
-            armPele = 0.0010 * bw * h;
+            armPele = 0.0010 * ac;
             //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
             //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
-            for (i = 0; i < arranjos.length; i +=1) {
+            for (i = 0; i < arranjos.length; i += 1) {
                 nBarrasPele = armPele / arranjos[i].area;
                 sPele = h - (2 * (cob + diamEst) + arranjos[i].bitola);
                 if (((sPele - (nBarrasPele * arranjos[i].bitola)) / (nBarrasPele + 1)) <= 20) {
@@ -384,7 +400,7 @@ function processFormDC() {
                         conditionPele = "OK";
                         // ADICIONAR PROPRIEDADE
                     }
-                } 
+                }
             }
             
                 
@@ -393,22 +409,38 @@ function processFormDC() {
         alert(result);
         break;
     case "Dupla":
-        for (i = 0; i < bitola.length; i += 1) { 
+        for (i = 0; i < bitola.length; i += 1) {
+            //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
+            //diamLongC = bitola[i].diametro;
             nBarrasC = Math.ceil(asl / (bitola[i].area));
             nBarrasT = Math.ceil(ast / (bitola[i].area));
             asSuggC = nBarrasC * bitola[i].area;
             asSuggT = nBarrasT * bitola[i].area;
-            txCalcTSugg = (asSuggC / (bw * h)) * 100;
-            txCalcCSugg = (asSuggT / (bw * h)) * 100;
-            txCalcSugg = txCalcCSugg + txCalcTSugg
+            txCalcTSugg = (asSuggC / ac) * 100;
+            txCalcCSugg = (asSuggT / ac) * 100;
+            txCalcSugg = txCalcCSugg + txCalcTSugg;
             //Verificar taxa max CONDITION
             if ((txCalcTSugg >= 0.14) && (txCalcSugg <= 0.4)) {
                 conditionTx = "OK";
             } else {
-                conditionTx = "Reprovado";   
+                conditionTx = "Reprovado";
             }
             txCalcSugg = txCalcTSugg + txCalcCSugg;
+            
             //Verificar viabilidade espacamento CONDITION
+            shT = (bw - 2 * (cob + diamEst) - (nBarrasT * diamLongT)) / (nBarrasT - 1);
+            shC = (bw - 2 * (cob + diamEst) - (nBarrasC * diamLongC)) / (nBarrasC - 1);
+            if (shT >= 2 && shT >= diamLongT && shT >= 1.2 * dagreg && shC >= 2 && shC >= diamLongC && shC >= 1.2 * dagreg) {
+                conditionEsp = "sh OK";
+            } else {
+                conditionEsp = "sh insuficiente";
+            }
+            
+            if (conditionEsp === "sh OK") {
+                shSuggT = Math.min(2, diamLongT, (1.2 * dagreg));     //E se der Não OK?????
+                shSuggC = Math.min(2, diamLongC, (1.2 * dagreg));
+            }
+            
             if ((conditionTx === "OK") && (conditionEsp === "OK")) {
                 arranjos.push({
                     "bitola": bitola[i],
@@ -419,14 +451,14 @@ function processFormDC() {
                     "asT": asSuggT,
                     "taxaC": txCalcCSugg,
                     "taxaT": txCalcTSugg,
-                    "espC": BLABLABLA,
-                    "espT": BLABLABLA
+                    "espC": shSuggC,
+                    "espT": shSuggT
                 });
             }
         }
         result = "Pode ser usada armadura com " + arranjos[0].qtdC + "Ø" + arranjos[0].bitola + " para a armadura comprimida. E " + arranjos[0].qtdT + "Ø" + arranjos[0].bitola + " para a armadura tracionada. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
-        break;        
+        break;
     }
 
             
