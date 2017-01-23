@@ -356,6 +356,8 @@ function processFormDC() {
     case "Simples":
         for (i = 0; i < bitola.length; i += 1) {
             nBarras = Math.ceil(as / (bitola[i].area));
+            console.log(i);
+            console.log(nBarras);
             asSugg = nBarras * bitola[i].area;
             txCalcSugg = (asSugg / ac) * 100;
             
