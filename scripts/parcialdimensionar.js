@@ -368,15 +368,15 @@ function processFormDC() {
                 conditionTx = "Reprovado";
             }
             //Verificar viabilidade espacamento CONDITION
-            sh = (bw - 2 * (cob + estribo[0].diametro) - (nBarras * bitola[i].diametro)) / (nBarras - 1);
-            if (sh >= 2 && sh >= bitola[i].diametro && sh >= 1.2 * dagreg) {
+            sh = (bw - 2 * (cob + (estribo[0].diametro / 10) - (nBarras * bitola[i].diametro / 10)) / (nBarras - 1);
+            if (sh >= 2 && sh >= (bitola[i].diametro / 10) && sh >= 1.2 * dagreg) {
                 conditionEsp = "sh OK";
             } else {
                 conditionEsp = "sh insuficiente";
             }
             
             if (conditionEsp === "sh OK") {
-                shSugg = Math.min(2, diamLong, (1.2 * dagreg));     //E se der Não OK?????
+                shSugg = Math.min(2, (bitola[i].diametro / 10) , (1.2 * dagreg));     //E se der Não OK?????
             }
             
             if ((conditionTx === "OK") && (conditionEsp === "OK")) {
