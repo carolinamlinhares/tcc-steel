@@ -62,6 +62,13 @@ var bitola = [
     
 ];
 
+var estribo = [
+    {
+        "diametro": 6.3,
+        "area": 0.311724531052447
+    }
+];
+
 var steelProp = [
     {
         "steelType": "CA25",
@@ -176,7 +183,7 @@ function processFormDC() {
     dlc = Number(document.formDC.dlcDC.value);
     dagreg = Number(document.formDC.agregDC.value);
     agreg = document.formDC.agregDC.name;
-
+    
     // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
     
@@ -359,8 +366,8 @@ function processFormDC() {
                 conditionTx = "Reprovado";
             }
             //Verificar viabilidade espacamento CONDITION
-            sh = (bw - 2 * (cob + diamEst) - (nBarras * diamLong)) / (nBarras - 1);
-            if (sh >= 2 && sh >= diamLong && sh >= 1.2 * dagreg) {
+            sh = (bw - 2 * (cob + estribo[0].diametro) - (nBarras * bitola[i].diametro)) / (nBarras - 1);
+            if (sh >= 2 && sh >= bitola[i].diametro && sh >= 1.2 * dagreg) {
                 conditionEsp = "sh OK";
             } else {
                 conditionEsp = "sh insuficiente";
@@ -425,8 +432,8 @@ function processFormDC() {
             txCalcSugg = txCalcTSugg + txCalcCSugg;
             
             //Verificar viabilidade espacamento CONDITION
-            shT = (bw - 2 * (cob + diamEst) - (nBarrasT * diamLongT)) / (nBarrasT - 1);
-            shC = (bw - 2 * (cob + diamEst) - (nBarrasC * diamLongC)) / (nBarrasC - 1);
+            shT = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
+            shC = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
             if (shT >= 2 && shT >= diamLongT && shT >= 1.2 * dagreg && shC >= 2 && shC >= diamLongC && shC >= 1.2 * dagreg) {
                 conditionEsp = "sh OK";
             } else {
@@ -485,6 +492,14 @@ var acoLista = document.getElementById("steel"),
     concretoLista = document.getElementById("concrete"),
     i;
     
+for (i = 0; i < bitola.length; i += 1) {
+    bitolaLista1.appendChild(criarBitola(bitola[i].diametro, i));
+}
+        
+for (i = 0; i < bitola.length; i += 1) {
+    bitolaLista2.appendChild(criarBitola(bitola[i].diametro, i));
+}
+
 function criarAco(nomeAco, linhaAco) {
     "use strict";
     var opcao = document.createElement("OPTION"),
