@@ -176,11 +176,8 @@ function processFormDC() {
     dlc = Number(document.formDC.dlcDC.value);
     dagreg = Number(document.formDC.agregDC.value);
     agreg = document.formDC.agregDC.name;
-    
-    // Getting bitolaLong properties
-    i = Number(document.getElementById("bitolaLong").value);
 
-        // Getting concrete properties
+    // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
     
     fckForm = concreteProp[j].fckProp;
