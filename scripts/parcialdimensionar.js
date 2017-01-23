@@ -484,20 +484,10 @@ function criarBitola(nomeBitola, linhaBitola) {
     return opcao;
 }
 
-var bitolaLista1 = document.getElementById("bitolaLong"),
-    bitolaLista2 = document.getElementById("bitolaEst"),
-    acoLista = document.getElementById("steel"),
+var acoLista = document.getElementById("steel"),
     concretoLista = document.getElementById("concrete"),
     i;
     
-for (i = 0; i < bitola.length; i += 1) {
-    bitolaLista1.appendChild(criarBitola(bitola[i].diametro, i));
-}
-        
-for (i = 0; i < bitola.length; i += 1) {
-    bitolaLista2.appendChild(criarBitola(bitola[i].diametro, i));
-}
-
 function criarAco(nomeAco, linhaAco) {
     "use strict";
     var opcao = document.createElement("OPTION"),
