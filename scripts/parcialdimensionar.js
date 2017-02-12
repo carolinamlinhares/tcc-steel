@@ -13,7 +13,7 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
+var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele, conditionAv;
 var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele;
 var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition, nCamadas;
 var asPele;
@@ -406,7 +406,6 @@ function processFormDC() {
     switch (situationS) {
     case "Simples":
         for (i = 0; i < bitola.length; i += 1) {
-            nCamadas = 1;
             nBarras = Math.ceil(as / (bitola[i].area));
             console.log(i);
             console.log(nBarras);
@@ -424,6 +423,7 @@ function processFormDC() {
             
             ahMin = Math.max(2, bitola[i].diametroCM, 1.2 * diamAgreg);
             bwMin = 2 * cob + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin + 2 * diamEst;
+            nCamadas = 1;
             
             if (bw >= bwMin) {
                 conditionEsp = "ah OK";
@@ -434,12 +434,16 @@ function processFormDC() {
                 while (nCamadas < 4) {
                     if (conditionEsp === "ah insuficiente") {
                         nCamadas += 1;
-                        nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                        bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                        
-                        if (bw >= bwMinNovo) {
-                            conditionEsp = "ah OK";
+                        if (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
+                            nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                            bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                            if (bw >= bwMinNovo) {
+                                conditionEsp = "ah OK";
+                            }
+                        } else {
+                            conditionAv = "Insuficiente";
                         }
+                        
                     }
                 }
             }
@@ -452,6 +456,7 @@ function processFormDC() {
             //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
             if (h <= 60) {
                 situationArmPele = "Não";
+                conditionPele = "N/A";
             } else {
                 situationArmPele = "Sim";
                 armPele = 0.0005 * ac;
