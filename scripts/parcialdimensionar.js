@@ -329,7 +329,7 @@ function processFormDC() {
 	    as = md / (tsd * (d - 0.4 * x));
         
         //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
-        inercia = (b * Math.pow(h, 3)) / 12;
+        inercia = (bw * Math.pow(h, 3)) / 12;
         wo = inercia / (h - x);
         fctm = 0.3 * Math.pow(fck, (2 / 3));
         fctkSup = 1.3 * fctm;
