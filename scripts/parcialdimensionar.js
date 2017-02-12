@@ -223,7 +223,6 @@ function processFormDC() {
     gamac = Number(document.formDC.gamacDC.value);
     gamaf = Number(document.formDC.gamafDC.value);
     gamas = Number(document.formDC.gamasDC.value);
-    s = Number(document.formDC.sDC.value);
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
@@ -429,13 +428,15 @@ function processFormDC() {
                 conditionEsp = "ah OK";
             } else {
                 conditionEsp = "ah insuficiente";
-                while (nCamadas < 4 && conditionEsp = "ah insuficiente") {
-                    nCamadas += 1;
-                    avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-                    nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                    bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                    if (bw >= bwMinNovo) {
-                        conditionEsp = "ah OK";
+                while (nCamadas < 4) {
+                    if (conditionEsp === "ah insuficiente") {
+                        nCamadas += 1;
+                        avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+                        nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                        bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                        if (bw >= bwMinNovo) {
+                            conditionEsp = "ah OK";
+                        }
                     }
                 }
             }
@@ -453,10 +454,11 @@ function processFormDC() {
                 armPele = 0.0005 * ac;
                 nBarrasPele = Math.ceil(armPele / diamEst);
                 asPele = nBarrasPele * estribo[y].area;
-                sPele = (h - (2 * (cob + diamEst) + (nCamadas * bitola[i].diametroCM) + (nCamadas - 1) * avMin) / (nBarrasPele - 1);
-                if (((sPele <= 20) {
+                sPele = (h - (2 * (cob + diamEst) + (nCamadas * bitola[i].diametroCM) + (nCamadas - 1) * avMin) / (nBarrasPele - 1));
+                if (sPele <= 20) {
                     if (((nBarrasPele * bitola[i].area) / (h / 100)) <= 5) {
                         conditionPele = "OK";
+                    }
                 }
             }
             
@@ -474,7 +476,7 @@ function processFormDC() {
                 });
             }
                         
-        
+        }
         result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
@@ -528,6 +530,7 @@ function processFormDC() {
                 });
             }
         }
+            
         result = "Pode ser usada armadura com " + arranjos[0].qtdC + "Ø" + arranjos[0].bitola + " para a armadura comprimida. E " + arranjos[0].qtdT + "Ø" + arranjos[0].bitola + " para a armadura tracionada. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
