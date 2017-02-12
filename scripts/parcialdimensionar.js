@@ -443,7 +443,6 @@ function processFormDC() {
                         } else {
                             conditionAv = "Insuficiente";
                         }
-                        
                     }
                 }
             }
