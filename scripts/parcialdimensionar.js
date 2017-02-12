@@ -13,50 +13,61 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, av, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
+var ac, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
 var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele;
-var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
+var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition, nCamadas;
+var asPele;
 var arranjos = [];
 
-var bitolaProp = [
+var bitola = [
     {
         "diametro": 5.0,
+        "diametroCM": 0.5,
         "area": 0.196349540849362
     },
     {
         "diametro": 6.3,
+        "diametroCM": 0.63,
         "area": 0.311724531052447
     },
     {
         "diametro": 8.0,
+        "diametroCM": 0.8,
         "area": 0.502654824574367
     },
     {
         "diametro": 10.0,
+        "diametroCM": 1.0,
         "area": 0.785398163397448
     },
     {
         "diametro": 12.5,
+        "diametroCM": 1.25,
         "area": 1.22718463030851
     },
     {
         "diametro": 16.0,
+        "diametroCM": 1.6,
         "area": 2.01061929829747
     },
     {
         "diametro": 20.0,
+        "diametroCM": 2.0,
         "area": 3.80132711084365
     },
     {
         "diametro": 25.0,
+        "diametroCM": 2.5,
         "area": 4.90873852123405
     },
     {
         "diametro": 32.0,
+        "diametroCM": 3.2,
         "area": 8.04247719318987
     },
     {
         "diametro": 40.0,
+        "diametroCM": 4.0,
         "area": 12.5663706143592
     }
     
@@ -217,10 +228,6 @@ function processFormDC() {
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
     
-    // Getting bitola properties
-    i = +1; //Tá certo isso?
-    bitola = bitolaProp[i].diametro;
-    
     // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
     fckForm = concreteProp[j].fckProp;
@@ -250,6 +257,7 @@ function processFormDC() {
     tsd = fyd;
     epc = 3.5;
     eps = 10.0;
+    nCamadas = 1;
     
     //CÁLCULO DO MOMENTO FLETOR MAJORADO
     md = mk * gamaf;
@@ -414,64 +422,64 @@ function processFormDC() {
             
             //Verificar viabilidade espacamento CONDITION
             
-            ahMin = Math.max(2, arranjos[i].diametro, 1.2 * diamAgreg);
-            bwMin = 2 * cob + nBarras * arranjos[i].diametro + (nBarras - 1) * ahMin + 2 * diamEst;
-            
+            ahMin = Math.max(2, bitola[i].diametroCM, 1.2 * diamAgreg);
+            bwMin = 2 * cob + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin + 2 * diamEst;
             
             if (bw >= bwMin) {
                 conditionEsp = "ah OK";
             } else {
                 conditionEsp = "ah insuficiente";
-                nBarrasNovo = Math.ceil(nBarras / 2);
-                
-                //No lugar de "2", colocar nCamadas, pois a divisão é pelo nº de camadas, que pode ser maior que "2". Mas tem que colocar no caso o "i+1".
-                
-                bwMinNovo = 2 * cob + nBarrasNovo * arranjos[i].diametro + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                if (bw >= bwMin) {
-                    conditionEsp = "ah OK"; //Seria mais interessante fazer um "for" para que o cálculo se repita quando não couber?
+                while (nCamadas < 4 && conditionEsp = "ah insuficiente") {
+                    nCamadas += 1;
+                    avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+                    nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                    bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                    if (bw >= bwMinNovo) {
+                        conditionEsp = "ah OK";
+                    }
                 }
             }
-            
+                
             if (conditionEsp === "ah OK") {
                 ahSugg = ahMin;
             }
             
-            if ((conditionTx === "OK") && (conditionEsp === "OK")) {
+            //CÁLCULO DA ARMADURA DE PELE
+            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
+            if (h <= 60) {
+                situationArmPele = "Não";
+            } else {
+                situationArmPele = "Sim";
+                armPele = 0.0005 * ac;
+                nBarrasPele = Math.ceil(armPele / diamEst);
+                asPele = nBarrasPele * estribo[y].area;
+                sPele = (h - (2 * (cob + diamEst) + (nCamadas * bitola[i].diametroCM) + (nCamadas - 1) * avMin) / (nBarrasPele - 1);
+                if (((sPele <= 20) {
+                    if (((nBarrasPele * bitola[i].area) / (h / 100)) <= 5) {
+                        conditionPele = "OK";
+                }
+            }
+            
+            
+            if ((conditionTx === "OK") && (conditionEsp === "OK") && (situationArmPele === "Não")) {
                 arranjos.push({
                     "bitola": bitola[i],
                     "area": bitola[i].area,
                     "qtd": nBarras,
                     "as": asSugg,
                     "taxa": txCalcSugg,
-                    "esp": ahSugg
+                    "esp": ahSugg,
+                    "cam": nCamadas,
+                    "pele": situationArmPele
                 });
             }
-        }
-        //CÁLCULO DA ARMADURA DE PELE
-        if (h <= 60) {
-            situationArmPele = "Não";
-        } else {
-            situationArmPele = "Sim";
-            armPele = 0.0005 * ac;
-            
-            //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
-            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
-            for (i = 0; i < arranjos.length; i += 1) {
-                nBarrasPele = armPele / diamEst;
-                sPele = h - (2 * (cob + diamEst) + arranjos[i].bitola);
-                if (((sPele - (nBarrasPele * arranjos[i].bitola)) / (nBarrasPele + 1)) <= 20) {
-                    if (((nBarrasPele * arranjos[i].area) / (h / 100)) <= 5) {
-                        conditionPele = "OK";
-                        // ADICIONAR PROPRIEDADE
-                    }
-                }
-            }
-            
-                
-        }
+                        
+        
         result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
+                
+                
     case "Dupla":
         for (i = 0; i < bitola.length; i += 1) {
             //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
