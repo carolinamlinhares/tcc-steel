@@ -408,7 +408,6 @@ function processFormDC() {
     switch (situationS) {
     case "Simples":
         for (i = 0; i < bitola.length; i += 1) {
-            nCamadas += 1;
             nBarras = Math.ceil(as / (bitola[i].area));
             console.log(i);
             console.log(nBarras);
@@ -434,7 +433,7 @@ function processFormDC() {
                 conditionEsp = "ah insuficiente";
                 while (nCamadas < 4) {
                     if (conditionEsp === "ah insuficiente") {
-                       
+                        nCamadas += 1;
 
                         if (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
                             nBarrasNovo = Math.ceil(nBarras / nCamadas);
