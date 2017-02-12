@@ -577,3 +577,29 @@ function criarConcreto(nomeConcreto, linhaConcreto) {
 for (i = 0; i < concreteProp.length; i += 1) {
     concretoLista.appendChild(criarConcreto(concreteProp[i].concType, i));
 }
+
+function criarEstribo(nomeEstribo, linhaEstribo) {
+    "use strict";
+    var opcao = document.createElement("OPTION"),
+        texto = document.createTextNode(nomeEstribo);
+    opcao.value = linhaEstribo;
+    opcao.appendChild(texto);
+    return opcao;
+}
+    
+for (i = 0; i < estriboProp.length; i += 1) {
+    estriboLista.appendChild(criarEstribo(estriboProp[i].diametro, i));
+}
+
+function criarAgreg(nomeAgreg, linhaAgreg) {
+    "use strict";
+    var opcao = document.createElement("OPTION"),
+        texto = document.createTextNode(nomeAgreg);
+    opcao.value = linhaAgreg;
+    opcao.appendChild(texto);
+    return opcao;
+}
+    
+for (i = 0; i < agregProp.length; i += 1) {
+    agregLista.appendChild(criarAgreg(agregProp[i].agregType, i));
+}
