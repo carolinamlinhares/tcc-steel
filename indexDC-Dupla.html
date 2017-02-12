@@ -43,6 +43,10 @@
 			<select id="steel" name="steelDC">
 			</select> <br>
             
+            <label>Estribo:</label>
+			<select id="estribo" name="estriboDC">
+			</select> <br>
+            
 			<h2> ESFORÇOS </h2>
 			
 			<label>Momento Fletor Solicitante Mk (kN.cm):</label>
@@ -56,23 +60,16 @@
 			<input type="text" name="gamafDC" value=1.4 /> <br>
 			<label>Gama s</label>
 			<input type="text" name="gamasDC" value=1.15 /> <br>
-            <label>Espaçamento entre camadas (cm)</label>
-			<input type="text" name="sDC" value=2.5 /> <br>
-			<label>Cobrimento (cm)</label>
+            <label>Cobrimento (cm)</label>
 			<input type="text" name="cobDC" value=3.0 /> <br>
             <label>Distância da borda tracionada ao centro de gravidade da armadura tracionada (cm)</label>
 			<input type="text" name="dlDC" value=5.0 /> <br>
             <label>Distância da borda comprimida ao centro de gravidade da armadura comprimida (cm)</label>
 			<input type="text" name="dlcDC" value=4.0 /> <br>
-            <label>Agregado:</label>
+            
+            <label>Brita:</label>
 			<select id="agreg" name="agregDC">
-                <option value="0.95">Brita 0</option>
-                <option value="1.9">Brita 1</option>
-                <option value="2.5">Brita 2</option>
-                <option value="5.0">Brita 3</option>
-                <option value="7.6">Brita 4</option>
 			</select> <br>
-
             <br>
 
 			<input type="button" value="Dimensionar" onClick="processFormDC()" /> <br>
