@@ -13,13 +13,7 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-<<<<<<< HEAD
-<<<<<<< HEAD
 var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele, conditionAv;
-=======
->>>>>>> parent of 541b250... nCamadas
-=======
->>>>>>> parent of 541b250... nCamadas
 var ac, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
 var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele;
 var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition, nCamadas;
@@ -440,8 +434,6 @@ function processFormDC() {
                 while (nCamadas < 4) {
                     if (conditionEsp === "ah insuficiente") {
                         nCamadas += 1;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
                         if (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
                             nBarrasNovo = Math.ceil(nBarras / nCamadas);
@@ -458,15 +450,6 @@ function processFormDC() {
                             if (bw >= bwMinNovo) {
                                 conditionEsp = "ah OK";
                             }
-=======
-=======
->>>>>>> parent of 541b250... nCamadas
-                        avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-                        nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                        bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                        if (bw >= bwMinNovo) {
-                            conditionEsp = "ah OK";
->>>>>>> parent of 541b250... nCamadas
                         }
                     }
                 }
