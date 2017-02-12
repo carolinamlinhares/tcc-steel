@@ -402,6 +402,7 @@ function processFormDC() {
             resultTx = "Taxa Dupla Reprovada.";
         }
     }
+    console.log(conditionTx);
     
     //Arranjos
     switch (situationS) {
@@ -457,6 +458,7 @@ function processFormDC() {
             if (conditionEsp === "ah OK") {
                 ahSugg = ahMin;
             }
+            console.log(conditionEsp);
             
             //CÁLCULO DA ARMADURA DE PELE
             //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
@@ -476,8 +478,8 @@ function processFormDC() {
                 }
             }
             
-            console.log(conditionTx);
-            console.log(conditionEsp);
+            
+            
             console.log(situationArmPele);
             console.log(conditionPele);
             
