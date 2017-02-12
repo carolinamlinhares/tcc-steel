@@ -462,6 +462,11 @@ function processFormDC() {
                 }
             }
             
+            console.log(conditionTx);
+            console.log(conditionEsp);
+            console.log(situationArmPele);
+            console.log(conditionPele);
+            
             
             if ((conditionTx === "OK") && (conditionEsp === "OK") && (situationArmPele === "Não")) {
                 arranjos.push({
