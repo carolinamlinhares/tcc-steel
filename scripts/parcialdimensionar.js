@@ -550,6 +550,8 @@ function criarBitola(nomeBitola, linhaBitola) {
 
 var acoLista = document.getElementById("steel"),
     concretoLista = document.getElementById("concrete"),
+    estriboLista = document.getElementById("estribo"),
+    agregLista = document.getElementById("agreg"),
     i;
     
 function criarAco(nomeAco, linhaAco) {
