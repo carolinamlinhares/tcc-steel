@@ -2,10 +2,10 @@
 /*global perfis */
 
 // variables
-var project, beam, mk, concrete, steel;
-var tsd, as, bw, fcd;
+var project, beam, mk, concrete, steel, estribo, bitola;
+var tsd, as, bw, bwMin, bwMinNovo, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
-var d, h, cob, dagreg, agreg, diamEstForm, diamEst, diamLongForm, diamLong, diamLongT, diamLongC;
+var d, h, cob, diamAgreg, agreg, diamEstForm, diamEst, diamAgregForm, diamLong, diamLongT, diamLongC;
 var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
@@ -13,12 +13,12 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, sv, sh, shT, shC, shSugg, shSuggT, shSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
-var nBarras, nBarrasC, nBarrasT, nBarrasPele;
+var ac, av, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
+var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele;
 var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
-var bitola = [
+var bitolaProp = [
     {
         "diametro": 5.0,
         "area": 0.196349540849362
@@ -62,7 +62,11 @@ var bitola = [
     
 ];
 
-var estribo = [
+var estriboProp = [
+    {
+        "diametro": 5.0,
+        "area": 0.196349540849362
+    },
     {
         "diametro": 6.3,
         "area": 0.311724531052447
@@ -123,9 +127,38 @@ var concreteProp = [
 
 ];
 
+var agregProp = [
+    {
+        "agregType": "Brita 0",
+        "diametro": 9.5
+       
+    },
+    {
+        "agregType": "Brita 1",
+        "diametro": 19.0
+       
+    },
+    {
+        "agregType": "Brita 2",
+        "diametro": 25.0
+       
+    },
+    {
+        "agregType": "Brita 3",
+        "diametro": 50.0
+       
+    },
+    {
+        "agregType": "Brita 4",
+        "diametro": 76.0
+       
+    }
+    
+];
+
 function processFormDC() {
     "use strict";
-    var i, j, k;
+    var i, j, k, y, z;
     
     /* Clean suggestion array */
     arranjos = [];
@@ -174,6 +207,8 @@ function processFormDC() {
     
     concrete = concreteProp[(document.formDC.concreteDC.value)].concType;
     steel = steelProp[(document.formDC.steelDC.value)].steelType;
+    estribo = estriboProp[(document.formDC.estriboDC.value)].diametro;
+    agreg = agregProp[(document.formDC.agregDC.value)].agregType;
     gamac = Number(document.formDC.gamacDC.value);
     gamaf = Number(document.formDC.gamafDC.value);
     gamas = Number(document.formDC.gamasDC.value);
@@ -181,25 +216,33 @@ function processFormDC() {
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
-    dagreg = Number(document.formDC.agregDC.value);
-    agreg = document.formDC.agregDC.name;
+    
+    // Getting bitola properties
+    i = +1; //Tá certo isso?
+    bitola = bitolaProp[i].diametro;
     
     // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
-    
     fckForm = concreteProp[j].fckProp;
     
     // Getting steel properties
     k = Number(document.getElementById("steel").value);
-    
     fykForm = steelProp[k].fy;
     Es = steelProp[k].E;
+    
+    //Getting estribo properties
+    y = Number(document.getElementById("estribo").value);
+    diamEstForm = estriboProp[y].diametro;
+    
+    //Getting aggregate properties
+    z = Number(document.getElementById("agreg").value);
+    diamAgregForm = agregProp[z].diametro;
     
     // Converting Units 
     fyk = fykForm / 10;
     fck = fckForm / 100;
     diamEst = diamEstForm / 10;
-    diamLong = diamLongForm / 10;
+    diamAgreg = diamAgregForm / 10;
     
     // Calculating parameters
     fcd = fck / gamac;
@@ -277,10 +320,11 @@ function processFormDC() {
     if (situationD === "Aprovado" && situationLN === "Aprovada") {
         situationS = "Simples";
 	    as = md / (tsd * (d - 0.4 * x));
+        
         //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
         inercia = (b * Math.pow(h, 3)) / 12;
-        wo = inercia / dl;
-        fctm = 0.3 * fck * 0.667;
+        wo = inercia / (h - x);
+        fctm = 0.3 * Math.pow(fck, (2 / 3));
         fctkSup = 1.3 * fctm;
         mdMin = 0.8 * wo * fctkSup;
         astMin = mdMin / (tsd * (d - 0.4 * x));
@@ -313,13 +357,13 @@ function processFormDC() {
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
-        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO (ver se As' tambem cai neste caso) -- A norma se refere à armadura de tração mesmo.
+        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
         inercia = (bw * Math.pow(h, 3)) / 12;
-        wo = inercia / dl;
-        fctm = 0.3 * fck * 0.667;
+        wo = inercia / (h - xd);
+        fctm = 0.3 * Math.pow(fck, (2 / 3));
         fctkSup = 1.3 * fctm;
         mdMin = 0.8 * wo * fctkSup;
-        astMin = mdMin / (tsd * (d - 0.4 * x));
+        astMin = mdMin / (tsd * (d - 0.4 * xd));
         if (ast < astMin) {
             ast = astMin;
         }
@@ -367,16 +411,29 @@ function processFormDC() {
             } else {
                 conditionTx = "Reprovado";
             }
+            
             //Verificar viabilidade espacamento CONDITION
-            sh = (bw - 2 * (cob + (estribo[0].diametro / 10)) - (nBarras * (bitola[i].diametro / 10))) / (nBarras - 1);
-            if (sh >= 2 && sh >= (bitola[i].diametro / 10) && sh >= 1.2 * dagreg) {
-                conditionEsp = "sh OK";
+            
+            ahMin = Math.max(2, arranjos[i].diametro, 1.2 * diamAgreg);
+            bwMin = 2 * cob + nBarras * arranjos[i].diametro + (nBarras - 1) * ahMin + 2 * diamEst;
+            
+            
+            if (bw >= bwMin) {
+                conditionEsp = "ah OK";
             } else {
-                conditionEsp = "sh insuficiente";
+                conditionEsp = "ah insuficiente";
+                nBarrasNovo = Math.ceil(nBarras / 2);
+                
+                //No lugar de "2", colocar nCamadas, pois a divisão é pelo nº de camadas, que pode ser maior que "2". Mas tem que colocar no caso o "i+1".
+                
+                bwMinNovo = 2 * cob + nBarrasNovo * arranjos[i].diametro + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                if (bw >= bwMin) {
+                    conditionEsp = "ah OK"; //Seria mais interessante fazer um "for" para que o cálculo se repita quando não couber?
+                }
             }
             
-            if (conditionEsp === "sh OK") {
-                shSugg = Math.min(2, (bitola[i].diametro / 10) , (1.2 * dagreg));     //E se der Não OK?????
+            if (conditionEsp === "ah OK") {
+                ahSugg = ahMin;
             }
             
             if ((conditionTx === "OK") && (conditionEsp === "OK")) {
@@ -386,7 +443,7 @@ function processFormDC() {
                     "qtd": nBarras,
                     "as": asSugg,
                     "taxa": txCalcSugg,
-                    "esp": shSugg
+                    "esp": ahSugg
                 });
             }
         }
@@ -395,11 +452,12 @@ function processFormDC() {
             situationArmPele = "Não";
         } else {
             situationArmPele = "Sim";
-            armPele = 0.0010 * ac;
+            armPele = 0.0005 * ac;
+            
             //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
             //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
             for (i = 0; i < arranjos.length; i += 1) {
-                nBarrasPele = armPele / arranjos[i].area;
+                nBarrasPele = armPele / diamEst;
                 sPele = h - (2 * (cob + diamEst) + arranjos[i].bitola);
                 if (((sPele - (nBarrasPele * arranjos[i].bitola)) / (nBarrasPele + 1)) <= 20) {
                     if (((nBarrasPele * arranjos[i].area) / (h / 100)) <= 5) {
@@ -434,17 +492,17 @@ function processFormDC() {
             txCalcSugg = txCalcTSugg + txCalcCSugg;
             
             //Verificar viabilidade espacamento CONDITION
-            shT = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
-            shC = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
-            if (shT >= 2 && shT >= diamLongT && shT >= 1.2 * dagreg && shC >= 2 && shC >= diamLongC && shC >= 1.2 * dagreg) {
-                conditionEsp = "sh OK";
+            ahT = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
+            ahC = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
+            if (ahT >= 2 && ahT >= diamLongT && ahT >= 1.2 * diamAgreg && ahC >= 2 && ahC >= diamLongC && ahC >= 1.2 * diamAgreg) {
+                conditionEsp = "ah OK";
             } else {
-                conditionEsp = "sh insuficiente";
+                conditionEsp = "ah insuficiente";
             }
             
-            if (conditionEsp === "sh OK") {
-                shSuggT = Math.min(2, diamLongT, (1.2 * dagreg));     //E se der Não OK?????
-                shSuggC = Math.min(2, diamLongC, (1.2 * dagreg));
+            if (conditionEsp === "ah OK") {
+                ahSuggT = Math.min(2, diamLongT, (1.2 * diamAgreg));     //E se der Não OK?????
+                ahSuggC = Math.min(2, diamLongC, (1.2 * diamAgreg));
             }
             
             if ((conditionTx === "OK") && (conditionEsp === "OK")) {
@@ -457,8 +515,8 @@ function processFormDC() {
                     "asT": asSuggT,
                     "taxaC": txCalcCSugg,
                     "taxaT": txCalcTSugg,
-                    "espC": shSuggC,
-                    "espT": shSuggT
+                    "espC": ahSuggC,
+                    "espT": ahSuggT
                 });
             }
         }
