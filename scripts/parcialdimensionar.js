@@ -468,7 +468,7 @@ function processFormDC() {
             console.log(conditionPele);
             
             
-            if ((conditionTx === "OK") && (conditionEsp === "OK") && (situationArmPele === "Não")) {
+            if ((conditionTx === "OK") && (conditionEsp === "ah OK") && (situationArmPele === "Não")) {
                 arranjos.push({
                     "bitola": bitola[i],
                     "area": bitola[i].area,
