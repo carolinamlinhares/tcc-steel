@@ -13,11 +13,9 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele, conditionAv;
-var ac, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTx, conditionEsp, conditionPele;
-var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele;
-var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition, nCamadas;
-var asPele;
+var ac, av, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele;
+var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas;
+var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
 var bitola = [
@@ -73,6 +71,18 @@ var bitola = [
     }
     
 ];
+
+var estriboProp = [
+    {
+        "diametro": 5.0,
+        "area": 0.196349540849362
+    },
+    {
+        "diametro": 6.3,
+        "area": 0.311724531052447
+    }
+];
+
 
 var estriboProp = [
     {
@@ -224,6 +234,7 @@ function processFormDC() {
     gamac = Number(document.formDC.gamacDC.value);
     gamaf = Number(document.formDC.gamafDC.value);
     gamas = Number(document.formDC.gamasDC.value);
+    s = Number(document.formDC.sDC.value);
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
@@ -257,7 +268,6 @@ function processFormDC() {
     tsd = fyd;
     epc = 3.5;
     eps = 10.0;
-    nCamadas = 1;
     
     //CÁLCULO DO MOMENTO FLETOR MAJORADO
     md = mk * gamaf;
@@ -330,7 +340,7 @@ function processFormDC() {
 	    as = md / (tsd * (d - 0.4 * x));
         
         //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
-        inercia = (bw * Math.pow(h, 3)) / 12;
+        inercia = (b * Math.pow(h, 3)) / 12;
         wo = inercia / (h - x);
         fctm = 0.3 * Math.pow(fck, (2 / 3));
         fctkSup = 1.3 * fctm;
@@ -402,7 +412,7 @@ function processFormDC() {
             resultTx = "Taxa Dupla Reprovada.";
         }
     }
-    console.log(conditionTx);
+    console.log(resultTx);
     
     //Arranjos
     switch (situationS) {
@@ -416,10 +426,11 @@ function processFormDC() {
             
             //Verificar taxa max CONDITION
             if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
-                conditionTx = "OK";
+                conditionTxFinal = "OK";
             } else {
-                conditionTx = "Reprovado";
+                conditionTxFinal = "Reprovado";
             }
+            console.log(conditionTxFinal);
             
             //Verificar viabilidade espacamento CONDITION
             
@@ -431,78 +442,57 @@ function processFormDC() {
                 conditionEsp = "ah OK";
             } else {
                 conditionEsp = "ah insuficiente";
-                while (nCamadas < 4) {
-                    if (conditionEsp === "ah insuficiente") {
-                        nCamadas += 1;
-
-                        if (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
-                            nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                            bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                            if (bw >= bwMinNovo) {
-                                conditionEsp = "ah OK";
-                            }
-                        } else {
-                            conditionAv = "Insuficiente";
-
-                            avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-                            nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                            bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                            if (bw >= bwMinNovo) {
-                                conditionEsp = "ah OK";
-                            }
-                        }
-                    }
-                }
-            }
+                nBarrasNovo = Math.ceil(nBarras / 2);
                 
-            if (conditionEsp === "ah OK") {
-                ahSugg = ahMin;
+                //No lugar de "2", colocar nCamadas, pois a divisão é pelo nº de camadas, que pode ser maior que "2". Mas tem que colocar no caso o "i+1".
+                
+                bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                if (bw >= bwMin) {
+                    conditionEsp = "ah OK"; //Seria mais interessante fazer um "for" para que o cálculo se repita quando não couber?
+                }
             }
             console.log(conditionEsp);
             
-            //CÁLCULO DA ARMADURA DE PELE
-            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
-            if (h <= 60) {
-                situationArmPele = "Não";
-                conditionPele = "N/A";
-            } else {
-                situationArmPele = "Sim";
-                armPele = 0.0005 * ac;
-                nBarrasPele = Math.ceil(armPele / diamEst);
-                asPele = nBarrasPele * estriboProp[y].area;
-                sPele = (h - (2 * (cob + diamEst) + (nCamadas * bitola[i].diametroCM) + (nCamadas - 1) * avMin) / (nBarrasPele - 1));
-                if (sPele <= 20) {
-                    if (((nBarrasPele * bitola[i].area) / (h / 100)) <= 5) {
-                        conditionPele = "OK";
-                    }
-                }
+            if (conditionEsp === "ah OK") {
+                ahSugg = ahMin;
             }
             
-            
-            
-            console.log(situationArmPele);
-            console.log(conditionPele);
-            
-            
-            if ((conditionTx === "OK") && (conditionEsp === "ah OK") && (situationArmPele === "Não")) {
+            if ((conditionTxFinal === "OK") && (conditionEsp === "OK")) {
                 arranjos.push({
                     "bitola": bitola[i],
                     "area": bitola[i].area,
                     "qtd": nBarras,
                     "as": asSugg,
                     "taxa": txCalcSugg,
-                    "esp": ahSugg,
-                    "cam": nCamadas,
-                    "pele": situationArmPele
+                    "esp": ahSugg
                 });
             }
-                        
+        }
+        //CÁLCULO DA ARMADURA DE PELE
+        if (h <= 60) {
+            situationArmPele = "Não";
+        } else {
+            situationArmPele = "Sim";
+            armPele = 0.0005 * ac;
+            
+            //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
+            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
+            for (i = 0; i < arranjos.length; i += 1) {
+                nBarrasPele = armPele / diamEst;
+                sPele = h - (2 * (cob + diamEst) + arranjos[i].bitola);
+                if (((sPele - (nBarrasPele * arranjos[i].bitola)) / (nBarrasPele + 1)) <= 20) {
+                    if (((nBarrasPele * arranjos[i].area) / (h / 100)) <= 5) {
+                        conditionPele = "OK";
+                        // ADICIONAR PROPRIEDADE
+                    }
+                }
+            }
+            
+                
         }
         result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
-                
-                
     case "Dupla":
         for (i = 0; i < bitola.length; i += 1) {
             //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
@@ -516,9 +506,9 @@ function processFormDC() {
             txCalcSugg = txCalcCSugg + txCalcTSugg;
             //Verificar taxa max CONDITION
             if ((txCalcTSugg >= 0.14) && (txCalcSugg <= 0.4)) {
-                conditionTx = "OK";
+                conditionTxFinal = "OK";
             } else {
-                conditionTx = "Reprovado";
+                conditionTxFinal = "Reprovado";
             }
             txCalcSugg = txCalcTSugg + txCalcCSugg;
             
@@ -536,7 +526,7 @@ function processFormDC() {
                 ahSuggC = Math.min(2, diamLongC, (1.2 * diamAgreg));
             }
             
-            if ((conditionTx === "OK") && (conditionEsp === "OK")) {
+            if ((conditionTxFinal === "OK") && (conditionEsp === "OK")) {
                 arranjos.push({
                     "bitola": bitola[i],
                     "area": bitola[i].area,
@@ -551,7 +541,6 @@ function processFormDC() {
                 });
             }
         }
-            
         result = "Pode ser usada armadura com " + arranjos[0].qtdC + "Ø" + arranjos[0].bitola + " para a armadura comprimida. E " + arranjos[0].qtdT + "Ø" + arranjos[0].bitola + " para a armadura tracionada. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
@@ -582,8 +571,6 @@ function criarBitola(nomeBitola, linhaBitola) {
 
 var acoLista = document.getElementById("steel"),
     concretoLista = document.getElementById("concrete"),
-    estriboLista = document.getElementById("estribo"),
-    agregLista = document.getElementById("agreg"),
     i;
     
 function criarAco(nomeAco, linhaAco) {
@@ -610,30 +597,4 @@ function criarConcreto(nomeConcreto, linhaConcreto) {
     
 for (i = 0; i < concreteProp.length; i += 1) {
     concretoLista.appendChild(criarConcreto(concreteProp[i].concType, i));
-}
-
-function criarEstribo(nomeEstribo, linhaEstribo) {
-    "use strict";
-    var opcao = document.createElement("OPTION"),
-        texto = document.createTextNode(nomeEstribo);
-    opcao.value = linhaEstribo;
-    opcao.appendChild(texto);
-    return opcao;
-}
-    
-for (i = 0; i < estriboProp.length; i += 1) {
-    estriboLista.appendChild(criarEstribo(estriboProp[i].diametro, i));
-}
-
-function criarAgreg(nomeAgreg, linhaAgreg) {
-    "use strict";
-    var opcao = document.createElement("OPTION"),
-        texto = document.createTextNode(nomeAgreg);
-    opcao.value = linhaAgreg;
-    opcao.appendChild(texto);
-    return opcao;
-}
-    
-for (i = 0; i < agregProp.length; i += 1) {
-    agregLista.appendChild(criarAgreg(agregProp[i].agregType, i));
 }
