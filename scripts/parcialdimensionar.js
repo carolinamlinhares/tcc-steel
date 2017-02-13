@@ -234,7 +234,6 @@ function processFormDC() {
     gamac = Number(document.formDC.gamacDC.value);
     gamaf = Number(document.formDC.gamafDC.value);
     gamas = Number(document.formDC.gamasDC.value);
-    s = Number(document.formDC.sDC.value);
     cob = Number(document.formDC.cobDC.value);
     dl = Number(document.formDC.dlDC.value);
     dlc = Number(document.formDC.dlcDC.value);
