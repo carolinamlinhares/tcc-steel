@@ -535,8 +535,8 @@ function processFormDC() {
             txCalcSugg = txCalcTSugg + txCalcCSugg;
             
             //Verificar viabilidade espacamento CONDITION
-            ahT = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
-            ahC = (bw - 2 * (cob + estribo[0].diametro) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
+            ahT = (bw - 2 * (cob + diamEst) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
+            ahC = (bw - 2 * (cob + diamEst) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
             if (ahT >= 2 && ahT >= diamLongT && ahT >= 1.2 * diamAgreg && ahC >= 2 && ahC >= diamLongC && ahC >= 1.2 * diamAgreg) {
                 conditionEsp = "ah OK";
             } else {
