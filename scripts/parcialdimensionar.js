@@ -13,9 +13,9 @@ var gamac, gamaf, gamas, s;
 var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, av, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele;
+var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele, conditionAh, conditionAv;
 var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas;
-var asSugg, asSuggC, asSuggT, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
+var asSugg, asSuggC, asSuggT, avSugg, ahSugg, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
 var bitola = [
@@ -435,39 +435,61 @@ function processFormDC() {
             //Verificar viabilidade espacamento CONDITION
             
             ahMin = Math.max(2, bitola[i].diametroCM, 1.2 * diamAgreg);
+            avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
             bwMin = 2 * cob + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin + 2 * diamEst;
             nCamadas = 1;
             
+            //Verificação da largura mínima da viga (espaçamento horizontal)
             if (bw >= bwMin) {
-                conditionEsp = "ah OK";
+                conditionAh = "ah OK";
             } else {
-                conditionEsp = "ah insuficiente";
-                nBarrasNovo = Math.ceil(nBarras / 2);
-                
-                //No lugar de "2", colocar nCamadas, pois a divisão é pelo nº de camadas, que pode ser maior que "2". Mas tem que colocar no caso o "i+1".
-                
+                conditionAh = "ah insuficiente";
+                do {
+                    nCamadas += 1;
+                } while (nCamadas < 4);
+                nBarrasNovo = Math.ceil(nBarras / nCamadas);
                 bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
-                if (bw >= bwMin) {
-                    conditionEsp = "ah OK"; //Seria mais interessante fazer um "for" para que o cálculo se repita quando não couber?
+                        
+                if (bw >= bwMinNovo) {
+                    conditionEsp = "ah OK";
+                } else {
+                    conditionEsp = "ah insuficiente";
                 }
             }
-            console.log(conditionEsp);
             
-            if (conditionEsp === "ah OK") {
-                ahSugg = ahMin;
-            }
+            //Verificação do espaçamento vertical mínimo
             
-            if ((conditionTxFinal === "OK") && (conditionEsp === "OK")) {
-                arranjos.push({
-                    "bitola": bitola[i],
-                    "area": bitola[i].area,
-                    "qtd": nBarras,
-                    "as": asSugg,
-                    "taxa": txCalcSugg,
-                    "esp": ahSugg
-                });
+            av = h - x - cob - diamEst;
+                            
+            if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
+                conditionAv = "av OK";
+            } else {
+                conditionAv = "av insuficiente";
             }
         }
+                   
+                      
+        if (conditionAh === "ah OK" && conditionAv === "av OK") {
+            conditionEsp = "As condições de espaçamento foram atendidas";
+        }
+        console.log(conditionEsp);
+            
+        if (conditionEsp === "As condições de espaçamento foram atendidas") {
+            ahSugg = ahMin;
+            avSugg = avMin;
+        }
+            
+        if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
+            arranjos.push({
+                "bitola": bitola[i],
+                "area": bitola[i].area,
+                "qtd": nBarras,
+                "as": asSugg,
+                "taxa": txCalcSugg,
+                "esp": ahSugg
+            });
+        }
+        
         //CÁLCULO DA ARMADURA DE PELE
         if (h <= 60) {
             situationArmPele = "Não";
@@ -475,21 +497,22 @@ function processFormDC() {
             situationArmPele = "Sim";
             armPele = 0.0005 * ac;
             
-            //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
-            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
-            for (i = 0; i < arranjos.length; i += 1) {
-                nBarrasPele = armPele / diamEst;
-                sPele = h - (2 * (cob + diamEst) + arranjos[i].bitola);
-                if (((sPele - (nBarrasPele * arranjos[i].bitola)) / (nBarrasPele + 1)) <= 20) {
-                    if (((nBarrasPele * arranjos[i].area) / (h / 100)) <= 5) {
-                        conditionPele = "OK";
+        //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
+        //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
+        //for (y = 0; y < estriboProp.length; y += 1) {
+               // nBarrasPele = armPele / diamEst;
+               // sPele = h - (2 * (cob + diamEst) + estriboProp[y].diametro);
+               // if (((sPele - (nBarrasPele * estriboProp[y].diametro)) / (nBarrasPele + 1)) <= 20) {
+               //     if (((nBarrasPele * estriboProp[y].diametro) / (h / 100)) <= 5) {
+                //        conditionPele = "OK";
                         // ADICIONAR PROPRIEDADE
-                    }
-                }
-            }
+                 //   }
+                //}
+            //}
             
                 
         }
+        
         result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
