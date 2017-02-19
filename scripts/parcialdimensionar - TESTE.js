@@ -435,8 +435,8 @@ function processFormDC() {
             
             //Verificar viabilidade espacamento CONDITION
             
-            ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
-            avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+            ahMin = Math.max(2, bitola[4].diametroCM, (1.2 * diamAgreg));
+            avMin = Math.max(2, bitola[4].diametroCM, (0.5 * diamAgreg));
             bwMin = 2 * (cob + diamEst) + nBarras * bitola[4].diametroCM + (nBarras - 1) * ahMin;
             bwMinAbs = 12;
             nCamadas = 1;
