@@ -437,6 +437,7 @@ function processFormDC() {
             
             ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
             avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+            av = h - x - cob - diamEst;
             bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
             bwMinAbs = 12;
             nCamadas = 1;
@@ -447,65 +448,63 @@ function processFormDC() {
                 conditionAh = "ah OK";
             } else {
                 conditionAh = "ah insuficiente";
-                do {
-                    nCamadas += 1;
-                } while (nCamadas < 4);
-                nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+            }
+            
+            if (conditionAh === "ah insuficiente") {
+                for (i = 1; i < 4; i += 1) {
+                    nCamadas = i;
+                    nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                    bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                    
+                    if (bw >= bwMinNovo && bw >= bwMinAbs) {
+                        conditionAh = "ah OK";
+                    } else {
+                        conditionAh = "ah insuficiente";
+                    }
                 
                 //Verificação do espaçamento vertical mínimo
-            
-                av = h - x - cob - diamEst;
-                            
-                if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
-                    conditionAv = "av OK";
-                } else {
-                    conditionAv = "av insuficiente";
-                }
-                console.log(conditionAv);
-                        
-                if (bw >= bwMinNovo && bw >= bwMinAbs) {
-                    conditionAh = "ah OK";
-                } else {
-                    conditionAh = "ah insuficiente";
+                
+                    if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
+                        conditionAv = "av OK";
+                    } else {
+                        conditionAv = "av insuficiente";
+                    }
+                    console.log(conditionAv);
+                    console.log(conditionAh);
                 }
             }
-            console.log(conditionAh);
-            
-
-        }
         
                    
                       
-        if (conditionAh === "ah OK" && conditionAv === "av OK") {
-            conditionEsp = "As condições de espaçamento foram atendidas";
-        } else {
-            conditionEsp = "As condições de espaçamento NAO foram atendidas";
-        }
-        console.log(conditionEsp);
+            if (conditionAh === "ah OK" && conditionAv === "av OK") {
+                conditionEsp = "As condições de espaçamento foram atendidas";
+            } else {
+                conditionEsp = "As condições de espaçamento NAO foram atendidas";
+            }
+            console.log(conditionEsp);
             
-        if (conditionEsp === "As condições de espaçamento foram atendidas") {
-            ahSugg = ahMin;
-            avSugg = avMin;
-        }
+            if (conditionEsp === "As condições de espaçamento foram atendidas") {
+                ahSugg = ahMin;
+                avSugg = avMin;
+            }
             
-        if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
-            arranjos.push({
-                "bitola": bitola[i],
-                "area": bitola[i].area,
-                "qtd": nBarras,
-                "as": asSugg,
-                "taxa": txCalcSugg,
-                "esp": ahSugg
-            });
-        }
+            if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
+                arranjos.push({
+                    "bitola": bitola[i],
+                    "area": bitola[i].area,
+                    "qtd": nBarras,
+                    "as": asSugg,
+                    "taxa": txCalcSugg,
+                    "esp": ahSugg
+                });
+            }
         
         //CÁLCULO DA ARMADURA DE PELE
-        if (h <= 60) {
-            situationArmPele = "Não";
-        } else {
-            situationArmPele = "Sim";
-            armPele = 0.0005 * ac;
+            if (h <= 60) {
+                situationArmPele = "Não";
+            } else {
+                situationArmPele = "Sim";
+                armPele = 0.0005 * ac;
             
         //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
         //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
@@ -521,6 +520,7 @@ function processFormDC() {
             //}
             
                 
+            }
         }
         
         result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
