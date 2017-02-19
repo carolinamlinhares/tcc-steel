@@ -14,7 +14,7 @@ var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
 var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele, conditionAh, conditionAv;
-var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas;
+var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas, iCamadas;
 var asSugg, asSuggC, asSuggT, avSugg, ahSugg, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
