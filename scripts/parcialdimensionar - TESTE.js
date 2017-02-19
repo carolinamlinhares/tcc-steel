@@ -447,33 +447,34 @@ function processFormDC() {
                 conditionAh = "ah OK";
             } else {
                 conditionAh = "ah insuficiente";
+                nCamadas = 2;
+                iCamadas = 1;
                 do {
-                    nCamadas += 1;
-                } while (nCamadas < 4);
-                nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[4].diametroCM + (nBarrasNovo - 1) * ahMin;
-                        
-                if (bw >= bwMinNovo && bw >= bwMinAbs) {
-                    conditionAh = "ah OK";
-                } else {
-                    conditionAh = "ah insuficiente";
-                }
+                    console.log("iCamadas =" + iCamadas);
+                    nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                    bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[4].diametroCM + (nBarrasNovo - 1) * ahMin;
+                        if (bw >= bwMinNovo && bw >= bwMinAbs) {
+                            conditionAh = "ah OK";
+                            console.log(conditionAh);
+                            iCamadas = 4;
+                        } else {
+                            conditionAh = "ah insuficiente";
+                            console.log(conditionAh);
+                            nCamadas += 1;
+                        }
+                } while (iCamadas < 4);
             }
-            
             
             //Verificação do espaçamento vertical mínimo
             
             av = h - x - cob - diamEst;
                             
-            if (avMin >= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1))) {
+            if (( nCamadas > 1) && (avMin >= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1)))) {
                 conditionAv = "av OK";
             } else {
                 conditionAv = "av insuficiente";
             }
-		console.log(conditionAv);
-        
-        
-                   
+            console.log(conditionAv);                   
                       
         if (conditionAh === "ah OK" && conditionAv === "av OK") {
             conditionEsp = "As condições de espaçamento foram atendidas";
