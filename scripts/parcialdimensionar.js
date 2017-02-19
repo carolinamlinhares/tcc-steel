@@ -14,7 +14,7 @@ var situationD, situationLN;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
 var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
 var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele, conditionAh, conditionAv;
-var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas;
+var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas, iCamadas;
 var asSugg, asSuggC, asSuggT, avSugg, ahSugg, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
 
@@ -414,88 +414,113 @@ function processFormDC() {
     console.log(resultTx);
     
     //Arranjos
-    switch (situationS) {
-    case "Simples":
-        for (i = 0; i < bitola.length; i += 1) {
-            nBarras = Math.ceil(as / (bitola[i].area));
-            console.log(i);
-            console.log(nBarras);
-            asSugg = nBarras * bitola[i].area;
-            console.log(asSugg);
-            txCalcSugg = (asSugg / ac) * 100;
-            console.log(txCalcSugg);
-            
-            //Verificar taxa max CONDITION
-            if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
-                conditionTxFinal = "OK";
-            } else {
-                conditionTxFinal = "Reprovado";
-            }
-            console.log(conditionTxFinal);
-            
-            //Verificar viabilidade espacamento CONDITION
-            
-            ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
-            avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-            bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
-            bwMinAbs = 12;
-            nCamadas = 1;
-            console.log(bwMin);
-            
-            //Verificação da largura mínima da viga (espaçamento horizontal)
-            if (bw >= bwMin && bw >= bwMinAbs) {
-                conditionAh = "ah OK";
-            } else {
-                conditionAh = "ah insuficiente";
-                do {
-                    nCamadas += 1;
-                } while (nCamadas < 4);
-                nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
-                        
-                if (bw >= bwMinNovo && bw >= bwMinAbs) {
+    switch (situationS) {  
+        case "Simples":
+            for (i = 0; i < bitola.length; i += 1){
+                nBarras = Math.ceil(as / (bitola[i].area));
+                console.log(i);
+                console.log(nBarras);
+                asSugg = nBarras * bitola[i].area;
+                console.log(asSugg);
+                txCalcSugg = (asSugg / ac) * 100;
+                console.log(txCalcSugg);
+                
+                //Verificar taxa max CONDITION
+                if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
+                    conditionTxFinal = "OK";
+                } else {
+                    conditionTxFinal = "Reprovado";
+                }
+                console.log(conditionTxFinal);
+                
+                //Verificar viabilidade espacamento CONDITION
+                
+                ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
+                console.log("ahMin " + ahMin);
+                avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+                console.log("avMin " + avMin);
+                bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
+                console.log("bwMin " + bwMin);
+                bwMinAbs = 12;
+                nCamadas = 1;
+                
+                //Verificação da largura mínima da viga (espaçamento horizontal)
+                if (bw >= bwMin && bw >= bwMinAbs) {
                     conditionAh = "ah OK";
+                    console.log(conditionAh);
                 } else {
                     conditionAh = "ah insuficiente";
+                    console.log("dentro do else " + conditionAh);
+                    nCamadas = 2;
+                    iCamadas = 1;
+                    do {
+                        console.log("iCamadas =" + iCamadas);
+                        nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                        bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                            if (bw >= bwMinNovo && bw >= bwMinAbs) {
+                                conditionAh = "ah OK";
+                                console.log(conditionAh);
+                                iCamadas = 4;
+                            } else {
+                                conditionAh = "ah insuficiente";
+                                console.log(conditionAh);
+                                nCamadas += 1;
+                            }
+                    } while (iCamadas < 4);
                 }
-            }
-            
-            
-            //Verificação do espaçamento vertical mínimo
-            
-            av = h - x - cob - diamEst;
-                            
-            if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
-                conditionAv = "av OK";
-            } else {
-                conditionAv = "av insuficiente";
-            }
-		console.log(conditionAv);
-        }
-        
-                   
+                
+                //Verificação do espaçamento vertical mínimo
+                
+                av = h - x - cob - diamEst;
+                                
+                if (( nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1)))) {
+                    conditionAv = "av OK";
+                } else {
+                    conditionAv = "av insuficiente";
+                }
+                console.log(conditionAv);                   
                       
-        if (conditionAh === "ah OK" && conditionAv === "av OK") {
-            conditionEsp = "As condições de espaçamento foram atendidas";
-        } else {
-            conditionEsp = "As condições de espaçamento NAO foram atendidas";
-        }
-        console.log(conditionEsp);
-            
-        if (conditionEsp === "As condições de espaçamento foram atendidas") {
-            ahSugg = ahMin;
-            avSugg = avMin;
-        }
-            
-        if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
-            arranjos.push({
-                "bitola": bitola[i],
-                "area": bitola[i].area,
-                "qtd": nBarras,
-                "as": asSugg,
-                "taxa": txCalcSugg,
-                "esp": ahSugg
-            });
+                if (conditionAh === "ah OK" && conditionAv === "av OK") {
+                    conditionEsp = "As condições de espaçamento foram atendidas";
+                } else {
+                    conditionEsp = "As condições de espaçamento NAO foram atendidas";
+                }
+                console.log(conditionEsp);
+                    
+                if (conditionEsp === "As condições de espaçamento foram atendidas") {
+                    ahSugg = ahMin;
+                    avSugg = avMin;
+                }
+                    
+                //ESPACAMENTO PARA MULTIPLAS CAMADAS
+                /* if (nCamadas > 1) {
+                    if (nCamadas === 2){
+                        nb1 = Math.ceil(nBarras / nCamadas);
+                        ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                        nb2 = nBarras - nb1;
+                        ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+                    }
+                    if (nCamadas === 3){
+                        nb1 = Math.ceil(nBarras / nCamadas);
+                        ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                        nb2 = Math.ceil(nBarras / nCamadas);
+                        ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+                        nb3 = nBarras - nb1 - nb2;
+                        ah3 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb3 - 1);
+                    }
+                } */
+                    
+                if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
+                    arranjos.push({
+                        "bitola": bitola[i].diametro,
+                        "area": bitola[i].area,
+                        "qtd": nBarras,
+                        "ncam": nCamadas,
+                        "as": asSugg,
+                        "taxa": txCalcSugg,
+                        "esp": ahSugg
+                    });
+            } 
         }
         
         //CÁLCULO DA ARMADURA DE PELE
@@ -521,9 +546,10 @@ function processFormDC() {
                 
         }
         
-        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + " em " + arranjos[0].ncam + " camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
-        break;
+        break;        
+        
     case "Dupla":
         for (i = 0; i < bitola.length; i += 1) {
             //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
