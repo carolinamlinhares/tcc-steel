@@ -452,6 +452,17 @@ function processFormDC() {
                 } while (nCamadas < 4);
                 nBarrasNovo = Math.ceil(nBarras / nCamadas);
                 bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                
+                //Verificação do espaçamento vertical mínimo
+            
+                av = h - x - cob - diamEst;
+                            
+                if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
+                    conditionAv = "av OK";
+                } else {
+                    conditionAv = "av insuficiente";
+                }
+                console.log(conditionAv);
                         
                 if (bw >= bwMinNovo && bw >= bwMinAbs) {
                     conditionAh = "ah OK";
@@ -461,17 +472,9 @@ function processFormDC() {
             }
             console.log(conditionAh);
             
-            //Verificação do espaçamento vertical mínimo
-            
-            av = h - x - cob - diamEst;
-                            
-            if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
-                conditionAv = "av OK";
-            } else {
-                conditionAv = "av insuficiente";
-            }
+
         }
-        console.log(conditionAv);
+        
                    
                       
         if (conditionAh === "ah OK" && conditionAv === "av OK") {
