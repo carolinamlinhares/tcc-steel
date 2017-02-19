@@ -497,6 +497,7 @@ function processFormDC() {
                 "bitola": bitola[4],
                 "area": bitola[4].area,
                 "qtd": nBarras,
+                "ncam": nCamadas,
                 "as": asSugg,
                 "taxa": txCalcSugg,
                 "esp": ahSugg
@@ -526,7 +527,7 @@ function processFormDC() {
                 
         }
         
-        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola.diametro + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola.diametro + "em " + arranjos[0].ncam + "camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
     case "Dupla":
