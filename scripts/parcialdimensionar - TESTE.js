@@ -471,7 +471,7 @@ function processFormDC() {
                 conditionAv = "av insuficiente";
             }
 		console.log(conditionAv);
-        }
+        
         
                    
                       
