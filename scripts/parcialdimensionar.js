@@ -421,7 +421,9 @@ function processFormDC() {
             console.log(i);
             console.log(nBarras);
             asSugg = nBarras * bitola[i].area;
+            console.log(asSugg);
             txCalcSugg = (asSugg / ac) * 100;
+            console.log(txCalcSugg);
             
             //Verificar taxa max CONDITION
             if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
@@ -437,6 +439,7 @@ function processFormDC() {
             avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
             bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
             nCamadas = 1;
+            console.log(bwMin);
             
             //Verificação da largura mínima da viga (espaçamento horizontal)
             if (bw >= bwMin) {
