@@ -473,7 +473,7 @@ function processFormDC() {
             
             av = h - x - cob - diamEst;
                             
-            if (( nCamadas > 1) && (avMin >= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1)))) {
+            if (( nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1)))) {
                 conditionAv = "av OK";
             } else {
                 conditionAv = "av insuficiente";
