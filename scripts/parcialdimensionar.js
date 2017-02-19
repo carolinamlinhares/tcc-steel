@@ -433,9 +433,9 @@ function processFormDC() {
             
             //Verificar viabilidade espacamento CONDITION
             
-            ahMin = Math.max(2, bitola[i].diametroCM, 1.2 * diamAgreg);
+            ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
             avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-            bwMin = 2 * cob + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin + 2 * diamEst;
+            bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
             nCamadas = 1;
             
             //Verificação da largura mínima da viga (espaçamento horizontal)
@@ -447,7 +447,7 @@ function processFormDC() {
                     nCamadas += 1;
                 } while (nCamadas < 4);
                 nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                bwMinNovo = 2 * cob + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin + 2 * diamEst;
+                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
                         
                 if (bw >= bwMinNovo) {
                     conditionEsp = "ah OK";
@@ -470,6 +470,8 @@ function processFormDC() {
                       
         if (conditionAh === "ah OK" && conditionAv === "av OK") {
             conditionEsp = "As condições de espaçamento foram atendidas";
+        } else {
+            conditionEsp = "As condições de espaçamento NAO foram atendidas";
         }
         console.log(conditionEsp);
             
@@ -506,7 +508,7 @@ function processFormDC() {
                 //        conditionPele = "OK";
                         // ADICIONAR PROPRIEDADE
                  //   }
-                //}
+                //}s
             //}
             
                 
