@@ -465,6 +465,7 @@ function processFormDC() {
                                 conditionAh = "ah insuficiente";
                                 console.log(conditionAh);
                                 nCamadas += 1;
+                                iCamadas +=1;
                             }
                     } while (iCamadas < 4);
                 }
