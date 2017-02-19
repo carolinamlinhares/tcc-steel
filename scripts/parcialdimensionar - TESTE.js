@@ -526,7 +526,7 @@ function processFormDC() {
                 
         }
         
-        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola.diametro + ". Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
     case "Dupla":
