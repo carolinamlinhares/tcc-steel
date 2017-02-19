@@ -162,6 +162,12 @@ function processFormCC() {
         return false;
     }
     
+    if (Number.isInteger(n) = false) {
+        alert("Por favor preencha o campo Nº de Barras/Camadas com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
+        return false;
+    } 
+    
     mk = Number(document.formCC.mCC.value);
     if (document.formCC.mCC.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
@@ -209,13 +215,12 @@ function processFormCC() {
     eps = 10.0;
     
     
-    
     // Calculating LN position
     x = (tsd * as) / (0.68 * bw * fcd);
     
     // Establishing Dominio limits
     betax23 = epc / (epc + eps);
-    epyd = (fyd / Es)*1000;
+    epyd = (fyd / Es) * 1000;
     betax34 = epc / (epc + epyd);
     
     // Calculating d (altura útil)
@@ -260,97 +265,6 @@ function processFormCC() {
     alert(result);
 }
         
-  /*  
-   
-    var resultado = 
-        {
-            "project":project,
-            "beam":beam,
-            "vk":vk,
-            "mk":mk,
-            "lbForm":lbForm,
-            "section":section,
-            "steel":steel,
-            "fyForm":fyForm,
-            "fuForm":fuForm,
-            "EForm":EForm,
-            "ml":ml,
-            "d":d,
-            "bf":bf,
-            "tw":tw,
-            "tf":tf,
-            "h":h,
-            "dl":dl,
-            "area":area,
-            "ix":ix,
-            "wx":wx,
-            "rx":rx,
-            "zx":zx,
-            "iy":iy,
-            "wy":wy,
-            "ry":ry,
-            "zy":zy,
-            "rt":rt,
-            "it":it,
-            "mesa":mesa,
-            "alma":alma,
-            "cw":cw,
-            "u":u,
-            "fy":fy,
-            "fu":fu,
-            "E":E,
-            "aw":aw,
-            "gama":gama,
-            "gama1":gama1,
-            "cb":cb,
-            "kv":kv,
-            "lb":lb,
-            "kc":kc,
-            "tr":tr,
-            "beta1":beta1,
-            "a":a,
-            "lambV":lambV,
-            "lambpV":lambpV,
-            "lambrV":lambrV,
-            "vpl":vpl,
-            "vrd":vrd,
-            "mpl":mpl,
-            "lambA":lambA,
-            "lambpA":lambpA,
-            "lambrA":lambrA,
-            "mrA":mrA,
-            "mcrA":mcrA,
-            "mrdA":mrdA,
-            "lambM":lambM,
-            "lambpM":lambpM,
-            "lambrM":lambrM,
-            "mrM":mrM,
-            "mcrM":mcrM,
-            "mrdM":mrdM,
-            "lambT":lambT,
-            "lambpT":lambpT,
-            "lambrT":lambrT,
-            "mrT":mrT,
-            "mcrT":mcrT,
-            "mrdT":mrdT,
-            "vsd":vsd,
-            "msd":msd,
-            "vrd":vrd,
-            "mrd":mrd,
-            "mrdOut":mrdOut,
-            "situationV":situationV,
-            "situationA":situationA,
-            "situationM":situationM,
-            "situationT":situationT,
-            "result":result,
-            "ratioCSV":ratioCSV,
-            "ratioCSM":ratioCSM,
-            "ratiopCSV":ratiopCSV,
-            "ratiopCSM":ratiopCSM
-        };
-    
-    document.getElementById("botaoRelatorio").href = "reportCS.html?test=" + JSON.stringify(resultado);
-} */
 
 /*
     Cria um objeto bitola
