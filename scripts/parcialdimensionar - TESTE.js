@@ -436,17 +436,21 @@ function processFormDC() {
             //Verificar viabilidade espacamento CONDITION
             
             ahMin = Math.max(2, bitola[4].diametroCM, (1.2 * diamAgreg));
+            console.log("ahMin " + ahMin);
             avMin = Math.max(2, bitola[4].diametroCM, (0.5 * diamAgreg));
+            console.log("avMin " + avMin);
             bwMin = 2 * (cob + diamEst) + nBarras * bitola[4].diametroCM + (nBarras - 1) * ahMin;
+            console.log("bwMin " + bwMin);
             bwMinAbs = 12;
             nCamadas = 1;
-            console.log(bwMin);
             
             //Verificação da largura mínima da viga (espaçamento horizontal)
             if (bw >= bwMin && bw >= bwMinAbs) {
                 conditionAh = "ah OK";
+                console.log(conditionAh);
             } else {
                 conditionAh = "ah insuficiente";
+                console.log("dentro do else " + conditionAh);
                 nCamadas = 2;
                 iCamadas = 1;
                 do {
