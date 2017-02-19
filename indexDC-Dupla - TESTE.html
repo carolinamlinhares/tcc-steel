@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Plataforma educacional para dimensionamento de vigas em concreto armado.">
+		<meta name="author" content="Juliana Libório">
+
+		<title>Dimensionamento de Vigas em Concreto Armado</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1> Dimensionamento de Vigas em Concreto Armado </h1>
+		</div>
+		<div class="form">
+		<form name="formDC">
+			<label>Projeto:</label>
+			<input type="text" name="projectDC" placeholder="Ex.: Edifício Canadá"/> <br>
+
+			<label>Viga:</label>
+			<input type="text" name="beamDC" placeholder="Identifique a viga. Ex.: V1" /> <br>
+
+			<label>Norma:</label>
+			<select name="standard">
+				<option value="NBR 6118:2014"> NBR 6118:2014 </option> 
+			</select> <br> 
+
+			<h2> DADOS </h2>
+
+			<label>Altura da viga (cm):</label>
+			<input type="text" name="hDC" /><br>
+            
+            <label>Largura da viga (cm):</label>
+			<input type="text" name="bwDC" /> <br>
+            
+            <label>Concreto (Fck):</label>
+			<select id="concrete" name="concreteDC">
+			</select> <br>
+   
+            <label>Aço:</label>
+			<select id="steel" name="steelDC">
+			</select> <br>
+            
+            <label>Estribo:</label>
+			<select id="estribo" name="estriboDC">
+			</select> <br>
+            
+			<h2> ESFORÇOS </h2>
+			
+			<label>Momento Fletor Solicitante Mk (kN.cm):</label>
+			<input type="text" name="mDC" /> <br>
+
+			<h4> COEFICIENTES </h4>
+			
+			<label>Gama c</label>
+			<input type="text" name="gamacDC" value=1.4 /> <br>
+			<label>Gama f</label>
+			<input type="text" name="gamafDC" value=1.4 /> <br>
+			<label>Gama s</label>
+			<input type="text" name="gamasDC" value=1.15 /> <br>
+            <label>Cobrimento (cm)</label>
+			<input type="text" name="cobDC" value=3.0 /> <br>
+            <label>Distância da borda tracionada ao centro de gravidade da armadura tracionada (cm)</label>
+			<input type="text" name="dlDC" value=5.0 /> <br>
+            <label>Distância da borda comprimida ao centro de gravidade da armadura comprimida (cm)</label>
+			<input type="text" name="dlcDC" value=4.0 /> <br>
+            
+            <label>Brita:</label>
+			<select id="agreg" name="agregDC">
+			</select> <br>
+            <br>
+
+			<input type="button" value="Dimensionar" onClick="processFormDC()" /> <br>
+			<input type="button" value="Gerar Relatório" onClick="reportDC()" /> <br>
+			<input type="reset" value="Limpar" /> <br>
+
+			<br>
+			<br>
+			<br>
+
+		</form>
+		</div>
+		
+		<!-- Only to access pages while testing -->
+		<input type="button" value="Dimensionar" onclick="window.location.href='designS.html'">
+		<input type="button" value="Relatorio" onclick="window.location.href='relatorio.html'">
+        <a id="botaoRelatorio" href="reportCS.html"> RELATORIO </a>
+
+		<script type="text/javascript" src="scripts/parcialdimensionar - TESTE.js"></script>
+        
+	</body>
+
+</html>
