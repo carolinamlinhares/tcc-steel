@@ -455,6 +455,8 @@ function processFormDC() {
                     nCamadas = i;
                     nBarrasNovo = Math.ceil(nBarras / nCamadas);
                     bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                    console.log(bwMinNovo);
+                    console.log(nCamadas);
                     
                     if (bw >= bwMinNovo && bw >= bwMinAbs) {
                         conditionAh = "ah OK";
