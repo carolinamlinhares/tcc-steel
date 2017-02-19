@@ -164,10 +164,22 @@ function processFormCD() {
         return false;
     }
     
+    if (Number.isInteger(ncamT) === false) {
+        alert("Por favor preencha o campo Nº de Camadas com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
+        return false;
+    }
+    
     nBarrasT = Number(document.formCD.barsTCD.value);
     if (document.formCD.barsTCD.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de barras com números.");
         console.log("Por favor preencha o Nº de barras.");
+        return false;
+    }
+    
+    if (Number.isInteger(nBarrasT) === false) {
+        alert("Por favor preencha o campo Nº de Barras com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
         return false;
     }
     
@@ -178,10 +190,22 @@ function processFormCD() {
         return false;
     }
     
+    if (Number.isInteger(ncamC) === false) {
+        alert("Por favor preencha o campo Nº de Camadas com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
+        return false;
+    }
+    
     nBarrasC = Number(document.formCD.barsCCD.value);
     if (document.formCD.barsCCD.value === "" || isNaN(bw)) {
         alert("Por favor preencha o campo Nº de barras com números.");
         console.log("Por favor preencha o Nº de barras.");
+        return false;
+    }
+    
+    if (Number.isInteger(nBarrasC) === false) {
+        alert("Por favor preencha o campo Nº de Barras com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
         return false;
     }
     
