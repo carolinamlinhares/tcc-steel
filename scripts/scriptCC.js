@@ -155,6 +155,12 @@ function processFormCC() {
         return false;
     }
     
+    if (Number.isInteger(ncam) === false) {
+        alert("Por favor preencha o campo Nº de Camadas com números inteiros.");
+        console.log("Por favor preencha o campo com valores inteiros.");
+        return false;
+    }
+    
     n = Number(document.formCC.barsCC.value);
     if (document.formCC.barsCC.value === "" || isNaN(n)) {
         alert("Por favor preencha o campo Nº de Barras/Camadas com números.");
@@ -162,12 +168,12 @@ function processFormCC() {
         return false;
     }
     
-    if (Number.isInteger(n) = false) {
+    if (Number.isInteger(n) === false) {
         alert("Por favor preencha o campo Nº de Barras/Camadas com números inteiros.");
         console.log("Por favor preencha o campo com valores inteiros.");
         return false;
-    } 
-    
+    }
+
     mk = Number(document.formCC.mCC.value);
     if (document.formCC.mCC.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
