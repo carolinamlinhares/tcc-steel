@@ -523,6 +523,10 @@ function processFormDC() {
                     });
             } 
         }
+            
+        arranjos.sort(function (a, b) {
+            return a.ncam - b.ncam;
+        });
         
         //CÁLCULO DA ARMADURA DE PELE
         if (h <= 60) {
