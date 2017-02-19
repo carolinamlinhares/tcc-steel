@@ -416,11 +416,11 @@ function processFormDC() {
     //Arranjos
     switch (situationS) {
     case "Simples":
-        for (i = 0; i < bitola.length; i += 1) {
-            nBarras = Math.ceil(as / (bitola[i].area));
+        
+            nBarras = Math.ceil(as / (bitola[4].area));
             console.log(i);
             console.log(nBarras);
-            asSugg = nBarras * bitola[i].area;
+            asSugg = nBarras * bitola[4].area;
             console.log(asSugg);
             txCalcSugg = (asSugg / ac) * 100;
             console.log(txCalcSugg);
@@ -437,7 +437,7 @@ function processFormDC() {
             
             ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
             avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-            bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
+            bwMin = 2 * (cob + diamEst) + nBarras * bitola[4].diametroCM + (nBarras - 1) * ahMin;
             bwMinAbs = 12;
             nCamadas = 1;
             console.log(bwMin);
@@ -451,7 +451,7 @@ function processFormDC() {
                     nCamadas += 1;
                 } while (nCamadas < 4);
                 nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[4].diametroCM + (nBarrasNovo - 1) * ahMin;
                         
                 if (bw >= bwMinNovo && bw >= bwMinAbs) {
                     conditionAh = "ah OK";
@@ -465,7 +465,7 @@ function processFormDC() {
             
             av = h - x - cob - diamEst;
                             
-            if (avMin >= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1))) {
+            if (avMin >= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1))) {
                 conditionAv = "av OK";
             } else {
                 conditionAv = "av insuficiente";
@@ -489,8 +489,8 @@ function processFormDC() {
             
         if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
             arranjos.push({
-                "bitola": bitola[i],
-                "area": bitola[i].area,
+                "bitola": bitola[4],
+                "area": bitola[4].area,
                 "qtd": nBarras,
                 "as": asSugg,
                 "taxa": txCalcSugg,
