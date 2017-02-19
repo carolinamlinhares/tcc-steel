@@ -459,6 +459,7 @@ function processFormDC() {
                     conditionAh = "ah insuficiente";
                 }
             }
+            console.log(conditionAh);
             
             //Verificação do espaçamento vertical mínimo
             
@@ -470,6 +471,7 @@ function processFormDC() {
                 conditionAv = "av insuficiente";
             }
         }
+        console.log(conditionAv);
                    
                       
         if (conditionAh === "ah OK" && conditionAv === "av OK") {
