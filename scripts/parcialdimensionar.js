@@ -3,7 +3,7 @@
 
 // variables
 var project, beam, mk, concrete, steel, estribo, bitola;
-var tsd, as, bw, bwMin, bwMinNovo, fcd;
+var tsd, as, bw, bwMin, bwMinNovo, bwMinAbs, fcd;
 var betax23, betax34, epc, eps, epyd, fyd, Es, fck, fyk, fckForm, fykForm;
 var d, h, cob, diamAgreg, agreg, diamEstForm, diamEst, diamAgregForm, diamLong, diamLongT, diamLongC;
 var a, b, c, delta, deltaR, x1, x2;
@@ -438,11 +438,12 @@ function processFormDC() {
             ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
             avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
             bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
+            bwMinAbs = 12;
             nCamadas = 1;
             console.log(bwMin);
             
             //Verificação da largura mínima da viga (espaçamento horizontal)
-            if (bw >= bwMin) {
+            if (bw >= bwMin && bw >= bwMinAbs) {
                 conditionAh = "ah OK";
             } else {
                 conditionAh = "ah insuficiente";
@@ -452,10 +453,10 @@ function processFormDC() {
                 nBarrasNovo = Math.ceil(nBarras / nCamadas);
                 bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
                         
-                if (bw >= bwMinNovo) {
-                    conditionEsp = "ah OK";
+                if (bw >= bwMinNovo && bw >= bwMinAbs) {
+                    conditionAh = "ah OK";
                 } else {
-                    conditionEsp = "ah insuficiente";
+                    conditionAh = "ah insuficiente";
                 }
             }
             
