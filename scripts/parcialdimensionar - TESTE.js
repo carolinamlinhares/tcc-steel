@@ -417,10 +417,10 @@ function processFormDC() {
     switch (situationS) {
     case "Simples":
         
-            nBarras = Math.ceil(as / (bitola[4].area));
+            nBarras = Math.ceil(as / (bitola[5].area));
             console.log(i);
             console.log(nBarras);
-            asSugg = nBarras * bitola[4].area;
+            asSugg = nBarras * bitola[5].area;
             console.log(asSugg);
             txCalcSugg = (asSugg / ac) * 100;
             console.log(txCalcSugg);
@@ -435,11 +435,11 @@ function processFormDC() {
             
             //Verificar viabilidade espacamento CONDITION
             
-            ahMin = Math.max(2, bitola[4].diametroCM, (1.2 * diamAgreg));
+            ahMin = Math.max(2, bitola[5].diametroCM, (1.2 * diamAgreg));
             console.log("ahMin " + ahMin);
-            avMin = Math.max(2, bitola[4].diametroCM, (0.5 * diamAgreg));
+            avMin = Math.max(2, bitola[5].diametroCM, (0.5 * diamAgreg));
             console.log("avMin " + avMin);
-            bwMin = 2 * (cob + diamEst) + nBarras * bitola[4].diametroCM + (nBarras - 1) * ahMin;
+            bwMin = 2 * (cob + diamEst) + nBarras * bitola[5].diametroCM + (nBarras - 1) * ahMin;
             console.log("bwMin " + bwMin);
             bwMinAbs = 12;
             nCamadas = 1;
@@ -456,7 +456,7 @@ function processFormDC() {
                 do {
                     console.log("iCamadas =" + iCamadas);
                     nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                    bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[4].diametroCM + (nBarrasNovo - 1) * ahMin;
+                    bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[5].diametroCM + (nBarrasNovo - 1) * ahMin;
                         if (bw >= bwMinNovo && bw >= bwMinAbs) {
                             conditionAh = "ah OK";
                             console.log(conditionAh);
@@ -473,7 +473,7 @@ function processFormDC() {
             
             av = h - x - cob - diamEst;
                             
-            if (( nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[4].diametroCM)) / (nCamadas - 1)))) {
+            if (( nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[5].diametroCM)) / (nCamadas - 1)))) {
                 conditionAv = "av OK";
             } else {
                 conditionAv = "av insuficiente";
@@ -492,17 +492,35 @@ function processFormDC() {
             avSugg = avMin;
         }
             
+        //ESPACAMENTO PARA MULTIPLAS CAMADAS
+        /* if (nCamadas > 1) {
+            if (nCamadas === 2){
+                nb1 = Math.ceil(nBarras / nCamadas);
+                ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                nb2 = nBarras - nb1;
+                ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+            }
+            if (nCamadas === 3){
+                nb1 = Math.ceil(nBarras / nCamadas);
+                ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                nb2 = Math.ceil(nBarras / nCamadas);
+                ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+                nb3 = nBarras - nb1 - nb2;
+                ah3 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb3 - 1);
+            }
+        } */
+            
         if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
             arranjos.push({
-                "bitola": bitola[4],
-                "area": bitola[4].area,
+                "bitola": bitola[5].diametro,
+                "area": bitola[5].area,
                 "qtd": nBarras,
                 "ncam": nCamadas,
                 "as": asSugg,
                 "taxa": txCalcSugg,
                 "esp": ahSugg
             });
-        }
+        } 
         
         //CÁLCULO DA ARMADURA DE PELE
         if (h <= 60) {
@@ -527,7 +545,7 @@ function processFormDC() {
                 
         }
         
-        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola.diametro + "em " + arranjos[0].ncam + "camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola.diametro + " em " + arranjos[0].ncam + " camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
         alert(result);
         break;
     case "Dupla":
