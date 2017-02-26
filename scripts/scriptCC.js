@@ -197,8 +197,8 @@ function processFormCC() {
     
     concrete = concreteProp[(document.formCC.concreteCC.value)].concType;
     steel = steelProp[(document.formCC.steelCC.value)].steelType;
-    /* diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
-    diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro; */
+    diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
+    diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro;
     gamac = Number(document.formCC.gamacCC.value);
     gamaf = Number(document.formCC.gamafCC.value);
     gamas = Number(document.formCC.gamasCC.value);
