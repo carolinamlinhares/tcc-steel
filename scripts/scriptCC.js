@@ -289,9 +289,9 @@ function processFormCC() {
     // Results
     msd = mk * gamaf;
     if (msd <= md) {
-        result = "Aprovada";
+        result = "A viga resiste ao momento fletor solicitado. Verifique o relatório  completo para obter o momento máximo que a viga resiste e garantir que a mesma é econômica";
     } else {
-        result = "Reprovada";
+        result = "A viga não resiste ao momento fletor solicitado. Você pode aumentar a seção transversal ou a resistência do concreto. Verifique o relatório para mais opções.";
     }
     alert(result);
     
