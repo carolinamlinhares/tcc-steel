@@ -224,8 +224,8 @@ function processFormCC() {
     // Converting Units 
     fyk = fykForm / 10;
     fck = fckForm / 100;
-    /* diamEst = diamEstForm / 10;
-    diamLong = diamLongForm / 10; */
+    diamEst = diamEstForm / 10;
+    diamLong = diamLongForm / 10;
     
     // Calculating parameters
     fcd = fck / gamac;
