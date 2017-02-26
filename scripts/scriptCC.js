@@ -9,7 +9,7 @@ var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong, ncam, n;
 var mk, msd, md;
 var x2lim, x3lim, dominio;
 var gamac, gamaf, gamas, s;
-var result, situationD, situationLN;
+var result, situationD, situationLN, situationAlturaUtil;
 
 var bitola = [
     {
@@ -148,7 +148,21 @@ function processFormCC() {
         return false;
     }
     
-    ncam = Number(document.formCC.layerCC.value);
+    as = Number(document.formCC.asCC.value);
+    if (document.formCC.asCC.value === "" || isNaN(as)) {
+        alert("Por favor preencha o campo Área de Aço com números.");
+        console.log("Por favor preencha o campo Área de Aço.");
+        return false;
+    }
+    
+    d = Number(document.formCC.dCC.value);
+    if (document.formCC.dCC.value === "" || isNaN(d)) {
+        alert("Por favor preencha o campo Altura Útil com números.");
+        console.log("Por favor preencha o campo Altura Útil.");
+        return false;
+    }
+    
+    /* ncam = Number(document.formCC.layerCC.value);
     if (document.formCC.layerCC.value === "" || isNaN(ncam)) {
         alert("Por favor preencha o campo Nº de Camadas com números.");
         console.log("Por favor preencha o campo Nº de Camadas.");
@@ -172,7 +186,7 @@ function processFormCC() {
         alert("Por favor preencha o campo Nº de Barras/Camadas com números inteiros.");
         console.log("Por favor preencha o campo com valores inteiros.");
         return false;
-    }
+    } */
 
     mk = Number(document.formCC.mCC.value);
     if (document.formCC.mCC.value === "" || isNaN(mk)) {
@@ -183,18 +197,18 @@ function processFormCC() {
     
     concrete = concreteProp[(document.formCC.concreteCC.value)].concType;
     steel = steelProp[(document.formCC.steelCC.value)].steelType;
-    diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
-    diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro;
+    /* diamLongForm = bitola[Number(document.formCC.longCC.value)].diametro;
+    diamEstForm = bitola[Number(document.formCC.estCC.value)].diametro; */
     gamac = Number(document.formCC.gamacCC.value);
     gamaf = Number(document.formCC.gamafCC.value);
     gamas = Number(document.formCC.gamasCC.value);
     s = Number(document.formCC.sCC.value);
     cob = Number(document.formCC.cobCC.value);
         
-    // Getting bitolaLong properties
+    /*  // Getting bitolaLong properties
     i = Number(document.getElementById("bitolaLong").value);
 
-    as = (bitola[i].area) * n * ncam;
+    as = (bitola[i].area) * n * ncam; */
     
     // Getting concrete properties
     j = Number(document.getElementById("concrete").value);
@@ -210,8 +224,8 @@ function processFormCC() {
     // Converting Units 
     fyk = fykForm / 10;
     fck = fckForm / 100;
-    diamEst = diamEstForm / 10;
-    diamLong = diamLongForm / 10;
+    /* diamEst = diamEstForm / 10;
+    diamLong = diamLongForm / 10; */
     
     // Calculating parameters
     fcd = fck / gamac;
@@ -229,9 +243,19 @@ function processFormCC() {
     epyd = (fyd / Es) * 1000;
     betax34 = epc / (epc + epyd);
     
-    // Calculating d (altura útil)
+   /* // Calculating d (altura útil)
     
-    d = h - (cob + diamEst + 0.5 * diamLong + ((ncam - 1) * (diamLong + s)));
+    d = h - (cob + diamEst + 0.5 * diamLong + ((ncam - 1) * (diamLong + s))); */
+    
+    // Verificação
+    
+    if (d <= h - cob - diamEst - 0.5 * diamLong) {
+        situationAlturaUtil = "Coerente";
+    } else {
+        situationAlturaUtil = "Incoerente";
+    }
+    
+    console.log(situationAlturaUtil);
       
     // Checking Dominio
     
