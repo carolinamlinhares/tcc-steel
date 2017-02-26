@@ -301,6 +301,7 @@ function processFormCC() {
     } else {
         resultArmPele = "Não é necessário utilizar armadura de pele";
     }
+    alert(resultArmPele);
 }
 
     
