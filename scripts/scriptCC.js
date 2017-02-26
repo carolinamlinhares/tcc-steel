@@ -10,6 +10,7 @@ var mk, msd, md;
 var x2lim, x3lim, dominio;
 var gamac, gamaf, gamas, s;
 var result, situationD, situationLN, situationAlturaUtil;
+var armPele, resultArmPele;
 
 var bitola = [
     {
@@ -293,8 +294,16 @@ function processFormCC() {
         result = "Reprovada";
     }
     alert(result);
+    
+    if (h > 60) {
+        armPele = 0.001 * bw * h;
+        resultArmPele = "É necessário utilizar armadura de pele com " + armPele + "cm² por face";
+    } else {
+        resultArmPele = "Não é necessário utilizar armadura de pele";
+    }
 }
-        
+
+    
 
 /*
     Cria um objeto bitola
