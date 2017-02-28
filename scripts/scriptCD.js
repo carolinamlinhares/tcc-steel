@@ -159,14 +159,14 @@ function processFormCD() {
     }
     
     astForm = Number(document.formCD.astCD.value);
-    if (document.formCD.astCD.value === "" || isNaN(ast)) {
+    if (document.formCD.astCD.value === "" || isNaN(astForm)) {
         alert("Por favor preencha o campo Área de Aço Tracionada com números.");
         console.log("Por favor preencha o campo Área de Aço Tracionada.");
         return false;
     }
     
     ascForm = Number(document.formCD.ascCD.value);
-    if (document.formCD.ascCD.value === "" || isNaN(asc)) {
+    if (document.formCD.ascCD.value === "" || isNaN(ascForm)) {
         alert("Por favor preencha o campo Área de Aço Comprimida com números.");
         console.log("Por favor preencha o campo Área de Aço Comprimida.");
         return false;
