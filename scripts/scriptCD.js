@@ -10,9 +10,10 @@ var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
-var situationD, situationLN;
-var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
-var astcalc, asccalc, ncamC, ncamT;
+var situationD, situationLN, situationAlturaUtil;
+var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, asc, ast, situationS, result;
+var astForm, ascForm;
+var armPele, resultArmPele;
 
 var nBarras, nBarrasC, nBarrasT;
 var arranjos = [];
@@ -157,58 +158,20 @@ function processFormCD() {
         return false;
     }
     
-    ncamT = Number(document.formCD.layerTCD.value);
-    if (document.formCD.layerTCD.value === "" || isNaN(bw)) {
-        alert("Por favor preencha o campo Nº de camadas tracionadas com números.");
-        console.log("Por favor preencha o Nº de camadas tracionadas.");
+    astForm = Number(document.formCD.astCD.value);
+    if (document.formCD.astCD.value === "" || isNaN(ast)) {
+        alert("Por favor preencha o campo Área de Aço Tracionada com números.");
+        console.log("Por favor preencha o campo Área de Aço Tracionada.");
         return false;
     }
     
-    if (Number.isInteger(ncamT) === false) {
-        alert("Por favor preencha o campo Nº de Camadas com números inteiros.");
-        console.log("Por favor preencha o campo com valores inteiros.");
+    ascForm = Number(document.formCD.ascCD.value);
+    if (document.formCD.ascCD.value === "" || isNaN(asc)) {
+        alert("Por favor preencha o campo Área de Aço Comprimida com números.");
+        console.log("Por favor preencha o campo Área de Aço Comprimida.");
         return false;
     }
-    
-    nBarrasT = Number(document.formCD.barsTCD.value);
-    if (document.formCD.barsTCD.value === "" || isNaN(bw)) {
-        alert("Por favor preencha o campo Nº de barras com números.");
-        console.log("Por favor preencha o Nº de barras.");
-        return false;
-    }
-    
-    if (Number.isInteger(nBarrasT) === false) {
-        alert("Por favor preencha o campo Nº de Barras com números inteiros.");
-        console.log("Por favor preencha o campo com valores inteiros.");
-        return false;
-    }
-    
-    ncamC = Number(document.formCD.layerCCD.value);
-    if (document.formCD.layerCCD.value === "" || isNaN(bw)) {
-        alert("Por favor preencha o campo Nº de camadas comprimidas com números.");
-        console.log("Por favor preencha o Nº de camadas comprimidas.");
-        return false;
-    }
-    
-    if (Number.isInteger(ncamC) === false) {
-        alert("Por favor preencha o campo Nº de Camadas com números inteiros.");
-        console.log("Por favor preencha o campo com valores inteiros.");
-        return false;
-    }
-    
-    nBarrasC = Number(document.formCD.barsCCD.value);
-    if (document.formCD.barsCCD.value === "" || isNaN(bw)) {
-        alert("Por favor preencha o campo Nº de barras com números.");
-        console.log("Por favor preencha o Nº de barras.");
-        return false;
-    }
-    
-    if (Number.isInteger(nBarrasC) === false) {
-        alert("Por favor preencha o campo Nº de Barras com números inteiros.");
-        console.log("Por favor preencha o campo com valores inteiros.");
-        return false;
-    }
-    
+                
     mk = Number(document.formCD.mCD.value);
     if (document.formCD.mCD.value === "" || isNaN(mk)) {
         alert("Por favor preencha o campo Momento com números.");
@@ -263,6 +226,16 @@ function processFormCD() {
 
     //CÁLCULO DA ALTURA ÚTIL (d)
     d = h - dl;
+    
+    // Verificação
+    
+    if (d <= h - cob - diamEst - 0.5 * diamLongT) {
+        situationAlturaUtil = "Coerente";
+    } else {
+        situationAlturaUtil = "Incoerente";
+    }
+    
+    console.log(situationAlturaUtil);
     
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
     //DOMÍNIO 2
@@ -322,16 +295,16 @@ function processFormCD() {
         situationLN = "Reprovada";
     }
     
-    //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
+    /* //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
     astcalc = nBarrasT * ncamT * bitola[i].area;
-    asccalc = nBarrasC * ncamC * bitola[w].area;
+    asccalc = nBarrasC * ncamC * bitola[w].area; */
     
     //CÁLCULO DA ÁREA DE AÇO NECESSÁRIA
 
     if (situationD === "Aprovado" && situationLN === "Aprovada") {
         situationS = "Simples";
 	    as = md / (tsd * (d - 0.4 * x));
-        if (astcalc >= as) {
+        if (astForm >= as) {
             result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
             alert(result);
         } else {
@@ -362,18 +335,26 @@ function processFormCD() {
         as2 = m2d / (tsd * (d - dlc));
         ast = as1 + as2;
         
-        if (astcalc >= ast && asccalc >= asl) {
+        if (astForm >= ast && ascForm >= asl) {
             result = "A viga resiste ao momento fletor solicitado";
             alert(result);
         } else {result = "A viga não resiste ao momento fletor solicitado";
             alert(result);
             }
     }
+    
+    if (h > 60) {
+        armPele = 0.001 * bw * h;
+        resultArmPele = "É necessário utilizar armadura de pele com " + armPele + "cm² por face";
+    } else {
+        resultArmPele = "Não é necessário utilizar armadura de pele";
+    }
+    alert(resultArmPele);
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         //alert(result);
         
-        //Arranjos
+   /*     //Arranjos
     if (situationS === "Simples") {
         for (i = 0; i < arranjos.length; i += 1) { //Log of approved
             console.log(arranjos[i]);
@@ -385,9 +366,7 @@ function processFormCD() {
             nBarrasC = asl / (bitola[i].area);
             nBarrasT = ast / (bitola[i].area);
         }
-    }
-                    
-   
+    }*/
 }
         
 
