@@ -9,7 +9,7 @@ var d, h, cob, diamEstForm, diamLongForm, diamEst, diamLong, ncam, n;
 var mk, msd, md;
 var x2lim, x3lim, dominio;
 var gamac, gamaf, gamas, s;
-var result, situationD, situationLN, situationAlturaUtil;
+var result, situationD, situationLN, situationCG;
 var armPele, resultArmPele;
 
 var bitola = [
@@ -250,13 +250,13 @@ function processFormCC() {
     
     // Verificação
     
-    if (d <= h - cob - diamEst - 0.5 * diamLong) {
-        situationAlturaUtil = "Coerente";
+    if (h - d >= cob + diamEst + 0.5 * diamLong) {
+        situationCG = "Coerente";
     } else {
-        situationAlturaUtil = "Incoerente";
+        situationCG = "Incoerente";
     }
     
-    console.log(situationAlturaUtil);
+    console.log(situationCG);
       
     // Checking Dominio
     
@@ -289,7 +289,7 @@ function processFormCC() {
     // Results
     msd = mk * gamaf;
     if (msd <= md) {
-        result = "A viga resiste ao momento fletor solicitado. Verifique o relatório  completo para obter o momento máximo que a viga resiste e garantir que a mesma é econômica";
+        result = "A viga resiste ao momento fletor solicitado. Verifique o relatório  completo para obter o momento máximo que a viga resiste e garantir que a mesma seja econômica";
     } else {
         result = "A viga não resiste ao momento fletor solicitado. Você pode aumentar a seção transversal ou a resistência do concreto. Verifique o relatório para mais opções.";
     }
