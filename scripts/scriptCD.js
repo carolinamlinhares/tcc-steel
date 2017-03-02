@@ -10,7 +10,7 @@ var a, b, c, delta, deltaR, x1, x2;
 var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
-var situationD, situationLN, situationAlturaUtil;
+var situationD, situationLN, situationCG;
 var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, asc, ast, situationS, result;
 var astForm, ascForm;
 var armPele, resultArmPele;
@@ -229,14 +229,14 @@ function processFormCD() {
     
     // Verificação
     
-    if (d <= h - cob - diamEst - 0.5 * diamLongT) {
-        situationAlturaUtil = "Coerente";
+    if (dl >= cob + diamEst + 0.5 * diamLongT && dlc >= cob + diamEst + 0.5 * diamLongC) {
+        situationCG = "Coerente";
     } else {
-        situationAlturaUtil = "Incoerente";
+        situationCG = "Incoerente";
     }
     
-    console.log(situationAlturaUtil);
-    
+    console.log(situationCG);
+        
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
     //DOMÍNIO 2
     betax23 = epc / (epc + eps);
