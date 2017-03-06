@@ -258,7 +258,8 @@ function processFormCC() {
     if (situationCG === "Incoerente") {
         alert("A altura útil não está coerente com a altura da viga, cobrimento e bitolas utilizadas. Por favor, verifique os dados de entrada.");
     }
-    console.log(situationCG);
+    
+    console.log("situationCG = " + situationCG);
       
     // Checking Dominio
     
@@ -278,12 +279,16 @@ function processFormCC() {
         dominio = "Error";
     }
     
+    console.log("situationD = " + situationD);
+    
     // Check x/d
     if (x / d <= 0.45) {
         situationLN = "Aprovada";
     } else {
         situationLN = "Reprovada";
     }
+    
+    console.log("situationLN = " + situationLN);
     
     // Calculating Bending
     md = 0.68 * bw * x * fcd * (d - 0.4 * x);
