@@ -57,24 +57,24 @@ var bitola = [
 ];
 
 var steelProp = [
-    {
+    /*{
         "steelType": "CA25",
         "fy": 250,
         "fu": 217.4,
         "E": 21000
-    },
+    },*/
     {
         "steelType": "CA50",
         "fy": 500,
         "fu": 434.8,
         "E": 21000
-    },
-    {
+    }
+    /*{
         "steelType": "CA60",
         "fy": 600,
         "fu": 521.7,
         "E": 21000
-    }
+    }*/
 ];
 
 var concreteProp = [
@@ -235,7 +235,6 @@ function processFormCC() {
     epc = 3.5;
     eps = 10.0;
     
-    
     // Calculating LN position
     x = (tsd * as) / (0.68 * bw * fcd);
     
@@ -256,6 +255,9 @@ function processFormCC() {
         situationCG = "Incoerente";
     }
     
+    if (situationCG === "Incoerente") {
+        alert("A altura útil não está coerente com a altura da viga, cobrimento e bitolas utilizadas. Por favor, verifique os dados de entrada.");
+    }
     console.log(situationCG);
       
     // Checking Dominio
@@ -288,10 +290,12 @@ function processFormCC() {
     
     // Results
     msd = mk * gamaf;
-    if (msd <= md) {
+    if (msd <= md && situationD === "Aprovada" && situationLN === "Aprovada") {
         result = "A viga resiste ao momento fletor solicitado. Verifique o relatório  completo para obter o momento máximo que a viga resiste e garantir que a mesma seja econômica";
+    } else if (msd <= md && situationD === "Aprovada" && situationLN === "Reprovada") {
+        result = "A viga resiste ao momento fletor, mas não atende ao limite da linha neutra estabelecido em norma. Sugere-se aumentar a altura útil.";
     } else {
-        result = "A viga não resiste ao momento fletor solicitado. Você pode aumentar a seção transversal ou a resistência do concreto. Verifique o relatório para mais opções.";
+        result = "A viga não resiste ao momento fletor solicitado. Sugere-se aumentar a seção transversal ou a resistência do concreto. Verifique o relatório para mais opções.";
     }
     alert(result);
     
