@@ -295,9 +295,9 @@ function processFormCC() {
     
     // Results
     msd = mk * gamaf;
-    if (msd <= md && situationD === "Aprovada" && situationLN === "Aprovada") {
+    if (msd <= md && situationD === "Aprovado" && situationLN === "Aprovada") {
         result = "A viga resiste ao momento fletor solicitado. Verifique o relatório  completo para obter o momento máximo que a viga resiste e garantir que a mesma seja econômica";
-    } else if (msd <= md && situationD === "Aprovada" && situationLN === "Reprovada") {
+    } else if (msd <= md && situationD === "Aprovado" && situationLN === "Reprovada") {
         result = "A viga resiste ao momento fletor, mas não atende ao limite da linha neutra estabelecido em norma. Sugere-se aumentar a altura útil.";
     } else {
         result = "A viga não resiste ao momento fletor solicitado. Sugere-se aumentar a seção transversal ou a resistência do concreto. Verifique o relatório para mais opções.";
