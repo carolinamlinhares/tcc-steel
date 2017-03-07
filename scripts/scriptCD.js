@@ -311,7 +311,7 @@ function processFormCD() {
         if (situationD === "Aprovado" && situationLN === "Aprovada") {
             situationS = "Simples";
 	        as = md / (tsd * (d - 0.4 * x));
-            if ((astForm + 0.05 * astForm) >= as) {
+            if ((astForm + (0.05 * astForm)) >= as) {
                 result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
                 alert(result);
             } /* else {
@@ -342,7 +342,7 @@ function processFormCD() {
             as2 = m2d / (tsd * (d - dlc));
             ast = as1 + as2;
          
-            if ((astForm + 0.05 * astForm) >= ast && (ascForm + 0.05 * ascForm) >= asl) {
+            if ((astForm + (0.05 * astForm)) >= ast && (ascForm + (0.05 * ascForm)) >= asl) {
                 result = "A viga resiste ao momento fletor solicitado";
                 alert(result);
             } else {result = "A viga não resiste ao momento fletor solicitado";
