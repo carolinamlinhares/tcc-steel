@@ -314,10 +314,10 @@ function processFormCD() {
             if ((astForm + 0.05 * astForm) >= as) {
                 result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
                 alert(result);
-            } else {
+            } /* else {
                 result = "A viga não resiste ao momento fletor solicitado";
-                alert(result);
-            }
+                alert(result); 
+        }*/
                     
         } else {
             situationS = "Dupla";
