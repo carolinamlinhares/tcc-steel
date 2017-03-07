@@ -63,24 +63,24 @@ var bitola = [
 ];
 
 var steelProp = [
-    {
+   /*{
         "steelType": "CA25",
         "fy": 250,
         "fu": 217.4,
         "E": 21000
-    },
+    },*/
     {
         "steelType": "CA50",
         "fy": 500,
         "fu": 434.8,
         "E": 21000
-    },
-    {
+    }
+    /*{
         "steelType": "CA60",
         "fy": 600,
         "fu": 521.7,
         "E": 21000
-    }
+    }*/
 ];
 
 var concreteProp = [
@@ -235,7 +235,7 @@ function processFormCD() {
         situationCG = "Incoerente";
     }
     
-    console.log(situationCG);
+    console.log("situationCG = " + situationCG);
         
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
     //DOMÍNIO 2
@@ -287,6 +287,8 @@ function processFormCD() {
         dominio = "Error";
     }
 
+    console.log("situationD = " + situationD);
+    
     //VERIFICAÇÃO DA RELAÇÃO x/d
 
     if (x / d <= 0.45) {
@@ -295,52 +297,58 @@ function processFormCD() {
         situationLN = "Reprovada";
     }
     
+    console.log("situationLN = " + situationLN);
+    
     /* //CÁLCULO DA ÁREA DE AÇO UTILIZADA NA VIGA EM VERIFICAÇÃO
     astcalc = nBarrasT * ncamT * bitola[i].area;
     asccalc = nBarrasC * ncamC * bitola[w].area; */
     
     //CÁLCULO DA ÁREA DE AÇO NECESSÁRIA
 
-    if (situationD === "Aprovado" && situationLN === "Aprovada") {
-        situationS = "Simples";
-	    as = md / (tsd * (d - 0.4 * x));
-        if (astForm >= as) {
-            result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
-            alert(result);
-        } else {
-            result = "A viga não resiste ao momento fletor solicitado";
-            alert(result);
-        }
-                    
+    if (situationCG === "Incoerente") {
+        alert("A altura da viga não está coerente com as distâncias ao centro das armaduras, cobrimento e bitolas utilizadas. Por favor, verifique os dados de entrada.");
     } else {
-        situationS = "Dupla";
-        
-        //Cálculo da nova posição da LN
-        xd = 0.45 * d;
-        
-        //Cálculo de M1d
-        m1d = 0.68 * bw * xd * fcd * (d - 0.4 * xd);
-        
-        //Cálculo de M2d
-        m2d = md - m1d;
-        
-        //Encontrar valor de tlsd na tabela (!!!!)
-        tlsd = 43.5;
-            
-        //Encontrar área de aço comprimida necessária A's
-        asl = m2d / (tlsd * (d - dlc));
-        
-        //Encontrar área de aço tracionada necessária As
-        as1 = m1d / (tsd * (d - 0.4 * xd));
-        as2 = m2d / (tsd * (d - dlc));
-        ast = as1 + as2;
-        
-        if (astForm >= ast && ascForm >= asl) {
-            result = "A viga resiste ao momento fletor solicitado";
-            alert(result);
-        } else {result = "A viga não resiste ao momento fletor solicitado";
-            alert(result);
+        if (situationD === "Aprovado" && situationLN === "Aprovada") {
+            situationS = "Simples";
+	        as = md / (tsd * (d - 0.4 * x));
+            if ((astForm + 0.05 * astForm) >= as) {
+                result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
+                alert(result);
+            } else {
+                result = "A viga não resiste ao momento fletor solicitado";
+                alert(result);
             }
+                    
+        } else {
+            situationS = "Dupla";
+        
+            //Cálculo da nova posição da LN
+            xd = 0.45 * d;
+        
+            //Cálculo de M1d
+            m1d = 0.68 * bw * xd * fcd * (d - 0.4 * xd);
+        
+            //Cálculo de M2d
+            m2d = md - m1d;
+        
+            //Encontrar valor de tlsd na tabela (!!!!)
+            tlsd = 43.5;
+            
+            //Encontrar área de aço comprimida necessária A's
+            asl = m2d / (tlsd * (d - dlc));
+        
+            //Encontrar área de aço tracionada necessária As
+            as1 = m1d / (tsd * (d - 0.4 * xd));
+            as2 = m2d / (tsd * (d - dlc));
+            ast = as1 + as2;
+         
+            if ((astForm + 0.05 * astForm) >= ast && (ascForm + 0.05 * ascForm) >= asl) {
+                result = "A viga resiste ao momento fletor solicitado";
+                alert(result);
+            } else {result = "A viga não resiste ao momento fletor solicitado";
+                    alert(result);
+                   }
+        }
     }
     
     if (h > 60) {
