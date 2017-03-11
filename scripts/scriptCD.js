@@ -344,10 +344,9 @@ function processFormCD() {
          
             if ((astForm + (0.05 * astForm)) >= ast && (ascForm + (0.05 * ascForm)) >= asl) {
                 result = "A viga resiste ao momento fletor solicitado";
-                alert(result);
             } else {result = "A viga não resiste ao momento fletor solicitado";
-                    alert(result);
-                   }
+                alert(result);
+                }
         }
     }
     
@@ -357,7 +356,9 @@ function processFormCD() {
     } else {
         resultArmPele = "Não é necessário utilizar armadura de pele";
     }
-    alert(resultArmPele);
+    if (resultArmPele === "É necessário utilizar armadura de pele com " + armPele + "cm² por face") {
+        alert(resultArmPele);
+    }
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         //alert(result);
