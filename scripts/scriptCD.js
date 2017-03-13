@@ -321,7 +321,7 @@ function processFormCD() {
             situationS = "Simples";
 	        as = md / (tsd * (d - 0.4 * x));
             if ((astForm + (0.05 * astForm)) >= as) {
-                result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada, mas não atende ao limite da linha             neutra estabelecido em norma. Sugere-se aumentar a altura da viga.";
+                result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada, mas não atende ao limite da linha neutra estabelecido em norma. Sugere-se aumentar a altura da viga.";
             } else {
                 result = "A viga não resiste ao momento fletor solicitado";
             }
