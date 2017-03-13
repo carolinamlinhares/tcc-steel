@@ -187,7 +187,7 @@ function processFormCD() {
     gamac = Number(document.formCD.gamacCD.value);
     gamaf = Number(document.formCD.gamafCD.value);
     gamas = Number(document.formCD.gamasCD.value);
-    s = Number(document.formCD.sCD.value);
+    /*s = Number(document.formCD.sCD.value);*/
     cob = Number(document.formCD.cobCD.value);
     dl = Number(document.formCD.dlCD.value);
     dlc = Number(document.formCD.dlcCD.value);
@@ -313,11 +313,18 @@ function processFormCD() {
 	        as = md / (tsd * (d - 0.4 * x));
             if ((astForm + (0.05 * astForm)) >= as) {
                 result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada";
-                alert(result);
-            } /* else {
+            } else {
                 result = "A viga não resiste ao momento fletor solicitado";
-                alert(result); 
-        }*/
+            }
+                
+        } else if (situationD === "Aprovado" && situationLN === "Reprovada") {
+            situationS = "Simples";
+	        as = md / (tsd * (d - 0.4 * x));
+            if ((astForm + (0.05 * astForm)) >= as) {
+                result = "A viga resiste ao momento fletor solicitado e pode ser simplesmente armada, mas não atende ao limite da linha             neutra estabelecido em norma. Sugere-se aumentar a altura da viga.";
+            } else {
+                result = "A viga não resiste ao momento fletor solicitado";
+            }
                     
         } else {
             situationS = "Dupla";
@@ -344,12 +351,14 @@ function processFormCD() {
          
             if ((astForm + (0.05 * astForm)) >= ast && (ascForm + (0.05 * ascForm)) >= asl) {
                 result = "A viga resiste ao momento fletor solicitado";
-            } else {result = "A viga não resiste ao momento fletor solicitado";
-                alert(result);
-                }
+            } else {
+                result = "A viga não resiste ao momento fletor solicitado";
+            }
         }
     }
+    alert(result);
     
+
     if (h > 60) {
         armPele = 0.001 * bw * h;
         resultArmPele = "É necessário utilizar armadura de pele com " + armPele + "cm² por face";
@@ -359,6 +368,7 @@ function processFormCD() {
     if (resultArmPele === "É necessário utilizar armadura de pele com " + armPele + "cm² por face") {
         alert(resultArmPele);
     }
+}
                 
         //result = "Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
         //alert(result);
@@ -376,7 +386,7 @@ function processFormCD() {
             nBarrasT = ast / (bitola[i].area);
         }
     }*/
-}
+
         
 
             
