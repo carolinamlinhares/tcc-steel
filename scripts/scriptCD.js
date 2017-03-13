@@ -355,8 +355,9 @@ function processFormCD() {
                 result = "A viga não resiste ao momento fletor solicitado";
             }
         }
+        alert(result);    
     }
-    alert(result);
+    
     
 
     if (h > 60) {
