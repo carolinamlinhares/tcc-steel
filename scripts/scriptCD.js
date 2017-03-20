@@ -340,13 +340,13 @@ function processFormCD() {
         
             //Encontrar valor de tlsd na tabela (!!!!)
             rtab = dlc / d;
-            elsd = 3.5 * (1 - (1 / 0.45) * (rtab));
-            tlsd = elsd * (Es / 100);
+            elsd = 3.5 * (1 - (1 / 0.45) * rtab);
+            tlsd = (elsd / 10) * (Es / 100);
             
             if ((rtab) < 0.1838571429) {
                 (rtab) = 0.1838571429;
             }
-            
+                        
             //Encontrar área de aço comprimida necessária A's
             asl = m2d / (tlsd * (d - dlc));
         
