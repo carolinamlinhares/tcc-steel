@@ -347,8 +347,6 @@ function processFormCD() {
                 (rtab) = 0.1838571429;
             }
             
-            tlsd = 43.5;
-            
             //Encontrar área de aço comprimida necessária A's
             asl = m2d / (tlsd * (d - dlc));
         
