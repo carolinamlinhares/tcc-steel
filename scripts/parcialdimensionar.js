@@ -11,9 +11,9 @@ var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var situationD, situationLN;
-var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, ast, situationS, result;
-var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax;
-var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, conditionTxFinal, conditionEsp, conditionPele, conditionAh, conditionAv;
+var dlc, xd, m1d, m2d, rtab, elsd, tlsd, asl, as1, as2, ast, situationS, result;
+var txCalc, txCalcT, txCalcC, inercia, wo, fctm, fctkSup, mdMin, astMin, astMinAbs, situationArmPele, armPele, situationTxMax, situationCG;
+var ac, av, avMin, ah, ahMin, ahT, ahC, ahSugg, ahSuggT, ahSuggC, sPele, resultP, resultTx, resultArmPele, conditionTxFinal, conditionEsp, conditionPele, conditionAh, conditionAv;
 var nBarras, nBarrasNovo, nBarrasC, nBarrasT, nBarrasPele, nCamadas, iCamadas;
 var asSugg, asSuggC, asSuggT, avSugg, ahSugg, txCalcSugg, txCalcTSugg, txCalcCSugg, condition;
 var arranjos = [];
@@ -82,24 +82,24 @@ var estriboProp = [
 ];
 
 var steelProp = [
-    {
+    /* {
         "steelType": "CA25",
         "fy": 250,
         "fu": 217.4,
         "E": 21000
-    },
+    },*/
     {
         "steelType": "CA50",
         "fy": 500,
         "fu": 434.8,
         "E": 21000
-    },
-    {
+    }
+    /*{
         "steelType": "CA60",
         "fy": 600,
         "fu": 521.7,
         "E": 21000
-    }
+    }*/
 ];
 
 var concreteProp = [
@@ -260,6 +260,16 @@ function processFormDC() {
     //CÁLCULO DA ALTURA ÚTIL (d)
     d = h - dl;
     
+    // Verificação
+    
+    if (dl >= cob + diamEst + 0.5 * diamLongT && dlc >= cob + diamEst + 0.5 * diamLongC) {
+        situationCG = "Coerente";
+    } else {
+        situationCG = "Incoerente";
+    }
+    
+    console.log("situationCG = " + situationCG);
+    
     //CÁLCULO DOS LIMITES DOS DOMÍNIOS 2 E 3
     //DOMÍNIO 2
     betax23 = epc / (epc + eps);
@@ -310,6 +320,8 @@ function processFormDC() {
         dominio = "Error";
     }
 
+    console.log("situationD = " + situationD);
+    
     //VERIFICAÇÃO DA RELAÇÃO x/d
 
     if (x / d <= 0.45) {
@@ -318,285 +330,305 @@ function processFormDC() {
         situationLN = "Reprovada";
     }
     
+    console.log("situationLN = " + situationLN);
+    
     //CÁLCULO DA ÁREA DE AÇO
-
-    if (situationD === "Aprovado" && situationLN === "Aprovada") {
-        situationS = "Simples";
-	    as = md / (tsd * (d - 0.4 * x));
-        
-        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
-        inercia = (bw * Math.pow(h, 3)) / 12;
-        wo = inercia / (h - x);
-        fctm = 0.3 * Math.pow(fck, (2 / 3));
-        fctkSup = 1.3 * fctm;
-        mdMin = 0.8 * wo * fctkSup;
-        astMin = mdMin / (tsd * (d - 0.4 * x));
-        if (as < astMin) {
-            as = astMin;
-        }
-        resultP = "PARCIAL: Área de aço = " + as + "cm²";
-        alert(resultP);
-     
+    
+    if (situationCG === "Incoerente") {
+        alert("A altura da viga não está coerente com as distâncias ao centro das armaduras, cobrimento e bitolas utilizadas. Por favor, verifique os dados de entrada.");
     } else {
-        situationS = "Dupla";
-        
-        //Cálculo da nova posição da LN
-        xd = 0.45 * d;
-        
-        //Cálculo de M1d
-        m1d = 0.68 * bw * xd * fcd * (d - 0.4 * xd);
-        
-        //Cálculo de M2d
-        m2d = md - m1d;
-        
-        //Encontrar valor de tlsd na tabela (!!!!)
-        tlsd = 43.5;
-            
-        //Encontrar área de aço comprimida A's
-        asl = m2d / (tlsd * (d - dlc));
-        
-        //Encontrar área de aço tracionada As
-        as1 = m1d / (tsd * (d - 0.4 * xd));
-        as2 = m2d / (tsd * (d - dlc));
-        ast = as1 + as2;
-        
-        //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
-        inercia = (bw * Math.pow(h, 3)) / 12;
-        wo = inercia / (h - xd);
-        fctm = 0.3 * Math.pow(fck, (2 / 3));
-        fctkSup = 1.3 * fctm;
-        mdMin = 0.8 * wo * fctkSup;
-        astMin = mdMin / (tsd * (d - 0.4 * xd));
-        if (ast < astMin) {
-            ast = astMin;
-        }
-        
-        //Resultados
-        resultP = "PARCIAL: Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
-        alert(resultP);
-        
-    } //NOVO
-         
-    //CÁLCULO DA TAXA DE ARMADURA
-    ac = bw * h;
-    
-    if (situationS === "Simples") {
-        txCalc = (as / ac) * 100;
-        if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
-            resultTx = "OK";
-        } else {
-            resultTx = "Taxa Simples Reprovada.";
-        }
-    } else if (situationS === "Dupla") {
-        txCalcT = (ast / ac) * 100;
-        txCalcC = (asl / ac) * 100;
-        txCalc = txCalcT + txCalcC;
-        if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
-            resultTx = "OK";
-        } else {
-            resultTx = "Taxa Dupla Reprovada.";
-        }
-    }
-    console.log(resultTx);
-    
-    //Arranjos
-    switch (situationS) {
-    case "Simples":
-        for (i = 0; i < bitola.length; i += 1) {
-            nBarras = Math.ceil((as - 0.05 * as) / (bitola[i].area)); //Incluindo 5% de tolerância
-            console.log(i);
-            console.log(nBarras);
-            asSugg = nBarras * bitola[i].area;
-            console.log(asSugg);
-            txCalcSugg = (asSugg / ac) * 100;
-            console.log(txCalcSugg);
-            
-            //Verificar taxa max CONDITION
-            if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
-                conditionTxFinal = "OK";
-            } else {
-                conditionTxFinal = "Reprovado";
-            }
-            console.log(conditionTxFinal);
-            
-            //Verificar viabilidade espacamento CONDITION
-            
-            ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
-            console.log("ahMin " + ahMin);
-            avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
-            console.log("avMin " + avMin);
-            bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
-            console.log("bwMin " + bwMin);
-            bwMinAbs = 12;
-            nCamadas = 1;
-            
-            //Verificação da largura mínima da viga (espaçamento horizontal)
-            if (bw >= bwMin && bw >= bwMinAbs) {
-                conditionAh = "ah OK";
-                console.log(conditionAh);
-            } else {
-                conditionAh = "ah insuficiente";
-                console.log("dentro do else " + conditionAh);
-                nCamadas = 2;
-                iCamadas = 1;
-                do {
-                    console.log("iCamadas =" + iCamadas);
-                    nBarrasNovo = Math.ceil(nBarras / nCamadas);
-                    bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
-                    if (bw >= bwMinNovo && bw >= bwMinAbs) {
-                        conditionAh = "ah OK";
-                        console.log(conditionAh);
-                        iCamadas = 4;
-                    } else {
-                        conditionAh = "ah insuficiente";
-                        console.log(conditionAh);
-                        nCamadas += 1;
-                        iCamadas += 1;
-                    }
-                } while (iCamadas < 4);
-            }
-            
-            //Verificação do espaçamento vertical mínimo
-            
-            av = h - x - cob - diamEst;
-                            
-            if ((nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1)))) {
-                conditionAv = "av OK";
-            } else {
-                conditionAv = "av insuficiente";
-            }
-            console.log(conditionAv);
-                  
-            if (conditionAh === "ah OK" && conditionAv === "av OK") {
-                conditionEsp = "As condições de espaçamento foram atendidas";
-            } else {
-                conditionEsp = "As condições de espaçamento NAO foram atendidas";
-            }
-            console.log(conditionEsp);
-                
-            if (conditionEsp === "As condições de espaçamento foram atendidas") {
-                ahSugg = ahMin;
-                avSugg = avMin;
-            }
-                
-            //ESPACAMENTO PARA MULTIPLAS CAMADAS
-            /* if (nCamadas > 1) {
-                if (nCamadas === 2){
-                    nb1 = Math.ceil(nBarras / nCamadas);
-                    ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
-                    nb2 = nBarras - nb1;
-                    ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
-                }
-                if (nCamadas === 3){
-                    nb1 = Math.ceil(nBarras / nCamadas);
-                    ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
-                    nb2 = Math.ceil(nBarras / nCamadas);
-                    ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
-                    nb3 = nBarras - nb1 - nb2;
-                    ah3 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb3 - 1);
-                }
-            } */
-                
-            if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
-                arranjos.push({
-                    "bitola": bitola[i].diametro,
-                    "area": bitola[i].area,
-                    "qtd": nBarras,
-                    "ncam": nCamadas,
-                    "as": asSugg,
-                    "taxa": txCalcSugg,
-                    "esp": ahSugg
-                });
-            }
-        }
-            
-        arranjos.sort(function (a, b) {
-            return a.ncam - b.ncam;
-        });
-        
-        //CÁLCULO DA ARMADURA DE PELE
-        if (h <= 60) {
-            situationArmPele = "Não";
-        } else {
-            situationArmPele = "Sim";
-            armPele = 0.001 * ac;
-            
-        //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
-        //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
-        //for (y = 0; y < estriboProp.length; y += 1) {
-               // nBarrasPele = armPele / diamEst;
-               // sPele = h - (2 * (cob + diamEst) + estriboProp[y].diametro);
-               // if (((sPele - (nBarrasPele * estriboProp[y].diametro)) / (nBarrasPele + 1)) <= 20) {
-               //     if (((nBarrasPele * estriboProp[y].diametro) / (h / 100)) <= 5) {
-                //        conditionPele = "OK";
-                        // ADICIONAR PROPRIEDADE
-                 //   }
-                //}s
-            //}
-            
-                
-        }
-        
-        result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + " em " + arranjos[0].ncam + " camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
-        alert(result);
-        break;
-        
-    case "Dupla":
-        for (i = 0; i < bitola.length; i += 1) {
-            //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
-            //diamLongC = bitola[i].diametro;
-            nBarrasC = Math.ceil((asl - 0.05 * asl) / (bitola[i].area)); //Incluindo 5% de tolerância
-            nBarrasT = Math.ceil((ast - 0.05 * ast) / (bitola[i].area)); //Incluindo 5% de tolerância
-            asSuggC = nBarrasC * bitola[i].area;
-            asSuggT = nBarrasT * bitola[i].area;
-            txCalcTSugg = (asSuggC / ac) * 100;
-            txCalcCSugg = (asSuggT / ac) * 100;
-            txCalcSugg = txCalcCSugg + txCalcTSugg;
-            //Verificar taxa max CONDITION
-            if ((txCalcTSugg >= 0.14) && (txCalcSugg <= 0.4)) {
-                conditionTxFinal = "OK";
-            } else {
-                conditionTxFinal = "Reprovado";
-            }
-            txCalcSugg = txCalcTSugg + txCalcCSugg;
-            
-            //Verificar viabilidade espacamento CONDITION
-            ahT = (bw - 2 * (cob + diamEst) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
-            ahC = (bw - 2 * (cob + diamEst) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
-            if (ahT >= 2 && ahT >= diamLongT && ahT >= 1.2 * diamAgreg && ahC >= 2 && ahC >= diamLongC && ahC >= 1.2 * diamAgreg) {
-                conditionEsp = "ah OK";
-            } else {
-                conditionEsp = "ah insuficiente";
-            }
-            
-            if (conditionEsp === "ah OK") {
-                ahSuggT = Math.min(2, diamLongT, (1.2 * diamAgreg));     //E se der Não OK?????
-                ahSuggC = Math.min(2, diamLongC, (1.2 * diamAgreg));
-            }
-            
-            if ((conditionTxFinal === "OK") && (conditionEsp === "OK")) {
-                arranjos.push({
-                    "bitola": bitola[i],
-                    "area": bitola[i].area,
-                    "qtdC": nBarrasC,
-                    "qtdT": nBarrasT,
-                    "asC": asSuggC,
-                    "asT": asSuggT,
-                    "taxaC": txCalcCSugg,
-                    "taxaT": txCalcTSugg,
-                    "espC": ahSuggC,
-                    "espT": ahSuggT
-                });
-            }
-        }
-        result = "Pode ser usada armadura com " + arranjos[0].qtdC + "Ø" + arranjos[0].bitola + " para a armadura comprimida. E " + arranjos[0].qtdT + "Ø" + arranjos[0].bitola + " para a armadura tracionada. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
-        alert(result);
-        break;
-    }
 
+        if (situationD === "Aprovado" && situationLN === "Aprovada") {
+            situationS = "Simples";
+	        as = md / (tsd * (d - 0.4 * x));
             
+            //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
+            inercia = (bw * Math.pow(h, 3)) / 12;
+            wo = inercia / (h - x);
+            fctm = 0.3 * Math.pow(fck, (2 / 3));
+            fctkSup = 1.3 * fctm;
+            mdMin = 0.8 * wo * fctkSup;
+            astMin = mdMin / (tsd * (d - 0.4 * x));
+            if (as < astMin) {
+                as = astMin;
+            }
+            resultP = "PARCIAL: Área de aço = " + as + "cm²";
+            alert(resultP);
+         
+        } else {
+            situationS = "Dupla";
+            
+            //Cálculo da nova posição da LN
+            xd = 0.45 * d;
+            
+            //Cálculo de M1d
+            m1d = 0.68 * bw * xd * fcd * (d - 0.4 * xd);
+            
+            //Cálculo de M2d
+            m2d = md - m1d;
+            
+            //Encontrar valor de tlsd na tabela (!!!!)
+            rtab = dlc / d;
+            elsd = 3.5 * (1 - (1 / 0.45) * rtab);
+            tlsd = (elsd / 10) * (Es / 100);
+            
+            if ((rtab) < 0.1838571429) {
+                (rtab) = 0.1838571429;
+            }
+                
+            //Encontrar área de aço comprimida A's
+            asl = m2d / (tlsd * (d - dlc));
+            
+            //Encontrar área de aço tracionada As
+            as1 = m1d / (tsd * (d - 0.4 * xd));
+            as2 = m2d / (tsd * (d - dlc));
+            ast = as1 + as2;
+            
+            //CÁLCULO DA ARMADURA MÍNIMA DE TRAÇÃO
+            inercia = (bw * Math.pow(h, 3)) / 12;
+            wo = inercia / (h - xd);
+            fctm = 0.3 * Math.pow(fck, (2 / 3));
+            fctkSup = 1.3 * fctm;
+            mdMin = 0.8 * wo * fctkSup;
+            astMin = mdMin / (tsd * (d - 0.4 * xd));
+            if (ast < astMin) {
+                ast = astMin;
+            }
+            
+            //Resultados
+            resultP = "PARCIAL: Área de aço comprimida = " + asl + "cm². Área de aço tracionada = " + ast + "cm².";
+            alert(resultP);
+            
+        } //NOVO
+             
+        //CÁLCULO DA TAXA DE ARMADURA
+        ac = bw * h;
         
-    
+        if (situationS === "Simples") {
+            txCalc = (as / ac) * 100;
+            if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
+                resultTx = "OK";
+            } else {
+                resultTx = "Taxa Simples Reprovada.";
+            }
+        } else if (situationS === "Dupla") {
+            txCalcT = (ast / ac) * 100;
+            txCalcC = (asl / ac) * 100;
+            txCalc = txCalcT + txCalcC;
+            if ((txCalc >= 0.14) && (txCalc <= 4.0)) {
+                resultTx = "OK";
+            } else {
+                resultTx = "Taxa Dupla Reprovada.";
+            }
+        }
+        console.log(resultTx);
+        
+        //Arranjos
+        switch (situationS) {
+        case "Simples":
+            for (i = 0; i < bitola.length; i += 1) {
+                nBarras = Math.ceil((as - 0.05 * as) / (bitola[i].area)); //Incluindo 5% de tolerância
+                console.log(i);
+                console.log(nBarras);
+                asSugg = nBarras * bitola[i].area;
+                console.log(asSugg);
+                txCalcSugg = (asSugg / ac) * 100;
+                console.log(txCalcSugg);
+                
+                //Verificar taxa max CONDITION
+                if ((txCalcSugg >= 0.14) && (txCalcSugg <= 4.0)) {
+                    conditionTxFinal = "OK";
+                } else {
+                    conditionTxFinal = "Reprovado";
+                }
+                console.log(conditionTxFinal);
+                
+                //Verificar viabilidade espacamento CONDITION
+                
+                ahMin = Math.max(2, bitola[i].diametroCM, (1.2 * diamAgreg));
+                console.log("ahMin " + ahMin);
+                avMin = Math.max(2, bitola[i].diametroCM, (0.5 * diamAgreg));
+                console.log("avMin " + avMin);
+                bwMin = 2 * (cob + diamEst) + nBarras * bitola[i].diametroCM + (nBarras - 1) * ahMin;
+                console.log("bwMin " + bwMin);
+                bwMinAbs = 12;
+                nCamadas = 1;
+                
+                //Verificação da largura mínima da viga (espaçamento horizontal)
+                if (bw >= bwMin && bw >= bwMinAbs) {
+                    conditionAh = "ah OK";
+                    console.log(conditionAh);
+                } else {
+                    conditionAh = "ah insuficiente";
+                    console.log("dentro do else " + conditionAh);
+                    nCamadas = 2;
+                    iCamadas = 1;
+                    do {
+                        console.log("iCamadas =" + iCamadas);
+                        nBarrasNovo = Math.ceil(nBarras / nCamadas);
+                        bwMinNovo = 2 * (cob + diamEst) + nBarrasNovo * bitola[i].diametroCM + (nBarrasNovo - 1) * ahMin;
+                        if (bw >= bwMinNovo && bw >= bwMinAbs) {
+                            conditionAh = "ah OK";
+                            console.log(conditionAh);
+                            iCamadas = 4;
+                        } else {
+                            conditionAh = "ah insuficiente";
+                            console.log(conditionAh);
+                            nCamadas += 1;
+                            iCamadas += 1;
+                        }
+                    } while (iCamadas < 4);
+                }
+                
+                //Verificação do espaçamento vertical mínimo
+                
+                av = h - x - cob - diamEst;
+                                
+                if ((nCamadas > 1) && (avMin <= ((av - (nCamadas * bitola[i].diametroCM)) / (nCamadas - 1)))) {
+                    conditionAv = "av OK";
+                } else {
+                    conditionAv = "av insuficiente";
+                }
+                console.log(conditionAv);
+                      
+                if (conditionAh === "ah OK" && conditionAv === "av OK") {
+                    conditionEsp = "As condições de espaçamento foram atendidas";
+                } else {
+                    conditionEsp = "As condições de espaçamento NAO foram atendidas";
+                }
+                console.log(conditionEsp);
+                    
+                if (conditionEsp === "As condições de espaçamento foram atendidas") {
+                    ahSugg = ahMin;
+                    avSugg = avMin;
+                }
+                    
+                //ESPACAMENTO PARA MULTIPLAS CAMADAS
+                /* if (nCamadas > 1) {
+                    if (nCamadas === 2){
+                        nb1 = Math.ceil(nBarras / nCamadas);
+                        ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                        nb2 = nBarras - nb1;
+                        ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+                    }
+                    if (nCamadas === 3){
+                        nb1 = Math.ceil(nBarras / nCamadas);
+                        ah1 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb1 - 1);
+                        nb2 = Math.ceil(nBarras / nCamadas);
+                        ah2 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb2 - 1);
+                        nb3 = nBarras - nb1 - nb2;
+                        ah3 = (bw - (2 * (cob + diamEst) + nb1 * bitola[4].diametroCM)) / (nb3 - 1);
+                    }
+                } */
+                    
+                if ((conditionTxFinal === "OK") && (conditionEsp === "As condições de espaçamento foram atendidas")) {
+                    arranjos.push({
+                        "bitola": bitola[i].diametro,
+                        "area": bitola[i].area,
+                        "qtd": nBarras,
+                        "ncam": nCamadas,
+                        "as": asSugg,
+                        "taxa": txCalcSugg,
+                        "esp": ahSugg
+                    });
+                }
+            }
+                
+            arranjos.sort(function (a, b) {
+                return a.ncam - b.ncam;
+            });
+            
+            //CÁLCULO DA ARMADURA DE PELE
+            /*if (h <= 60) {
+                situationArmPele = "Não";
+            } else {
+                situationArmPele = "Sim";
+                armPele = 0.001 * ac;
+                
+            //CÁLCULO DO ARRANJO DA ARMADURA DE PELE
+            //Espaçamento entre barras deve ser não mais que 20cm e sua área não deve exceder 5cm²/m por face. Usar CA-50 ou CA-60
+            //for (y = 0; y < estriboProp.length; y += 1) {
+                   // nBarrasPele = armPele / diamEst;
+                   // sPele = h - (2 * (cob + diamEst) + estriboProp[y].diametro);
+                   // if (((sPele - (nBarrasPele * estriboProp[y].diametro)) / (nBarrasPele + 1)) <= 20) {
+                   //     if (((nBarrasPele * estriboProp[y].diametro) / (h / 100)) <= 5) {
+                    //        conditionPele = "OK";
+                            // ADICIONAR PROPRIEDADE
+                     //   }
+                    //}s
+                //}
+                
+                    
+            }*/
+            
+            result = "Pode ser usada armadura com " + arranjos[0].qtd + "Ø" + arranjos[0].bitola + " em " + arranjos[0].ncam + " camadas. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+            alert(result);
+            break;
+            
+        case "Dupla":
+            for (i = 0; i < bitola.length; i += 1) {
+                //diamLongT = bitola[i].diametro;    Precisa definir, sendo que comprimida e tracionada podem ser diferentes!!!
+                //diamLongC = bitola[i].diametro;
+                nBarrasC = Math.ceil((asl - 0.05 * asl) / (bitola[i].area)); //Incluindo 5% de tolerância
+                nBarrasT = Math.ceil((ast - 0.05 * ast) / (bitola[i].area)); //Incluindo 5% de tolerância
+                asSuggC = nBarrasC * bitola[i].area;
+                asSuggT = nBarrasT * bitola[i].area;
+                txCalcTSugg = (asSuggC / ac) * 100;
+                txCalcCSugg = (asSuggT / ac) * 100;
+                txCalcSugg = txCalcCSugg + txCalcTSugg;
+                //Verificar taxa max CONDITION
+                if ((txCalcTSugg >= 0.14) && (txCalcSugg <= 0.4)) {
+                    conditionTxFinal = "OK";
+                } else {
+                    conditionTxFinal = "Reprovado";
+                }
+                txCalcSugg = txCalcTSugg + txCalcCSugg;
+                
+                //Verificar viabilidade espacamento CONDITION
+                ahT = (bw - 2 * (cob + diamEst) - (nBarrasT * bitola[i].area)) / (nBarrasT - 1);
+                ahC = (bw - 2 * (cob + diamEst) - (nBarrasC * bitola[i].area)) / (nBarrasC - 1);
+                if (ahT >= 2 && ahT >= diamLongT && ahT >= 1.2 * diamAgreg && ahC >= 2 && ahC >= diamLongC && ahC >= 1.2 * diamAgreg) {
+                    conditionEsp = "ah OK";
+                } else {
+                    conditionEsp = "ah insuficiente";
+                }
+                
+                if (conditionEsp === "ah OK") {
+                    ahSuggT = Math.min(2, diamLongT, (1.2 * diamAgreg));     //E se der Não OK?????
+                    ahSuggC = Math.min(2, diamLongC, (1.2 * diamAgreg));
+                }
+                
+                if ((conditionTxFinal === "OK") && (conditionEsp === "OK")) {
+                    arranjos.push({
+                        "bitola": bitola[i],
+                        "area": bitola[i].area,
+                        "qtdC": nBarrasC,
+                        "qtdT": nBarrasT,
+                        "asC": asSuggC,
+                        "asT": asSuggT,
+                        "taxaC": txCalcCSugg,
+                        "taxaT": txCalcTSugg,
+                        "espC": ahSuggC,
+                        "espT": ahSuggT
+                    });
+                }
+            }
+            result = "Pode ser usada armadura com " + arranjos[0].qtdC + "Ø" + arranjos[0].bitola + " para a armadura comprimida. E " + arranjos[0].qtdT + "Ø" + arranjos[0].bitola + " para a armadura tracionada. Confira relatório para os detalhes do dimensionamento e outras opções de armaduras.";
+            alert(result);
+            break;
+        }
+
+    }
+        
+    if (h > 60) {
+        armPele = 0.001 * bw * h;
+        resultArmPele = "É necessário utilizar armadura de pele com " + armPele + "cm² por face";
+    } else {
+        resultArmPele = "Não é necessário utilizar armadura de pele";
+    }
+    if (resultArmPele === "É necessário utilizar armadura de pele com " + armPele + "cm² por face") {
+        alert(resultArmPele);
+    }
        
 }
     
