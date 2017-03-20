@@ -11,7 +11,7 @@ var x, mk, md;
 var x2lim, x3lim, dominio, dl;
 var gamac, gamaf, gamas, s;
 var situationD, situationLN, situationCG;
-var dlc, xd, m1d, m2d, tlsd, asl, as1, as2, asc, ast, situationS, result;
+var dlc, xd, m1d, m2d, rtab, elsd, tlsd, asl, as1, as2, asc, ast, situationS, result;
 var astForm, ascForm;
 var armPele, resultArmPele;
 
@@ -339,6 +339,14 @@ function processFormCD() {
             m2d = md - m1d;
         
             //Encontrar valor de tlsd na tabela (!!!!)
+            rtab = dlc / d;
+            elsd = 3.5 * (1 - (1 / 0.45) * (rtab));
+            tlsd = elsd * (Es / 100);
+            
+            if ((rtab) < 0.1838571429) {
+                (rtab) = 0.1838571429;
+            }
+            
             tlsd = 43.5;
             
             //Encontrar área de aço comprimida necessária A's
@@ -355,7 +363,7 @@ function processFormCD() {
                 result = "A viga não resiste ao momento fletor solicitado";
             }
         }
-        alert(result);    
+        alert(result);
     }
     
     
